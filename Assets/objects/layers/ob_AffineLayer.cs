@@ -3,24 +3,31 @@ using UnityEngine;
 
 public class AffineLayer : UdonSharpBehaviour
 {
+    // RinaNumpyのアタッチ。
+    public RinaNumpy rNp;
+    
+    // DataHolderオブジェクトを用意
     public DataHolder weightsHolder; // 重みを保持するDataHolder
     public DataHolder biasHolder; // バイアスを保持するDataHolder
+    public DataHolder xHolder; // 入力を保持するDataHolder
+    public DataHolder yHolder; // 出力を保持するDataHolder
+
+    // プライベート変数の定義と、代入させるパラメータ設定。
     private float[] outArray; // 出力を保持する配列
     private float[] xArray; // 入力を保持する配列
+    xArray = xHolder.ReadFloatArray(); // サンプルデータの読み込み。
     
-    public float[] Forward(float[] x)
+    public float[] Forward()
     {
         // DataHolderから重みとバイアスを取得
-        float[][] W = weightsHolder.ReadFloatArray2D();
-        float[] b = biasHolder.ReadFloatArray();
-    
-        xArray = x; // 入力配列を保持
+        float[][] W = this.weightsHolder.ReadFloatArray2D();
+        float[] b = this.biasHolder.ReadFloatArray();
     
         // Affine変換: Wx + b をRinaNumpyを使って計算
-        float[] Wx = RinaNumpy.DotProduct_FloatArray2D_FloatArray(W, x);
-        outArray = RinaNumpy.Add_FloatArray_FloatArray(Wx, b);
+        float[] Wx = rNp.DotProduct_FloatArray2D_FloatArray(W, x);
+        outArray = rNp.Add_FloatArray_FloatArray(Wx, b);
     
-        return outArray; // 計算された出力を返す
+        this.yHolder.WriteFloatArray(outArray) // 計算された出力をyに書き込む
     }
     
     public void Backward(float[] dout)
