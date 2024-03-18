@@ -1,0 +1,23 @@
+// StdArray.compute
+#pragma kernel CSMain
+
+Texture2D<float> InputArray : register(t0);
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float value;
+
+    // ここでは、各スレッドが配列の一部を処理して、平均値を求める
+    // この例では、平均値の計算はCPU側で行い、ここでは偏差の二乗の合計を計算
+    if (index < InputArray.GetDimensions().x)
+    {
+        InputArray.Load(int3(index, 0, 0), value);
+        // 平均値は予め計算しておき、シェーダーに渡す
+        // ここでは仮に平均値をmeanとする
+        float mean = ...; // 平均値をどこかで計算しておく
+        atomicAdd(Result[0], (value - mean) * (value - mean)); // 偏差の二乗の合計
+    }
+}
