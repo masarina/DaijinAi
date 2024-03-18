@@ -19,10 +19,16 @@ public class RinaCupy : UdonSharpBehaviour
         ComputeBuffer resultBuffer = new ComputeBuffer(1, sizeof(float), ComputeBufferType.Default);
         sumArrayComputeShader.SetTexture(kernelHandle, "InputArray", inputTexture);
         sumArrayComputeShader.SetBuffer(kernelHandle, "Result", resultBuffer);
-
+        
+                
         // Compute Shaderの実行
-        sumArrayComputeShader.Dispatch(kernelHandle, 1, 1, 1);
-
+        int dataCount = x.Length; // xは入力データの配列
+        int threadsPerGroup = 1024; // Compute Shaderで設定した[numthreads(1024, 1, 1)]のX値
+        int groupCount = Mathf.CeilToInt((float)dataCount / threadsPerGroup); // 必要なグループ数を計算
+        
+        sumArrayComputeShader.Dispatch(kernelHandle, groupCount, 1, 1); // 必要なグループ数でDispatchを呼び出し
+                
+                
         // 結果の取得
         float[] result = new float[1];
         resultBuffer.GetData(result);
