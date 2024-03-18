@@ -1,0 +1,27 @@
+// MeanArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputArray : register(t0);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float value;
+
+    if (index < InputArray.GetDimensions().x)
+    {
+        InputArray.Load(int3(index, 0, 0), value);
+        atomicAdd(Result[0], value); // 全要素の合計
+    }
+
+    // 最後のスレッドが平均を計算する
+    GroupMemoryBarrierWithGroupSync(); // 全てのスレッドが合計値を計算し終えるのを待つ
+    if (index == 0)
+    {
+        Result[0] /= InputArray.GetDimensions().x; // 全要素の合計を要素数で割る
+    }
+}
