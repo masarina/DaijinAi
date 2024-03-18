@@ -1,0 +1,22 @@
+// MultiplyArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputArray1 : register(t0);
+Texture2D<float> InputArray2 : register(t1);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float value1, value2;
+    
+    if (index < InputArray1.GetDimensions().x)
+    {
+        InputArray1.Load(int3(index, 0, 0), value1);
+        InputArray2.Load(int3(index, 0, 0), value2);
+        Result[index] = value1 * value2; // 乗算の結果をResultに格納
+    }
+}
