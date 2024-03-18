@@ -1,0 +1,20 @@
+// NegativeArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputArray : register(t0);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float value;
+
+    if (index < InputArray.GetDimensions().x)
+    {
+        InputArray.Load(int3(index, 0, 0), value);
+        Result[index] = -value; // 読み込んだ値を負の値にして、Resultに格納
+    }
+}
