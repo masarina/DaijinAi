@@ -1,0 +1,33 @@
+// DotProductArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputMatrix : register(t0);
+Texture2D<float> InputVector : register(t1);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+// 例えば、1024スレッドを使う場合
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x; // スレッドIDに基づいて処理するインデックスを決定
+    
+    float dotProduct = 0;
+    uint matrixWidth, matrixHeight;
+    InputMatrix.GetDimensions(matrixWidth, matrixHeight);
+    
+    if (index < matrixHeight)
+    {
+        for (uint i = 0; i < matrixWidth; i++)
+        {
+            float matrixValue;
+            float vectorValue;
+            InputMatrix.Load(int3(i, index, 0), matrixValue);
+            InputVector.Load(int3(i, 0, 0), vectorValue);
+            dotProduct += matrixValue * vectorValue;
+        }
+        
+        Result[index] = dotProduct;
+    }
+}
