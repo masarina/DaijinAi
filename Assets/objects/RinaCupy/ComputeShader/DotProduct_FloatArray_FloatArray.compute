@@ -1,0 +1,22 @@
+// DotProductArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputArrayA : register(t0);
+Texture2D<float> InputArrayB : register(t1);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float valueA, valueB;
+    
+    if (index < InputArrayA.GetDimensions().x)
+    {
+        InputArrayA.Load(int3(index, 0, 0), valueA); // 入力テクスチャAから値を読み込む
+        InputArrayB.Load(int3(index, 0, 0), valueB); // 入力テクスチャBから値を読み込む
+        atomicAdd(Result[0], valueA * valueB); // 乗算結果を安全に加算
+    }
+}
