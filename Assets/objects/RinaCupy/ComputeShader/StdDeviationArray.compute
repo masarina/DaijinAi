@@ -1,0 +1,28 @@
+#pragma kernel CSMain
+
+Texture2D<float> InputArray : register(t0);
+// 平均値を格納するバッファ
+ConstantBuffer<float> MeanValue : register(b0);
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float value;
+    float mean = MeanValue[0];
+
+    if (index < InputArray.GetDimensions().x)
+    {
+        InputArray.Load(int3(index, 0, 0), value);
+        float diff = value - mean; // 平均との差分
+        atomicAdd(Result[0], diff * diff); // 差分の二乗の合計
+    }
+
+    GroupMemoryBarrierWithGroupSync(); // 全てのスレッドが計算し終えるのを待つ
+
+    if (index == 0)
+    {
+        Result[0] = sqrt(Result[0] / InputArray.GetDimensions().x); // 平方根を取って標準偏差を計算
+    }
+}
