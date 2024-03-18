@@ -1,0 +1,22 @@
+// SumArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputArray : register(t0);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+// 例えば、1024スレッドを使う場合
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    // ここでは、各スレッドが1つの要素だけを処理するようにする。
+    int index = id.x; // スレッドIDに基づいて処理するインデックスを決定
+    float value;
+    
+    if (index < InputArray.GetDimensions().x)
+    {
+        InputArray.Load(int3(index, 0, 0), value); // 入力テクスチャから値を読み込む
+        atomicAdd(Result[0], value); // 結果を安全に加算
+    }
+}
