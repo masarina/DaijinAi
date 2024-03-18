@@ -1,0 +1,23 @@
+// SubtractArray.compute
+#pragma kernel CSMain
+
+// 入力用のテクスチャ
+Texture2D<float> InputArray : register(t0);
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+// 引き算する値
+float SubtractValue : register(b0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x;
+    float value;
+
+    if (index < InputArray.GetDimensions().x)
+    {
+        InputArray.Load(int3(index, 0, 0), value); // 入力テクスチャから値を読み込む
+        value -= SubtractValue; // 引き算
+        Result[index] = value; // 結果を出力バッファに格納
+    }
+}
