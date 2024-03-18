@@ -3,8 +3,16 @@ using UnityEngine;
 
 public class RinaNumpy : UdonSharpBehaviour
 {
+    //
+    public static float Sum_FloatArray(float[] x) {
+        float sum = 0;
+        foreach (float value in x) {
+            sum += value;
+        }
+        return sum;
+    }
     
-    
+    //
     public static float[] Divide_FloatArray_Float(float[] x, float y) {
         float epsilon = 1e-6f; // ゼロ除算を避けるための小さな値
         float[] result = new float[x.Length];
@@ -14,6 +22,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float[] Subtract_FloatArray_Float(float[] x, float y) {
         float[] result = new float[x.Length];
         for (int i = 0; i < x.Length; i++) {
@@ -22,6 +31,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float[] Multiply_FloatArray_FloatArray(float[] x, float[] y) {
         if (x.Length != y.Length) throw new System.ArgumentException("Arrays must be of equal length.");
         float[] result = new float[x.Length];
@@ -31,6 +41,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float[] Multiply_FloatArray_Float(float[] x, float y) {
         float[] result = new float[x.Length];
         for (int i = 0; i < x.Length; i++) {
@@ -39,6 +50,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float[] Add_FloatArray_FloatArray(float[] x, float[] y) {
         if (x.Length != y.Length) throw new System.ArgumentException("Arrays must be of equal length.");
         float[] result = new float[x.Length];
@@ -48,6 +60,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float[] OnesLike_FloatArray(float[] x) {
         float[] result = new float[x.Length];
         for (int i = 0; i < x.Length; i++) {
@@ -56,18 +69,13 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float[] ZerosLike_FloatArray(float[] x) {
         return new float[x.Length]; // Default initialization to 0
     }
     
-    public static float Sum_FloatArray(float[] x) {
-        float sum = 0;
-        foreach (float value in x) {
-            sum += value;
-        }
-        return sum;
-    }
-        
+
+    //
     public static float[] Negative_FloatArray(float[] x) {
         float[] result = new float[x.Length];
         for (int i = 0; i < x.Length; i++) {
@@ -76,6 +84,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float DotProduct_FloatArray_FloatArray(float[] x, float[] y)
     {
         if (x.Length != y.Length) throw new System.ArgumentException("Arrays must be of equal length for dot product.");
@@ -88,6 +97,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
 
+    //
     public static float[] DotProduct_FloatArray2D_FloatArray(float[][] A, float[] x)
     {
         if (A[0].Length != x.Length) throw new System.ArgumentException("Matrix columns and vector size must match for dot product.");
@@ -103,6 +113,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return result;
     }
     
+    //
     public static float Mean_FloatArray(float[] x) 
     {
         float sum = 0; // 全要素の合計値を保持する変数
@@ -113,6 +124,7 @@ public class RinaNumpy : UdonSharpBehaviour
         return sum / x.Length; // 合計を要素数で割って平均値を求める
     }
     
+    //
     public static float Mean(float[] x)
     {
         float sum = 0f;
@@ -182,6 +194,26 @@ public class RinaNumpy : UdonSharpBehaviour
             }
         }
         return sum;
+    }
+    
+    // 分散を計算するためのヘルパーメソッド
+    public float Var_FloatArray(float[] x, float mean)
+    {
+        float sumOfSquares = 0f;
+        foreach (float value in x)
+        {
+            sumOfSquares += Mathf.Pow(value - mean, 2);
+        }
+        return sumOfSquares / x.Length;
+    }
+    
+    public static float Std_FloatArray(float[] x) {
+        float mean = Mean_FloatArray(x); // 平均値の計算
+        float sumOfSquares = 0f;
+        for (int i = 0; i < x.Length; i++) {
+            sumOfSquares += Mathf.Pow(x[i] - mean, 2); // 各要素から平均を引いて、二乗
+        }
+        return Mathf.Sqrt(sumOfSquares / x.Length); // その平均の平方根を取る
     }
             
 }
