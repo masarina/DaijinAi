@@ -1,0 +1,15 @@
+// ZerosLikeArray.compute
+#pragma kernel CSMain
+
+// 出力用のバッファ
+RWStructuredBuffer<float> Result : register(u0);
+
+[numthreads(1024, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x; // スレッドIDに基づいて処理するインデックスを決定
+    if (index < Result.Length)
+    {
+        Result[index] = 0; // 出力バッファの該当位置に0を設定
+    }
+}
