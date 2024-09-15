@@ -10,19 +10,25 @@ class VocabularyBuilderPlayer(SuperPlayer):
         self.my_name = None
         self.vocab_dict = {}  # {ID: ボキャブラリ}の辞書
         self.reverse_vocab_dict = {}  # {ボキャブラリ: ID}の辞書
+        self.mode = "id_to_vocab"  # 'id_to_vocab' か 'vocab_to_id' で機能を切り替える
 
     def return_my_name(self):
         return "VocabularyBuilderPlayer"
 
     def main(self):
         """
-        メインの処理を実行するメソッド。個別の処理はメソッドに分けている。
+        メインの処理を実行するメソッド。モードに応じて処理を切り替える。
         """
         vocab_file_path = self.get_vocab_file_path()
         self.load_existing_vocab(vocab_file_path)
         big_data_file = self.get_big_data_file_path()
-        self.build_vocab_from_data(big_data_file)
-        self.build_reverse_vocab()  # 逆引き辞書の作成
+
+        # モードに応じて処理を分岐
+        if self.mode == "id_to_vocab":
+            self.build_vocab_from_data(big_data_file)  # IDからボキャブラリを作成
+        elif self.mode == "vocab_to_id":
+            self.build_reverse_vocab()  # ボキャブラリからIDを作成
+
         self.save_vocab(vocab_file_path)
         return "Completed"
 
@@ -43,7 +49,7 @@ class VocabularyBuilderPlayer(SuperPlayer):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), "big_data.txt")
 
     def build_vocab_from_data(self, big_data_file):
-        """ビッグデータから語彙を構築するメソッド"""
+        """ビッグデータから{ID: ボキャブラリ}の辞書を構築するメソッド"""
         with open(big_data_file, 'r') as file:
             lines = file.readlines()
         
