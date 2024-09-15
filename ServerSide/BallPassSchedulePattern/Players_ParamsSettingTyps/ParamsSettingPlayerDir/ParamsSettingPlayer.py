@@ -15,20 +15,25 @@ class ParamsSettingPlayer(SuperPlayer):
         """
         各プレイヤーの初期化。
         """
-        
-        """
-        入力データの初期化
-        """
-        # 入力データのバッチ化
-        
-        
+        """ データの準備 """
         xs_data_tokenType = self.one_time_world_instance.xsDataPlayer.xs_data_tokenType # 二次元トークンデータを取得
-        vocabularyBuilderPlayer = self.one_time_world_instance.vocabularyBuilderPlayer # ID辞書変換機を取得
-        vocabularyBuilderPlayer.mode = "vocab_to_id" # ID辞書変換器のモードを設定
-        xs_data_idType = vocabularyBuilderPlayer.
         
-        
+        """ 基本設定 """
+        self.model_mode = "train" # モデルのモード設定
+        batch_size = 3
+
         if self.model_mode == "train":
+            """ 学習モード設定 """
+        
+            """ 入力データのバッチ化 """
+            # バッチサイズ計算機にバッチサイズを設定
+            self.one_time_world_instance.tokenBatcherPlayer.batch_size = batch_size 
+            
+            
+            vocabularyBuilderPlayer = self.one_time_world_instance.vocabularyBuilderPlayer # ID辞書変換機を取得
+            vocabularyBuilderPlayer.mode = "vocab_to_id" # ID辞書変換器のモードを設定
+            xs_data_idType = vocabularyBuilderPlayer.
+            
             
             
             """
