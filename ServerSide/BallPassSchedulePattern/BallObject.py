@@ -91,7 +91,7 @@ class BallObject:
         elif mode_name == "Mode_Setting":
             array_2d = [
                 [['FirstPlayer']],  # 例: 第一ミニスケジュール
-                [['']], # 1秒待機するプレイヤー
+                [['VocabularyBuilderPlayer']], # ビッグデータtxtを読み込み、ID辞書を作成
                 [['']], # 新メンバーの有無フラグ
                 [['']], # 新しいメッセージの有無フラグ
                 [['']], # 新チャンネルの有無フラグ
