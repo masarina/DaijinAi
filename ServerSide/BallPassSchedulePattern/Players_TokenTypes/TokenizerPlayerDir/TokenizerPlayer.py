@@ -7,39 +7,28 @@ class TokenizerPlayer(SuperPlayer):
         super().__init__()
         self.my_name = None
         self.tokenizer_mode = "encode"  # 'encode' か 'decode' を設定
-        self.vocab_dict = {}  # {ID: ボキャブラリ}
-        self.reverse_vocab_dict = {}  # {ボキャブラリ: ID}
+        self.input_data = ""  # 入力するテキストまたはIDリストを保持
+        self.encoded_data = []  # エンコードされたデータを保持
+        self.decoded_data = ""  # デコードされたデータを保持
+        # 辞書をイニシャライザで設定
+        self.vocab_dict = self.one_time_world_instance.VocabularyBuilderPlayer.vocab_dict
+        self.reverse_vocab_dict = self.one_time_world_instance.VocabularyBuilderPlayer.reverse_vocab_dict
 
     def return_my_name(self):
         return "TokenizerPlayer"
 
     def main(self):
         """
-        モードに応じてエンコードまたはデコードを実行
+        モードに応じてエンコードまたはデコードを実行し、結果をメンバ変数に保持
         """
-        self.vocab_dict = self.one_time_world_instance.VocabularyBuilderPlayer.vocab_dict
-        self.reverse_vocab_dict = self.one_time_world_instance.VocabularyBuilderPlayer.reverse_vocab_dict
-        
         if self.tokenizer_mode == "encode":
-            input_text = self.get_input_text()
-            encoded = self.encode(input_text)
-            print(f"Encoded: {encoded}")
+            self.encoded_data = self.encode(self.input_data)
+            print(f"Encoded: {self.encoded_data}")
         elif self.tokenizer_mode == "decode":
-            input_ids = self.get_input_ids()
-            decoded = self.decode(input_ids)
-            print(f"Decoded: {decoded}")
+            self.decoded_data = self.decode(self.input_data)
+            print(f"Decoded: {self.decoded_data}")
 
         return "Completed"
-
-    def get_input_text(self):
-        """エンコードするための入力テキストを取得"""
-        # ここで実際のテキストを取得。仮に固定のテキストとしてるけど、実際は外部から受け取ることも想定
-        return "サンプル テキスト"
-
-    def get_input_ids(self):
-        """デコードするためのIDリストを取得"""
-        # ここで実際のIDリストを取得。仮に固定のリストとしてるけど、実際は外部から受け取ることも想定
-        return [1, 2, 3]
 
     def encode(self, text):
         """入力テキストをIDリストに変換（エンコード）"""
