@@ -6,42 +6,63 @@ from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
 
 class VocabularyBuilderPlayer(SuperPlayer):
     def __init__(self):
-        super().__init__()  # スーパークラスの初期化メソッドを呼び出す
+        super().__init__()
         self.my_name = None
-        self.vocab_dict = {}  # 辞書の初期化
+        self.vocab_dict = {}  # {ID: ボキャブラリ}の辞書
+        self.reverse_vocab_dict = {}  # {ボキャブラリ: ID}の辞書
 
     def return_my_name(self):
         return "VocabularyBuilderPlayer"
 
     def main(self):
         """
-        ビッグデータを読み込み、辞書を更新し、保存するメソッド
+        メインの処理を実行するメソッド。個別の処理はメソッドに分けている。
         """
-        # 辞書のパスを指定
-        vocab_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vocab.json")
-        
-        # 辞書の初期化または読み込み
+        vocab_file_path = self.get_vocab_file_path()
+        self.load_existing_vocab(vocab_file_path)
+        big_data_file = self.get_big_data_file_path()
+        self.build_vocab_from_data(big_data_file)
+        self.build_reverse_vocab()  # 逆引き辞書の作成
+        self.save_vocab(vocab_file_path)
+        return "Completed"
+
+    def get_vocab_file_path(self):
+        """辞書ファイルのパスを返すメソッド"""
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "vocab.json")
+
+    def load_existing_vocab(self, vocab_file_path):
+        """既存の辞書を読み込むメソッド"""
         if os.path.exists(vocab_file_path):
             with open(vocab_file_path, 'r') as f:
-                self.vocab_dict = json.load(f)  # 既存の辞書を読み込む
+                self.vocab_dict = json.load(f)
         else:
             self.vocab_dict = {}
 
-        # テキストファイルの読み込み（ビッグデータ）
-        big_data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "big_data.txt")
+    def get_big_data_file_path(self):
+        """ビッグデータファイルのパスを返すメソッド"""
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "big_data.txt")
+
+    def build_vocab_from_data(self, big_data_file):
+        """ビッグデータから語彙を構築するメソッド"""
         with open(big_data_file, 'r') as file:
             lines = file.readlines()
         
-        # ボキャブラリを生成
         for line in lines:
-            words = line.strip().split(' ')  # 半角スペースで区切る
+            words = line.strip().split(' ')
             for word in words:
                 if word not in self.vocab_dict:
-                    self.vocab_dict[word] = len(self.vocab_dict) + 1  # 新しい単語を辞書に追加
+                    self.vocab_dict[word] = len(self.vocab_dict) + 1
 
-        # 更新された辞書を保存
+    def build_reverse_vocab(self):
+        """{ボキャブラリ: ID}の辞書を構築するメソッド"""
+        self.reverse_vocab_dict = {vocab: id for id, vocab in self.vocab_dict.items()}
+
+    def save_vocab(self, vocab_file_path):
+        """更新された辞書を保存するメソッド"""
         with open(vocab_file_path, 'w') as f:
             json.dump(self.vocab_dict, f, ensure_ascii=False, indent=4)
 
-        return "Completed"
-
+        # 逆引き辞書も同じように保存
+        reverse_vocab_file_path = vocab_file_path.replace("vocab.json", "reverse_vocab.json")
+        with open(reverse_vocab_file_path, 'w') as f:
+            json.dump(self.reverse_vocab_dict, f, ensure_ascii=False, indent=4)
