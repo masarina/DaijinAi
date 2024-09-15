@@ -92,9 +92,7 @@ class BallObject:
             array_2d = [
                 [['FirstPlayer']],  # 例: 第一ミニスケジュール
                 [['VocabularyBuilderPlayer']], # ビッグデータtxtを読み込み、ID辞書を作成
-                [['']], # 新メンバーの有無フラグ
-                [['']], # 新しいメッセージの有無フラグ
-                [['']], # 新チャンネルの有無フラグ
+                [['ParamsSettingPlayer']], # 各レイヤーのパラメータの設定
                 [['FinalPlayer']]  # 例: 第二ミニスケジュール
             ]
             
