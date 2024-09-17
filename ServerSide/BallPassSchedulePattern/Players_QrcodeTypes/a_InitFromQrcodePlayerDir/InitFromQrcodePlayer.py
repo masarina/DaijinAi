@@ -2,13 +2,13 @@ import os, sys
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer 
 
-class ExamplePlayer(SuperPlayer):
+class InitFromQrcodePlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None
 
     def return_my_name(self):
-        return "ExamplePlayer"
+        return "InitFromQrcodePlayer"
 
     def main(self):
         """
@@ -32,6 +32,6 @@ class ExamplePlayer(SuperPlayer):
 
         # データは自身のイニシャライザのメンバ変数で保持、
         # またはjsonなどに出力した場合、そのパスを保持
-        self.one_time_world_instance.ExamplePlayer = self
+        self.one_time_world_instance.InitFromQrcodePlayer = self
 
         return "Completed"
