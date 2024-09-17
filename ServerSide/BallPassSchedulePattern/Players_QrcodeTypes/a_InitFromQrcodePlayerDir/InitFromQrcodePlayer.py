@@ -32,6 +32,6 @@ class InitFromQrcodePlayer(SuperPlayer):
 
         # データは自身のイニシャライザのメンバ変数で保持、
         # またはjsonなどに出力した場合、そのパスを保持
-        self.one_time_world_instance.InitFromQrcodePlayer = self
+        self.one_time_world_instance.initFromQrcodePlayer = self
 
         return "Completed"
