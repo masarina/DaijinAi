@@ -34,29 +34,15 @@ class BallObject:
         self.next_player_name = None
 
     def schedule_mode_settings(self, world=None):
+        """ とりあえず、実行順序を忘れないようにメモ的に実装(2024-09-18) """
         
         # トレーニングデータをダウンロード
         if self.schedule_mode == 'Mode_First':
             self.schedule_mode = 'Mode_Standby'
+            
+        elif self.schedule_mode == 'なんの次か未定':
+            self.schedule_mode = 'Mode_QrcodeGenerator'
 
-        # データをフォーマット
-        elif self.schedule_mode == 'Mode_Standby':
-            
-            # 新しいメンバー加入時の処理
-            if world.ball.all_data_dict["newUser_flag"]:
-                self.schedule_mode = 'Mode_NewUserThenTask'
-            
-            # 新しいメッセージがポストされた時の処理
-            elif world.ball.all_data_dict["newMessage_flag"]:
-                self.schedule_mode = 'Mode_NewMessageThenTask'
-            
-            # 新しいチャンネルが作成された時の処理
-            elif world.ball.all_data_dict["newChannel_flag"]:
-                self.schedule_mode = 'Mode_NewChannelThenTask'
-            
-            # 何もフラグがなければ、スタンバイモードを保持
-            else:
-                self.schedule_mode = 'Mode_Standby'
 
         else:
             print(f"{self.schedule_mode} というスケジュールモードは存在しません。BallObjectの「schedule_mode_settings」と「schedule_dict」を確認してください。")
