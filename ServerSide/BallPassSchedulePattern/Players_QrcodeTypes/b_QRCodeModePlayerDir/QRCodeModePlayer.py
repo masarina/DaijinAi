@@ -35,6 +35,6 @@ class QRCodeModePlayer(SuperPlayer):
             raise ValueError("Mode indicator is not set. Please call set_mode before executing main.")
         
         # self.one_time_world_instance にモード情報を渡す
-        self.one_time_world_instance.QRCodeModePlayer = self  # 自身のインスタンスをworldに登録
+        self.one_time_world_instance.qRCodeModePlayer = self  # 自身のインスタンスをworldに登録
 
         return "Completed"
