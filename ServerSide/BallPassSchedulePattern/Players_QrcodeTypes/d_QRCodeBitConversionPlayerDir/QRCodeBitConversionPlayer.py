@@ -78,7 +78,7 @@ class QRCodeBitConversionPlayer(SuperPlayer):
             raise ValueError("Invalid mode. Choose from: numeric, alphanumeric, byte.")
         
         # 変換したビット列をワールドに反映させる
-        self.one_time_world_instance.QRCodeBitConversionPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.qRCodeBitConversionPlayer = self  # 自身のインスタンスを登録
         self.one_time_world_instance.set_converted_bits(converted_bits)  # 変換結果をWorldに渡す仮想的なメソッド
 
         return "Completed"
