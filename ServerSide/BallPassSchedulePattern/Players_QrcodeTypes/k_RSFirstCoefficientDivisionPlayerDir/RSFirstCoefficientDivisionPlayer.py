@@ -36,6 +36,14 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
     def main(self):
         """
         メインの処理を行います。f(x)の最初の係数をα^5に変換し、g(x)に掛けた多項式を計算します。
+        
+        リード・ソロモン符号の誤り訂正では
+        多項式の最初の項（最高次項）から
+        順番に処理をしていくのが基本なの。
+        具体的には、
+        最初の項を生成多項式 g(x) で割って、
+        その結果をもとに次のステップに進む
+        という形で、1つずつ処理を進めていくの。
         """
         # ワールドからデータを取得（仮想メソッドとして想定）
         f_x_first = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
