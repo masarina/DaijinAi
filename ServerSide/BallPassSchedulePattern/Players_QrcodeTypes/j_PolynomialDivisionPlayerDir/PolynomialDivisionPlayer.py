@@ -48,12 +48,12 @@ class PolynomialDivisionPlayer(SuperPlayer):
         # 簡単なガロア体乗算処理 (αのべき乗テーブルとログテーブルを使った計算)
         if a == 0 or b == 0:
             return 0
-        log_a = self.one_time_world_instance.GaloisFieldPlayer.galois_field_log_table[a]
-        log_b = self.one_time_world_instance.GaloisFieldPlayer.galois_field_log_table[b]
+        log_a = self.one_time_world_instance.galoisFieldPlayer.galois_field_log_table[a]
+        log_b = self.one_time_world_instance.galoisFieldPlayer.galois_field_log_table[b]
         log_result = log_a + log_b
         if log_result >= 255:
             log_result -= 255
-        return self.one_time_world_instance.GaloisFieldPlayer.galois_field_exponent_table[log_result]
+        return self.one_time_world_instance.galoisFieldPlayer.galois_field_exponent_table[log_result]
 
     def main(self):
         """
