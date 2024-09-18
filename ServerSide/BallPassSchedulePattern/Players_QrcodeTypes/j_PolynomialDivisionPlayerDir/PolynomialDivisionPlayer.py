@@ -7,7 +7,7 @@ class PolynomialDivisionPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
         # 生成多項式g(x)の係数リスト
-        self.error_correction_polynomial = [43, 139, 206, 78, 43, 239, 123, 206, 214, 147, 24, 99, 150, 39, 243, 163, 136]
+        self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
         # データコード多項式f(x)を保持するための変数
         self.data_polynomial = []
 
@@ -66,7 +66,7 @@ class PolynomialDivisionPlayer(SuperPlayer):
         remainder = self.divide_polynomial(data)
 
         # self.one_time_world_instance に剰余多項式を登録
-        self.one_time_world_instance.PolynomialDivisionPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.polynomialDivisionPlayer = self  # 自身のインスタンスを登録
         self.one_time_world_instance.set_remainder(remainder)  # 剰余をワールドに渡す仮想的なメソッド
 
         return "Completed"
