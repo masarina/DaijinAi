@@ -58,6 +58,6 @@ class GaloisFieldPlayer(SuperPlayer):
         ガロア体 GF(2^8) の演算で使用するべき乗テーブルとログテーブルを設定します。
         """
         # self.one_time_world_instance にテーブルを渡す
-        self.one_time_world_instance.GaloisFieldPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.galoisFieldPlayer = self  # 自身のインスタンスを登録
 
         return "Completed"
