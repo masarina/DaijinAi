@@ -44,6 +44,10 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         最初の項を生成多項式 g(x) で割って、
         その結果をもとに次のステップに進む
         という形で、1つずつ処理を進めていくの。
+        
+        このプレイヤーは、
+        その一番最初の要素のみの変換をする
+        プレイヤーになります。
         """
         # ワールドからデータを取得（仮想メソッドとして想定）
         f_x_first = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
