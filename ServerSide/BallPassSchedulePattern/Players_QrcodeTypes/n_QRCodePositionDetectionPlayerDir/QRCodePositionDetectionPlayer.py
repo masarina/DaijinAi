@@ -2,6 +2,9 @@ import os, sys
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
 
+多分、余分にマイナス2してるかも、周りのヤツの処理
+
+
 class QRCodePositionDetectionPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
@@ -30,17 +33,24 @@ class QRCodePositionDetectionPlayer(SuperPlayer):
                 for j in range(y_start, y_start + 7):
                     grid[i][j] = -1
 
-        # 中央を5×5で0に戻す (5×5)
+        # 中央を5×5で-2に戻す (5×5)
         for (x_start, y_start) in position_patterns:
-            for i in range(x_start + 1, x_start + 6):  # 中央部分を5×5で0に戻す
+            for i in range(x_start + 1, x_start + 6):  # 中央部分を5×5で-2に戻す
                 for j in range(y_start + 1, y_start + 6):
-                    grid[i][j] = 0
+                    grid[i][j] = -2
 
         # さらに中央の3×3を-1で塗りつぶす (3×3)
         for (x_start, y_start) in position_patterns:
             for i in range(x_start + 2, x_start + 5):  # 中央部分を3×3で-1に戻す
                 for j in range(y_start + 2, y_start + 5):
                     grid[i][j] = -1
+
+        # 位置検出パターンの周囲1マスを-2で塗りつぶす
+        for (x_start, y_start) in position_patterns:
+            for i in range(x_start - 1, x_start + 8):  # 周り1マス分を-2で埋める
+                for j in range(y_start - 1, y_start + 8):
+                    if 0 <= i < self.grid_size and 0 <= j < self.grid_size and (i < x_start or i >= x_start + 7 or j < y_start or j >= y_start + 7):
+                        grid[i][j] = -2
 
         return grid
 
