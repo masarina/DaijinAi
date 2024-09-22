@@ -45,6 +45,12 @@ class QRCodeMaskApplicatorPlayer(SuperPlayer):  # 新しい名前！
         """
         2次元リスト matrix (25x25) に対して、mask_bitに基づき全座標のビットを反転させて変換後のリストを返す。
         """
+        # マトリックスを取得
+        matrix = self.one_time_world_instance.writeMainDataPatternPlayer.updated_qr_map_2Dlist
+        
+        """ 面倒なので強制的にパターンの種類は000を選択する。今回は検査してマスクを選択することはしない。全てvrや画像処理内での作業のため、問題にならないはずだ。 """
+        mask_bit = "000"
+        
         for i in range(len(matrix)):   # 行の数
             for j in range(len(matrix[i])):  # 列の数
                 matrix = self.apply_mask(matrix, mask_bit, i, j)  # 各座標ごとにマスク適用
