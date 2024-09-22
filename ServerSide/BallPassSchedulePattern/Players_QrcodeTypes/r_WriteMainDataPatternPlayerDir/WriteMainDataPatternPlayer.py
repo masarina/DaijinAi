@@ -58,7 +58,7 @@ class WriteMainDataPatternPlayer(SuperPlayer):
         
         return "Completed"
 
-    def next_writing_rowcol_catcher(self, qr_map_2Dlist, written_row_col=(None,None)):
+    def next_writing_rowcol_catcher(self, written_row_col=(None,None)):
         """
         25x25の2次元リスト (qr_map_2Dlist) と
         前回書き込んだ座標 (row, col) を処理するメインメソッド。
@@ -114,4 +114,4 @@ class WriteMainDataPatternPlayer(SuperPlayer):
 
         
         # 更新した座標を返す
-        return qr_map_2Dlist, (row, col)
+        return (row, col)
