@@ -29,6 +29,7 @@ class QRCodeMarkingPlayer(SuperPlayer):  # 名前を変更
         qr_code_array[8, 7] = self.marking_num    # 中央の横
         qr_code_array[-7:-1, 8] = self.marking_num  # 下部の縦
         qr_code_array[8, -8:-1] = self.marking_num  # 右部の横
+        qr_code_array[-8, 8] = -1 # 黒色パターン
 
         # numpy配列をリストに戻して返す
         return qr_code_array.tolist()
