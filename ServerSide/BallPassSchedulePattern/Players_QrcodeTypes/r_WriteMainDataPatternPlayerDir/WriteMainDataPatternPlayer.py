@@ -20,13 +20,34 @@ class WriteMainDataPatternPlayer(SuperPlayer):
 
         """ 書き込み開始 """
         now_row_col = (24,24) # 座標保持する変数(1番右下座標で初期化)
+        beforetime_write_can_status = True # 前回の書き込めたか否かの情報保持(初期化は、前回書き込めたことにするためTrue)
+        
         for bit_data in maindata_2Dlist:
             
-            # 書き込む
+            """ 書き込み処理 """
+            # 今回書き込む行と列を取得
             row = now_row_col[0]
             col = now_row_col[1]
-            qr_map_2Dlist[row][col] = bit_data
             
+            # この座標は書き込んで問題ないか確認する。
+            if qr_map_2Dlist[row][col] == 0: # 前回、書き込んで良い場所のみ、0で初期化しました。
+                
+                """ かつ、前回書き込めていない場合 """
+                if beforetime_write_can_status == False:
+                    # かつ、今回colが奇数の場合はpass(国際規格的に2行ずつデータを配置することにおいては、右側を優先とする為。)
+                    if col%2 == 0: 
+                        beforetime_write_can_status = False # 書き込めなかったらFalse
+                        pass
+                        
+                    else: # かつ偶数である場合は書き込んでOK
+                        qr_map_2Dlist[row][col] = bit_data # 書き込み
+                        beforetime_write_can_status = True # 書き込めたらTrue
+                        
+            else: # 0ではなかったら、pass
+                beforetime_write_can_status = False # 書き込めなかったらFalse
+                pass
+                
+                
             # 次に書き込む場所を算出してnow_row_colを更新
             now_row_col = self.next_writing_rowcol_catcher(qr_map_2Dlist, written_row_col=written_row_col)
     
