@@ -13,8 +13,9 @@ class WriteMainDataPatternPlayer(SuperPlayer):
         
     def main(self):
         # マップを取得
-        qr_map_2Dlist = 
+        qr_map_2Dlist = self.one_time_world_instance.qRCodeMarkingPlayer.modified_qr_code_map
         
+        # メインデータを取得
         maindata_2Dlist = self.one_time_world_instance.rSXorCalculationPlayer.xor_result_polynomial
 
         for 
