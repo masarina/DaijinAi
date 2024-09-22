@@ -48,6 +48,6 @@ class RSXorCalculationPlayer(SuperPlayer):
 
         # 結果をワールドに渡す
         self.one_time_world_instance.rSXorCalculationPlayer = self  # 自身のインスタンスを登録
-        self.one_time_world_instance.set_xor_result_polynomial(self.xor_result_polynomial)  # 計算結果を登録
+        
 
         return "Completed"
