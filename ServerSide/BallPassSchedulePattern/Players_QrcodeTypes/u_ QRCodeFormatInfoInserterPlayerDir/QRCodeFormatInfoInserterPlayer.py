@@ -47,8 +47,8 @@ class QRCodeFormatInfoInserterPlayer(SuperPlayer):
         updated_matrix = self.insert_format_info(matrix_2Dlist, data_15bit_list)
 
         # 更新されたマトリックスを保存
-        self.one_time_world_instance.qrCodeFormatInfoInserterPlayer = self
         self.one_time_world_instance.qRCodeMaskApplicatorPlayer.qr_map_2Dlist = updated_matrix
 
-        print(f"15bit形式情報が挿入されたQRコードマトリックス: {updated_matrix}")
+        self.one_time_world_instance.qrCodeFormatInfoInserterPlayer = self
+
         return "Completed"
