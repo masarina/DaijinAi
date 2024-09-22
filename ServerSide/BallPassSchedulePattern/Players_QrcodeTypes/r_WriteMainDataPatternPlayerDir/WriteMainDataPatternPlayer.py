@@ -16,15 +16,28 @@ class WriteMainDataPatternPlayer(SuperPlayer):
         qr_map_2Dlist = self.one_time_world_instance.qRCodeMarkingPlayer.modified_qr_code_map
         
         # メインデータを取得
-        maindata_2Dlist = self.one_time_world_instance.rSXorCalculationPlayer.xor_result_polynomial
+        maindata_2Dlist = copy.deepcopy(self.one_time_world_instance.rSXorCalculationPlayer.xor_result_polynomial)
 
-        for 
+        """ 書き込み開始 """
+        now_row_col = (24,24) # 座標保持する変数(1番右下座標で初期化)
+        for bit_data in maindata_2Dlist:
+            
+            # 書き込む
+            row = now_row_col[0]
+            col = now_row_col[1]
+            qr_map_2Dlist[row][col] = bit_data
+            
+            # 次に書き込む場所を算出してnow_row_colを更新
+            now_row_col = self.next_writing_rowcol_catcher(qr_map_2Dlist, written_row_col=written_row_col)
+    
+        # メンバ変数に保存
+        self.updated_qr_map_2Dlist = maindata_2Dlist
         
         self.one_time_world_instance.writeMainDataPatternPlayer = self
         
         return "Completed"
 
-    def one_bit_writer(self, qr_map_2Dlist, written_row_col=(None,None)):
+    def next_writing_rowcol_catcher(self, qr_map_2Dlist, written_row_col=(None,None)):
         """
         25x25の2次元リスト (qr_map_2Dlist) と
         前回書き込んだ座標 (row, col) を処理するメインメソッド。
