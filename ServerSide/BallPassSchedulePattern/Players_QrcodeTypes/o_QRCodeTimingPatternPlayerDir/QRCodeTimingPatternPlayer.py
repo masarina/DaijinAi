@@ -18,15 +18,16 @@ class QRCodeTimingPatternPlayer(SuperPlayer):
         出力: タイミングパターンが追加された2次元リスト
         """
         grid_size = len(qr_code_map)
-
+    
         # タイミングパターンは位置検出パターンの下と右にあるため、座標が(6,y)と(x,6)の位置に交互に配置
         for i in range(8, grid_size - 8):  # タイミングパターンは (6,y) と (x,6) の位置に配置
             # 横方向のタイミングパターン (y = 6)
-            qr_code_map[6][i] = 1 if i % 2 == 0 else 0
+            qr_code_map[6][i] = -1 if i % 2 == 0 else -2
             # 縦方向のタイミングパターン (x = 6)
-            qr_code_map[i][6] = 1 if i % 2 == 0 else 0
-
+            qr_code_map[i][6] = -1 if i % 2 == 0 else -2
+    
         return qr_code_map
+
 
     def main(self):
         """
