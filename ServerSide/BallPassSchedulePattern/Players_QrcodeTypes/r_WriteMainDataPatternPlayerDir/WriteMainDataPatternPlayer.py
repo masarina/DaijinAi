@@ -7,6 +7,7 @@ class WriteMainDataPatternPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # 必ずNoneで初期化
+        self.updated_qr_map_2Dlist = None
 
     def return_my_name(self):
         return "WriteMainDataPatternPlayer"
