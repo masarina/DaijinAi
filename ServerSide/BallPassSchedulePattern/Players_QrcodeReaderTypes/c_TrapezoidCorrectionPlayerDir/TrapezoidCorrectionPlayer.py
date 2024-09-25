@@ -181,7 +181,7 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
             str: 処理完了のメッセージ。
         """
         # VR空間から取得したQRコードの台形行列を使用
-        trapezoid_image = self.one_time_world_instance.centralSquareReaderPlayer
+        trapezoid_image = self.one_time_world_instance.centralSquareReaderPlayer.binary_matrix_2Dlist
 
         # 入力データの検証
         if trapezoid_image is None or not trapezoid_image:
