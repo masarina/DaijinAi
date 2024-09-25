@@ -79,11 +79,11 @@ class CentralSquareReaderPlayer:
         self.read_qr_code(self.png_file_path)
 
         # 中央の80%部分の正方形を取得
-        read_matrix_2Dlist = self.extract_central_square()
+        self.binary_matrix_2Dlist = self.extract_central_square()
 
         # 結果を表示
-        print("中央部分の抽出結果（2次元バイナリリストの一部）:")
-        print(read_matrix_2Dlist[:5])  # 最初の5行を表示
+        print("中央部分の抽出結果（ビットデータ化のみの時点）:")
+        print(self.binary_matrix_2Dlist) 
         
         self.one_time_world_instance.centralSquareReaderPlayer = self
 
