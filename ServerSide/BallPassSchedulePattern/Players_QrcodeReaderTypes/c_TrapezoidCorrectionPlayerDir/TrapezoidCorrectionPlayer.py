@@ -173,9 +173,43 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
 
         return corrected_matrix
 
+    def resize_matrix_to_25x25(self, matrix):
+        """
+        行列を25x25のサイズにリサイズする。
+
+        Args:
+            matrix (list): 入力の2次元行列。
+
+        Returns:
+            list: サイズが25x25にリサイズされた行列。
+        """
+        original_height = len(matrix)
+        original_width = len(matrix[0])
+
+        new_height = 25
+        new_width = 25
+
+        resized_matrix = []
+
+        for i in range(new_height):
+            row = []
+            for j in range(new_width):
+                # マッピング元のインデックスを計算
+                orig_i = int(i * original_height / new_height)
+                orig_j = int(j * original_width / new_width)
+
+                # インデックスの範囲チェック
+                orig_i = min(orig_i, original_height - 1)
+                orig_j = min(orig_j, original_width - 1)
+
+                row.append(matrix[orig_i][orig_j])
+            resized_matrix.append(row)
+
+        return resized_matrix
+
     def main(self):
         """
-        QRコードの台形行列を正方形に補正し、結果を出力する。
+        QRコードの台形行列を正方形に補正し、25x25にリサイズして結果を出力する。
 
         Returns:
             str: 処理完了のメッセージ。
@@ -188,10 +222,13 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
             raise ValueError("QRコードの台形行列が取得できませんでした。")
 
         # 台形の行列を正方形に補正
-        self.binary_matrix_2Dlist = self.correct_trapezoid_to_square(trapezoid_image)
+        corrected_matrix = self.correct_trapezoid_to_square(trapezoid_image)
+
+        # 補正された行列を25x25にリサイズ
+        self.binary_matrix_2Dlist = self.resize_matrix_to_25x25(corrected_matrix)
 
         # 補正結果を表示（デバッグ用）
-        print("Corrected Matrix (正方形に近い形に補正された行列):")
+        print("Resized Matrix (25x25にリサイズされた行列):")
         for row in self.binary_matrix_2Dlist:
             print(row)
 
