@@ -4,30 +4,14 @@ from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
 
 class TrapezoidCorrectionPlayer(SuperPlayer):
     def __init__(self):
-        """
-        プレイヤーの初期化メソッド。
-        QRコードの台形行列やプレイヤー名をNoneで初期化する。
-        """
         super().__init__()
         self.my_name = None  # プレイヤー名は初期化時にNoneに設定
         self.binary_matrix_2Dlist = None  # QRコードの台形2次元リストを保持
 
     def return_my_name(self):
-        """
-        プレイヤー名を返す。
-        """
         return "TrapezoidCorrectionPlayer"
 
     def find_left_right_edges(self, row):
-        """
-        行中の最初と最後のビット1の位置を見つけ、左端と右端を返す。
-
-        Args:
-            row (list): QRコード行のビットデータ。
-
-        Returns:
-            tuple: 左端と右端のビット1のインデックス。
-        """
         left_edge = None
         right_edge = None
 
@@ -43,22 +27,14 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
                 right_edge = len(row) - 1 - i
                 break
 
-        # エラーハンドリング
+        # ビット1がない場合、行全体が0なので両端を設定
         if left_edge is None or right_edge is None:
-            raise ValueError("行内にビット1が見つかりませんでした。")
+            left_edge = 0
+            right_edge = len(row) - 1
 
         return left_edge, right_edge
 
     def find_top_bottom_edges(self, matrix):
-        """
-        行列全体から最上部と最下部のビット1の行を見つける。
-
-        Args:
-            matrix (list): QRコードのビット行列。
-
-        Returns:
-            tuple: 上端と下端の行インデックス。
-        """
         top_edge = None
         bottom_edge = None
 
@@ -74,22 +50,14 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
                 bottom_edge = len(matrix) - 1 - i
                 break
 
-        # エラーハンドリング
+        # ビット1がない場合、行列全体が0なので両端を設定
         if top_edge is None or bottom_edge is None:
-            raise ValueError("行列内にビット1が見つかりませんでした。")
+            top_edge = 0
+            bottom_edge = len(matrix) - 1
 
         return top_edge, bottom_edge
 
     def get_trapezoid_corners(self, matrix):
-        """
-        台形の4つの頂点座標を取得する。
-
-        Args:
-            matrix (list): QRコードのビット行列。
-
-        Returns:
-            tuple: 左上、右上、左下、右下の各頂点座標。
-        """
         top_edge, bottom_edge = self.find_top_bottom_edges(matrix)
         left_up = None
         right_up = None
@@ -119,24 +87,24 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
 
         for i in range(matrix_height):
             # 左エッジのx座標を計算
-            delta_left = left_down[0] - left_up[0]
-            if delta_left != 0:
-                ratio_left = (i - left_up[0]) / delta_left
+            total_rows_left = left_down[0] - left_up[0]
+            if total_rows_left != 0:
+                ratio_left = (i - left_up[0]) / total_rows_left
             else:
                 ratio_left = 0
-            left_x = int(left_up[1] + (left_down[1] - left_up[1]) * ratio_left)
+            left_x = left_up[1] + (left_down[1] - left_up[1]) * ratio_left
 
             # 右エッジのx座標を計算
-            delta_right = right_down[0] - right_up[0]
-            if delta_right != 0:
-                ratio_right = (i - right_up[0]) / delta_right
+            total_rows_right = right_down[0] - right_up[0]
+            if total_rows_right != 0:
+                ratio_right = (i - right_up[0]) / total_rows_right
             else:
                 ratio_right = 0
-            right_x = int(right_up[1] + (right_down[1] - right_up[1]) * ratio_right)
+            right_x = right_up[1] + (right_down[1] - right_up[1]) * ratio_right
 
-            # x座標の範囲チェック
-            left_x = max(0, min(left_x, matrix_width - 1))
-            right_x = max(0, min(right_x, matrix_width - 1))
+            # x座標の範囲チェックと整数化
+            left_x = int(round(max(0, min(left_x, matrix_width - 1))))
+            right_x = int(round(max(0, min(right_x, matrix_width - 1))))
 
             if left_x > right_x:
                 left_x, right_x = right_x, left_x
@@ -150,23 +118,10 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         return corrected_matrix
 
     def correct_trapezoid_to_square(self, matrix):
-        """
-        台形の行列を補完し、正方形に近づける処理。
-
-        Args:
-            matrix (list): 台形のビット行列。
-
-        Returns:
-            list: 正方形に補完された行列データ。
-        """
-        # 台形の4つの頂点を取得
         left_up, right_up, left_down, right_down = self.get_trapezoid_corners(matrix)
-
-        # 行列のサイズを取得
         matrix_height = len(matrix)
         matrix_width = len(matrix[0])
 
-        # エッジを補間して正方形の行列を生成
         corrected_matrix = self.interpolate_edges(
             left_up, right_up, left_down, right_down, matrix_height, matrix_width
         )
@@ -174,15 +129,6 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         return corrected_matrix
 
     def resize_matrix_to_25x25(self, matrix):
-        """
-        行列を25x25のサイズにリサイズする。
-
-        Args:
-            matrix (list): 入力の2次元行列。
-
-        Returns:
-            list: サイズが25x25にリサイズされた行列。
-        """
         original_height = len(matrix)
         original_width = len(matrix[0])
 
@@ -208,13 +154,6 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         return resized_matrix
 
     def main(self):
-        """
-        QRコードの台形行列を正方形に補正し、25x25にリサイズして結果を出力する。
-
-        Returns:
-            str: 処理完了のメッセージ。
-        """
-        # VR空間から取得したQRコードの台形行列を使用
         trapezoid_image = self.one_time_world_instance.centralSquareReaderPlayer.binary_matrix_2Dlist
 
         # 入力データの検証
