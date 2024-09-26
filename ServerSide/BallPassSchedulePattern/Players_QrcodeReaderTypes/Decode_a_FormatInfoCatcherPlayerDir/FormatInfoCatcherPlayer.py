@@ -45,10 +45,12 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         format_info[8:13] = matrix_np[8, 0:6] # 下部の5ビット
         matrix_np[8, 0:6] = -10
         format_info[13] = matrix_np[8, 7]     # 下部の6ビット目
+        matrix_np[8, 7] = -10
         format_info[14] = matrix_np[8, 8]   # 境界の最後のビット
+        matrix_np[8, 8] = -10
  
         # 完成した15bitを戻値とする
-        return format_info
+        return format_info, matrix_np
     
     def main(self):
         """
@@ -57,10 +59,10 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         """
         
         # QRコードのマトリックスを取得
-        matrix_2Dlist = self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist
+        matrix_2Dlist = copy.deepcopy(self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist)
         
         # 形式情報の15bitを取得
-        data_caught_15bit_list = self.catch_format_info(matrix_2Dlist)
+        data_caught_15bit_list, matrix  = self.catch_format_info(matrix_2Dlist)
 
         self.one_time_world_instance.formatInfoCatcherPlayer = self
 
