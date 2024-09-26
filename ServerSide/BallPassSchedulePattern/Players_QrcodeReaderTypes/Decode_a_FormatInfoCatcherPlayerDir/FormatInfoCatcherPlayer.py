@@ -14,6 +14,8 @@ class FormatInfoCatcherPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()
         self.my_name = None  # 初期化は必ずNone
+        self.data_caught_15bit_list = None
+        self.matrix = None
     
     def return_my_name(self):
         return "FormatInfoCatcherPlayer"
@@ -61,8 +63,8 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         # QRコードのマトリックスを取得
         matrix_2Dlist = copy.deepcopy(self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist)
         
-        # 形式情報の15bitを取得
-        data_caught_15bit_list, matrix  = self.catch_format_info(matrix_2Dlist)
+        # 形式情報の15bit、抜き取られ後のmatrixを、を取得
+        self.data_caught_15bit_list, self.matrix  = self.catch_format_info(matrix_2Dlist)
 
         self.one_time_world_instance.formatInfoCatcherPlayer = self
 
