@@ -35,11 +35,15 @@ class FormatInfoCatcherPlayer(SuperPlayer):
 
         # 上部（縦方向）の挿入 1列目の8ビット
         format_info[0:6] = matrix_np[0:6, 8]  # 上部の最初の6ビット
+        matrix_np[0:6, 8] = -10 # 要素に全て-10を代入し、マーキングする
         format_info[6] = matrix_np[7, 8]     # 7行目
+        matrix_np[7, 8] = -10
         format_info[7] = matrix_np[8, 8]      # 8行目（境界）
+        matrix_np[8, 8] = -10
 
         # 左下の列方向の挿入
         format_info[8:13] = matrix_np[8, 0:6] # 下部の5ビット
+        matrix_np[8, 0:6] = -10
         format_info[13] = matrix_np[8, 7]     # 下部の6ビット目
         format_info[14] = matrix_np[8, 8]   # 境界の最後のビット
  
