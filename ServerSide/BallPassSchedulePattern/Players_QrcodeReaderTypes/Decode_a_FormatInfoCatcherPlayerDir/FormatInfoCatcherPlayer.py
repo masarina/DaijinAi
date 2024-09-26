@@ -64,7 +64,7 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         matrix_2Dlist = copy.deepcopy(self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist)
         
         # 形式情報の15bit、抜き取られ後のmatrixを、を取得
-        self.data_caught_15bit_list, self.matrix  = self.catch_format_info(matrix_2Dlist)
+        self.data_caught_15bit_list, self.matrix = self.catch_format_info(matrix_2Dlist)
 
         self.one_time_world_instance.formatInfoCatcherPlayer = self
 
