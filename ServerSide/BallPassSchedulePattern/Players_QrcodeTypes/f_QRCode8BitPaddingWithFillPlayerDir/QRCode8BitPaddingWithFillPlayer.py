@@ -73,7 +73,7 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
             'L': 34,
             'M': 28,
             'Q': 22,
-            'H': 16
+            'H': 16 # データコード数は16。(8＊16ビットが最大。これ以下であれば、11101100と00010001を交互にパディング。つまりそれ以降は空。)
         }
         target_data_code_words = version_2_data[error_correction_level]
 
