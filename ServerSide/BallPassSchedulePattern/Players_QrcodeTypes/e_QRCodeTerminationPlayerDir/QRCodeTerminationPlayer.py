@@ -6,6 +6,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
+        self.data_bits_with_termination
 
     def return_my_name(self):
         return "QRCodeTerminationPlayer"
@@ -75,7 +76,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         self.check_data_size(data_bits, symbol_capacity)  
 
         # 終端パターンを追加
-        data_bits_with_termination = self.add_termination_pattern(data_bits, symbol_capacity)
+        self.data_bits_with_termination = self.add_termination_pattern(data_bits, symbol_capacity)
 
         # 結果をワールドに反映
         self.one_time_world_instance.QRCodeTerminationPlayer = self  # 自身のインスタンスを登録
