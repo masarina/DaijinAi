@@ -66,7 +66,7 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         ワールドからデータビット列をインポートし、8ビット単位に区切り、シンボル容量に満たない場合は11101100と00010001を交互に付加します。
         """
         # Worldからデータビット列とシンボル容量を取得する仮想的なメソッド
-        bit_sequence = 382 # モデル2のバージョン2なので。
+        bit_sequence = self.one_time_world_instance.QRCodeTerminationPlayer. data_bits_with_termination # モデル2のバージョン2なのでこのデータのlengthは382要素数。
         error_correction_level = "H"  # 固定します
         # Version 2のデータコード数を辞書から取得
         version_2_data = {
