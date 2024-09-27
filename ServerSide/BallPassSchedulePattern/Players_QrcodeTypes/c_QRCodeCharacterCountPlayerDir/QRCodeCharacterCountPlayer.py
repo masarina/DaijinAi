@@ -34,6 +34,12 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         """
         QRコードのモード指示子に基づいて、指定された文字数をビット数で表現し、
         one_time_world_instanceに設定する。
+        
+        出力例
+        'Mode 0001, Count 123': '0001111011'
+        'Mode 0010, Count 45': '000101101'
+        'Mode 0100, Count 200': '11001000'
+        'Mode 1000, Count 300': '100101100'
         """
         mode_indicator = self.one_time_world_instance.QRCodeModePlayer.mode_indicator  # モード指示子を取得
         
