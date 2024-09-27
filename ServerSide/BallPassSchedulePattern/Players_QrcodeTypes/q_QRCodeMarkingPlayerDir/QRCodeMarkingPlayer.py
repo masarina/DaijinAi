@@ -8,7 +8,7 @@ class QRCodeMarkingPlayer(SuperPlayer):  # 名前を変更
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤーの名前
         self.modified_qr_code_map = None  # 更新されたQRコードのグリッドを保存する変数
-        self.marking_num = -4  # マーキングする値（今回は-4）
+        self.marking_num = -4  # マーキングする値（今回は-4と言う数字を書き込むことにした）
 
     def return_my_name(self):
         return "QRCodeMarkingPlayer"  # 新しい名前を返す
