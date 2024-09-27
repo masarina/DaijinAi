@@ -38,7 +38,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         シンボル容量を満たしている場合は何も追加しません。
         """
         data_bits = self.one_time_world_instance.get_converted_bits()  # 仮想的にQRデータビット列を取得
-        symbol_capacity = self.one_time_world_instance.get_symbol_capacity()  # 仮想的にシンボル容量を取得
+        symbol_capacity = 382
 
         # 終端パターンを追加
         data_bits_with_termination = self.add_termination_pattern(data_bits, symbol_capacity)
