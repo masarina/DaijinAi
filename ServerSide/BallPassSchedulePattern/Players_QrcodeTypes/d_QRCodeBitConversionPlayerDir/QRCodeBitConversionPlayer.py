@@ -64,6 +64,14 @@ class QRCodeBitConversionPlayer(SuperPlayer):
         """
         このメソッド内で変換モードを選択し、対応するビット変換を行います。
         データはself.one_time_world_instance内に保持されているものを使用します。
+        
+        出力例
+        数字モード（データ："123456789"）:
+        ビット列 → 000111101101110010001100010101
+        英数字モード（データ："HELLO"）:
+        ビット列 → 0110000101101111000110011000
+        バイトモード（データ："abc123"）:
+        ビット列 → 011000010110001001100011001100010011001000110011
         """
         data = self.one_time_world_instance.get_data()  # Worldからデータを取得する仮想的なメソッド
         mode = self.one_time_world_instance.get_mode()  # Worldからモードを取得する仮想的なメソッド
