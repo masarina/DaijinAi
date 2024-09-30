@@ -52,7 +52,7 @@ class ReplacePatternPlayer(SuperPlayer):
         """ matrixの特定部分を-11に置き換え """
         self.replaced_matrix = self.replace_patterns(matrix_2Dlist)
         
-        # 自信を更新
+        # 自身を更新
         self.one_time_world_instance.replacePatternPlayer = self
         
         """ 結果 """
