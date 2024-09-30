@@ -22,9 +22,9 @@ class QRCodeTimingPatternPlayer(SuperPlayer):
         # タイミングパターンは位置検出パターンの下と右にあるため、座標が(6,y)と(x,6)の位置に交互に配置
         for i in range(8, grid_size - 8):  # タイミングパターンは (6,y) と (x,6) の位置に配置
             # 横方向のタイミングパターン (y = 6)
-            qr_code_map[6][i] = -1 if i % 2 == 0 else -2
+            qr_code_map[6][i] = -2 if i % 2 == 0 else -1 # 偶数であれば-2(白色)、奇数であれば-1(黒色)とする。
             # 縦方向のタイミングパターン (x = 6)
-            qr_code_map[i][6] = -1 if i % 2 == 0 else -2
+            qr_code_map[i][6] = -2 if i % 2 == 0 else -1
     
         return qr_code_map
 
