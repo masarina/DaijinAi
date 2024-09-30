@@ -26,6 +26,7 @@ class PatternDetectionPlayer(SuperPlayer):
         position_detected = self.detect_position_patterns(binary_matrix)
         alignment_detected = self.detect_alignment_pattern(binary_matrix)
         timing_detected = self.detect_timing_patterns(binary_matrix)
+        dark_module_detected = self.detect_dark_module(binary_matrix)
 
         # すべてのパターンが検出された場合
         if position_detected and alignment_detected and timing_detected:
@@ -39,6 +40,8 @@ class PatternDetectionPlayer(SuperPlayer):
                 print("アライメントパターンの検出に失敗しました。")
             if not timing_detected:
                 print("タイミングパターンの検出に失敗しました。")
+            if not dark_module_detected:
+                print("ダークモジュールの検出に失敗しました。")
 
         # 自身を更新
         self.one_time_world_instance.patternDetectionPlayer = self
@@ -155,3 +158,20 @@ class PatternDetectionPlayer(SuperPlayer):
                 return False
 
         return True
+        
+    def detect_dark_module(self, matrix):
+        """
+        ダークモジュールを検出します。
+    
+        Args:
+            matrix (list): 25x25のバイナリマトリックス。
+    
+        Returns:
+            bool: ダークモジュールが正しく検出された場合はTrue、そうでない場合はFalse。
+        """
+        # ダークモジュールの位置は (8, 13) で常に黒（1）であるべき
+        dark_module_position = (8, 13)
+        
+        # ダークモジュールが黒（1）であればTrue、そうでなければFalse
+        return matrix[dark_module_position[0]][dark_module_position[1]] == 1
+
