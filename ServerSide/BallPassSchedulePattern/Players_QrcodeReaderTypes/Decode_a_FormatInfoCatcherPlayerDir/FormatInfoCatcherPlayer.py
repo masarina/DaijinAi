@@ -60,11 +60,18 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         抜き取り時、抜き取った痕跡として -10 を代入
         """
         
+        """ 初期化 """
         # QRコードのマトリックスを取得
         matrix_2Dlist = copy.deepcopy(self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist)
         
+        """ matrixからフォーマット情報を取得 """
         # 形式情報の15bit、抜き取られ後のmatrixを、を取得
-        self.data_caught_15bit_list, self.matrix = self.catch_format_info(matrix_2Dlist)
+        _, __ = self.catch_format_info(
+                    matrix_2Dlist
+                )
+        self.data_caught_15bit_list = _
+        self.matrix = __
+        
 
         self.one_time_world_instance.formatInfoCatcherPlayer = self
 
