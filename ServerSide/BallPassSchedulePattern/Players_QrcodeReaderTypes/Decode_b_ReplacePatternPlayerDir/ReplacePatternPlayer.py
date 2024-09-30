@@ -22,12 +22,9 @@ class ReplacePatternPlayer(SuperPlayer):
         matrix_np = np.array(matrix)
         
         # 位置検出パターン（左上、右上、左下の位置）
-        # 左上
-        matrix_np[0:7, 0:7] = -11
-        # 右上
-        matrix_np[0:7, 18:25] = -11
-        # 左下
-        matrix_np[18:25, 0:7] = -11
+        matrix_np[0:7, 0:7] = -11  # 7×7の領域を-11で塗りつぶす
+        matrix_np[0:7, -7:] = -11  # 7×7の領域を-11で塗りつぶす
+        matrix_np[-7:, 0:7] = -11  # 7×7の領域を-11で塗りつぶす
 
         # タイミングパターン（縦横方向の特定の行列）
         matrix_np[6, 8:17] = -11  # 横方向
