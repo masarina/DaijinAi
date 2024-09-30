@@ -72,7 +72,17 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         self.data_caught_15bit_list = _
         self.matrix = __
         
-
+        # 自信を更新
         self.one_time_world_instance.formatInfoCatcherPlayer = self
+        
+        """ 結果 """
+        # フォーマット情報の抽出の完了
+        self.data_caught_15bit_list
+        
+        # 抽出箇所マーキングした、抽出後のmatrixの用意完了
+        self.matrix
+        
+
+        
 
         return "Completed"
