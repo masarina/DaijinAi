@@ -3,8 +3,6 @@ import numpy as np  # numpyをインポート
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
 
-このコード位置検出パターンをなんか戻したししてるから、改良手作業で！
-
 
 class QRCodePositionDetectionPlayer(SuperPlayer):
     def __init__(self):
