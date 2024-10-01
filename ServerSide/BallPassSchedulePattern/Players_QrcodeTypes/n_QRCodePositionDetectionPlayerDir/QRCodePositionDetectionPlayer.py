@@ -20,6 +20,9 @@ class QRCodePositionDetectionPlayer(SuperPlayer):
         grid = np.zeros((self.grid_size, self.grid_size), dtype=int)
 
         # 位置検出パターンの座標
+        """ 注意
+        numpyでスライスは、[start:end, start:end]で見た時、endは含まれず、エンドの左側の列が指定される(行は上側)
+        """
         # 左上のパターン (7×7)
         grid[0:6, 0:6] = -1  # 7×7の領域を-1で塗りつぶす
         grid[1:5, 1:5] = -2  # 中央を5×5で-2に戻す
