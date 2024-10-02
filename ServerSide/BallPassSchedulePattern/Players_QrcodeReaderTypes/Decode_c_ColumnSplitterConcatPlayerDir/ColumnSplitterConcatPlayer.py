@@ -18,7 +18,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
     def return_my_name(self):
         return "ColumnSplitterConcatPlayer"
         
-    def add_column_with_negative_13_to_the_left(matrix):
+    def add_column_with_negative_13_to_the_left(self, matrix):
         # 新しい2次元リストを作成するためのリストを準備する
         new_matrix = []
     
@@ -28,6 +28,32 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
             new_matrix.append(new_row)  # 新しいリストに追加
     
         return new_matrix
+        
+    def list2d_to_reverseRow(self, list2d):
+        """ 2次元リストの行を逆順にするメソッド
+        [[a],
+        [b],
+        [c]]
+        であれば、
+        [[c],
+        [b],
+        [a]]
+        と変換します
+        
+        """
+        
+        """ 初期化 """
+      	reversed_list2d = []
+        line_point = -1 # データを取得する行のインデックス
+        
+        """ メイン処理 """
+        for _ in range(len(list2d): # 行数分ループ
+            # 1番後ろの行をとる
+            line = list2d[line_point]
+            
+            # 新しいモノとする。
+            reversed_list2d += [line]
+    
 
     def main(self):
         """
