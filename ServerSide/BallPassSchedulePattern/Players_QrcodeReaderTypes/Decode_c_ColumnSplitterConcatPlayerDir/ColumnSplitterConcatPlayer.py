@@ -60,6 +60,8 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         このメソッド実行直前に、スーパークラスのメンバ変数
         one_time_world_instanceに、最新のworldインスタンスを代入しています。
         """
+        # 読み込んだqr配列(読み込み禁止箇所マーキング済み)を取得
+        matrix = 
 
         # 結果を保存
         self.one_time_world_instance.processed_dataframe = concatenated_df
