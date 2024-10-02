@@ -81,7 +81,19 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         
         """ メイン処理 """
         # 列数の半分の回数、ループ処理
-        for 
+        for j in range(loop_point): # 列数の半分の数だけループ
+          
+          # 後ろ2列を取得
+          onetime_list2d =[] # 一時的リスト
+          for i in range(len(list2d)): # 行数分ループ
+          
+            # 1行をとる
+            line = list2d[i]
+            
+            # 2列部分にあたる箇所を取得
+            pair = [line[col_point - 1], line[col_point]]
+            
+            # 一時的リストに追加
         
         
 
