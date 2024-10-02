@@ -71,6 +71,17 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         """ 初期化 """
         # 読み込んだqr配列(読み込み禁止箇所マーキング済み)を取得
         matrix = self.one_time_world_instance.replacePatternPlayer.replaced_matrix.tolist()
+        new_list2d = [] # 最終的に完成品となるもの
+        col_point = -1
+        loop_point = len(list2d[0] // 2) # 処理回数を計算。今回はマトリックスの右側2列ごとに処理するため、(全体の行数 * 1/2)回とする
+        is_last_col_bool = 1 == (len(list2d[0]) % 2) # マトリックスの列数が奇数だった場合True
+        
+        # マトリックスの列数が奇数の場合1番左の行の処理ができないので、1番左に列をひとつ追加。
+        matrix = self.add_column_with_negative_13_to_the_left(matrix) # 追加する列の各セルには-13を入れておく。
+        
+        """ メイン処理 """
+        # 列数の半分の回数、ループ処理
+        for 
         
         
 
