@@ -94,11 +94,20 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
             pair = [line[col_point - 1], line[col_point]]
             
             # 一時的リストに追加
+            onetime_list2d += [pair] # [[0, 1]] (appendと異なり、ひとつカッコが消滅するので…)
         
-        
+            # col_point を進める
+            col_point += -2 # 後ろから2列ずつずらして読み込むので。
+            
+            # 2回に1回、行を反転させる
+            if 0 == (j % 2): # 偶数で反転
+              onetime_list2d = self.list2d_to_reverseRow(copy.deepcopy(onetime_list2d))
+              
+            # new_list2d に追加
+            new_list2d += onetime_list2d
 
         # 結果を保存
-        self.one_time_world_instance.processed_dataframe = concatenated_df
+        self.one_time_world_instance.processed_list2d = new_list2d
 
         # 自身のプレイヤーの更新
         self.one_time_world_instance.columnSplitterConcatPlayer = self
