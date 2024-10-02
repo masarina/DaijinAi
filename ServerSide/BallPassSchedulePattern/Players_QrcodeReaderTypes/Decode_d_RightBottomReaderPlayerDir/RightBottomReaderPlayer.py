@@ -1,7 +1,9 @@
 import os, sys
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
-
+""" ATTENTION
+ただのテンプレートです！
+"""
 class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもらってもOKよ！
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
@@ -11,26 +13,7 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
     def return_my_name(self):
         return "RightBottomReaderPlayer"  # ここも任意の名前で変更可能よ
 
-    def read_data_from_right_bottom(self, matrix):
-        """
-        QRコードのデータ部分を右下から左上に向けて読み込む。
-        Args:
-            matrix (list): 25x25のバイナリマトリックス。
-        Returns:
-            list: 読み込んだデータのリスト。
-        """
-        data = []
-
-        # 右下から左上に向かってジグザグに読み取る
-        size = len(matrix)
-        for col in range(size-1, 0, -2):  # 2列ごとに進む（右から左）
-            for row in range(size-1, -1, -1):  # 下から上に進む
-                if matrix[row][col] != -1 and matrix[row][col] != -2:  # 黒と白のパターン部分以外
-                    data.append(matrix[row][col])
-                if col > 0 and matrix[row][col-1] != -1 and matrix[row][col-1] != -2:
-                    data.append(matrix[row][col-1])
-
-        return data
+    
 
     def main(self):
         """
