@@ -43,7 +43,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         """
         
         """ 初期化 """
-      	reversed_list2d = []
+        reversed_list2d = []
         line_point = -1 # データを取得する行のインデックス
         
         """ メイン処理 """
@@ -59,9 +59,20 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         """
         このメソッド実行直前に、スーパークラスのメンバ変数
         one_time_world_instanceに、最新のworldインスタンスを代入しています。
+        
+        引数：2次元リスト
+        処理：2次元リストを
+            右から2列ごとに分割させ、
+            縦に連結させたものを、
+            新しい2次元リストとする
+        出力：新しい2次元リスト
         """
+        
+        """ 初期化 """
         # 読み込んだqr配列(読み込み禁止箇所マーキング済み)を取得
-        matrix = self.one_time_world_instance.replacePatternPlayer.replaced_matrix
+        matrix = self.one_time_world_instance.replacePatternPlayer.replaced_matrix.tolist()
+        
+        
 
         # 結果を保存
         self.one_time_world_instance.processed_dataframe = concatenated_df
