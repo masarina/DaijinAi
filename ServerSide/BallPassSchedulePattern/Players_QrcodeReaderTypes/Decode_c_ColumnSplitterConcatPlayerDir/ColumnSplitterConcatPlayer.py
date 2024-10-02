@@ -17,6 +17,17 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
 
     def return_my_name(self):
         return "ColumnSplitterConcatPlayer"
+        
+    def add_column_with_negative_13_to_the_left(matrix):
+        # 新しい2次元リストを作成するためのリストを準備する
+        new_matrix = []
+    
+        # 元の行に-13を左側に追加する処理を行う
+        for row in matrix:
+            new_row = [-13] + row  # 行の左側に-13を追加
+            new_matrix.append(new_row)  # 新しいリストに追加
+    
+        return new_matrix
 
     def main(self):
         """
