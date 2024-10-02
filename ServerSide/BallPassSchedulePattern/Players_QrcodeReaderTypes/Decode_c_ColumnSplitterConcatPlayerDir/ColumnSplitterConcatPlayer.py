@@ -47,7 +47,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         line_point = -1 # データを取得する行のインデックス
         
         """ メイン処理 """
-        for _ in range(len(list2d): # 行数分ループ
+        for _ in range(len(list2d)): # 行数分ループ
             # 1番後ろの行をとる
             line = list2d[line_point]
             
