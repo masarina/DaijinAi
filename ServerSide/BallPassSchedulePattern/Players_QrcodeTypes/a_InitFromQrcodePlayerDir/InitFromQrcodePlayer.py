@@ -7,6 +7,7 @@ class InitFromQrcodePlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None
         self.data = None
+        self.mode = None
 
     def return_my_name(self):
         return "InitFromQrcodePlayer"
