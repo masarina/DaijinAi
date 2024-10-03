@@ -31,6 +31,11 @@ class QRCodeModePlayer(SuperPlayer):
         """
         メインの処理をここで行う。QRコードのモード指示子を設定して、次に渡す準備をする。
         """
+        
+        """ 初期化 """
+        #モードを選択
+        self.set_mode("numeric")
+        
         if self.mode_indicator is None:
             raise ValueError("Mode indicator is not set. Please call set_mode before executing main.")
         
