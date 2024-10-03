@@ -12,7 +12,20 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
 
     def return_my_name(self):
         return "RightBottomReaderPlayer"  # ここも任意の名前で変更可能よ
-
+    
+    def flatten_list2d(self, list2d=None):
+        """ 2次元リストを1次元リストにするメソッド
+        ・shape的に(n, 2)の2次元リストに限る
+        """
+        
+        """ 初期化 """
+        read_list = [] # 読み込まれた1次元リスト(最終的に完成品となる)
+        
+        """ メイン処理 """
+        for pair in list2d:
+            # 右, 左の順に格納。負の数である場合は格納しないでパスする。
+            if 0 > pair[1]:
+                read
     
 
     def main(self):
