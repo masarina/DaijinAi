@@ -6,6 +6,7 @@ class InitFromQrcodePlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None
+        self.data = None
 
     def return_my_name(self):
         return "InitFromQrcodePlayer"
@@ -30,6 +31,9 @@ class InitFromQrcodePlayer(SuperPlayer):
         
         print(f"{return_my_name}が実行されました。")
 
+        # QRcodeにしたいデータ
+        self.data = 12345
+        
         # データは自身のイニシャライザのメンバ変数で保持、
         # またはjsonなどに出力した場合、そのパスを保持
         self.one_time_world_instance.initFromQrcodePlayer = self
