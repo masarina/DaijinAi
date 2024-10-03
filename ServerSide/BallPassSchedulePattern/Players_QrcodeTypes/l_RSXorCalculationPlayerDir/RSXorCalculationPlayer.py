@@ -40,8 +40,8 @@ class RSXorCalculationPlayer(SuperPlayer):
         メインの処理を行います。f(x) と g(x) の積を XOR で処理し、新しい f(x)' を計算します。
         """
         # ワールドからデータを取得（仮想メソッドとして想定）
-        f_x_polynomial = self.one_time_world_instance.get_f_polynomial()  # データ多項式 f(x)
-        g_x_polynomial = self.one_time_world_instance.get_g_polynomial()  # g(x)にαを掛けた結果の多項式
+        f_x_polynomial = self.one_time_world_instance.rSFirstCoefficientDivisionPlayer  # データ多項式 f(x)
+        g_x_polynomial = self.one_time_world_instance.rSFirstCoefficientDivisionPlayer  # g(x)にαを掛けた結果の多項式
 
         # 排他的論理和の計算を行う
         self.calculate_xor_polynomial(f_x_polynomial, g_x_polynomial)
