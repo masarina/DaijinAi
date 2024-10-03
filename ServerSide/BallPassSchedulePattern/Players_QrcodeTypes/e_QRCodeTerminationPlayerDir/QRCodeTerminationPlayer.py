@@ -69,7 +69,11 @@ class QRCodeTerminationPlayer(SuperPlayer):
     
         したがって、シンボル容量は 382 ビットとしています。
         """
+        
+        """ 初期化 """
+        character_count_bits = self.one_time_world_instance.qRCodeCharacterCountPlayer.character_count_bits # 文字の種類情報、の次に追加する、文字数情報
         data_bits = self.one_time_world_instance.qRCodeBitConversionPlayer.converted_bits  # 仮想的にQRデータビット列を取得
+        
         symbol_capacity = 382
         
         # データサイズの確認(エラー訂正コード部分に入り組んでいたら、ダメなので。)
