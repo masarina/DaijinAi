@@ -14,6 +14,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
+        self.new_list2d
 
     def return_my_name(self):
         return "ColumnSplitterConcatPlayer"
@@ -104,10 +105,10 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
               onetime_list2d = self.list2d_to_reverseRow(copy.deepcopy(onetime_list2d))
               
             # new_list2d に追加
-            new_list2d += onetime_list2d
+            self.new_list2d += onetime_list2d
 
         # 結果を保存
-        self.one_time_world_instance.processed_list2d = new_list2d
+        self.new_list2d = new_list2d
 
         # 自身のプレイヤーの更新
         self.one_time_world_instance.columnSplitterConcatPlayer = self
