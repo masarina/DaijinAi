@@ -30,7 +30,7 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         
         return bit_count
 
-    def main(self, char_count):
+    def main(self):
         """
         QRコードのモード指示子に基づいて、指定された文字数をビット数で表現し、
         one_time_world_instanceに設定する。
@@ -41,6 +41,9 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         'Mode 0100, Count 200': '11001000'
         'Mode 1000, Count 300': '100101100'
         """
+
+        """ 初期化 """
+        char_count = len(self.one_time_world_instance.initFromQrcodePlayer.data) # 文字数(数値であれば、数字の数)
         mode_indicator = self.one_time_world_instance.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
         # 文字数をビットで表現
