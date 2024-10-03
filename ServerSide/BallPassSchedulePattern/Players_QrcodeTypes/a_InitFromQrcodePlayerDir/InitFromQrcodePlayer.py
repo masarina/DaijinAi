@@ -34,6 +34,7 @@ class InitFromQrcodePlayer(SuperPlayer):
 
         # QRcodeにしたいデータ
         self.data = 12345
+        self.mode = "numeric"
         
         # データは自身のイニシャライザのメンバ変数で保持、
         # またはjsonなどに出力した場合、そのパスを保持
