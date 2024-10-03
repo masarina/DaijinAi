@@ -73,7 +73,7 @@ class QRCodeBitConversionPlayer(SuperPlayer):
         バイトモード（データ："abc123"）:
         ビット列 → 011000010110001001100011001100010011001000110011
         """
-        data = self.one_time_world_instance.initFromQrcodePlayer.data  # Worldからデータを取得する仮想的なメソッド
+        data = self.one_time_world_instance.initFromQrcodePlayer.data  # 
         mode = self.one_time_world_instance.initFromQrcodePlayer.mode  # Worldからモードを取得する仮想的なメソッド
 
         if mode == "numeric":
