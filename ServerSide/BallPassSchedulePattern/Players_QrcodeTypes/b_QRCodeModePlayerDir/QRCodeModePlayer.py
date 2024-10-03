@@ -34,7 +34,7 @@ class QRCodeModePlayer(SuperPlayer):
         
         """ 初期化 """
         #モードを選択
-        self.set_mode("numeric")
+        self.set_mode(self.one_time_world_instance.initFromQrcodePlayer.mode)
         
         if self.mode_indicator is None:
             raise ValueError("Mode indicator is not set. Please call set_mode before executing main.")
