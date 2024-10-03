@@ -41,7 +41,7 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         'Mode 0100, Count 200': '11001000'
         'Mode 1000, Count 300': '100101100'
         """
-        mode_indicator = self.one_time_world_instance.QRCodeModePlayer.mode_indicator  # モード指示子を取得
+        mode_indicator = self.one_time_world_instance.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
         # 文字数をビットで表現
         self.character_count_bits = self.calculate_bit_count(char_count, mode_indicator)
