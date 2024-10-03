@@ -23,9 +23,21 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
         
         """ メイン処理 """
         for pair in list2d:
-            # 右, 左の順に格納。負の数である場合は格納しないでパスする。
+            
+            """ 右, 左の順に格納。負の数である場合は格納しないでパスする。 """
+            # 右の要素
             if 0 > pair[1]:
-                read
+                read_list.append(pair[1])
+            else:
+                pass
+                
+            # 左の要素
+            if 0 > pair[0]:
+                read_list.append(pair[0]):
+            else:
+                pass
+                
+            
     
 
     def main(self):
