@@ -28,7 +28,11 @@ class InitFromQrcodeReaderPlayer(SuperPlayer):
         その内容が、反映されます。
         """
         
+        """ 初期化 """
         print(f"{return_my_name}が実行されました。")
+        list2d = self.one_time_world_instance.columnSplitterConcatPlayer.new_list2d
+        
+        
 
         # データは自身のイニシャライザのメンバ変数で保持、
         # またはjsonなどに出力した場合、そのパスを保持
