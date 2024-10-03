@@ -14,7 +14,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
-        self.new_list2d
+        self.new_list2d = []
 
     def return_my_name(self):
         return "ColumnSplitterConcatPlayer"
@@ -72,7 +72,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         """ 初期化 """
         # 読み込んだqr配列(読み込み禁止箇所マーキング済み)を取得
         matrix = self.one_time_world_instance.replacePatternPlayer.replaced_matrix.tolist()
-        new_list2d = [] # 最終的に完成品となるもの
+        self.new_list2d # 最終的に完成品となるもの
         col_point = -1
         loop_point = len(list2d[0] // 2) # 処理回数を計算。今回はマトリックスの右側2列ごとに処理するため、(全体の行数 * 1/2)回とする
         is_last_col_bool = 1 == (len(list2d[0]) % 2) # マトリックスの列数が奇数だった場合True
