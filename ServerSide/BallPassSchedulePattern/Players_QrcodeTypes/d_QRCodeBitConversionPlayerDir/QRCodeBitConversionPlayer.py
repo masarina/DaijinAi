@@ -77,13 +77,16 @@ class QRCodeBitConversionPlayer(SuperPlayer):
         mode = self.one_time_world_instance.initFromQrcodePlayer.mode  # 
 
         if mode == "numeric":
-            converted_bits = self.numeric_mode_bit_conversion(data)
+            converted = self.numeric_mode_bit_conversion(data)
         elif mode == "alphanumeric":
-            converted_bits = self.alphanumeric_mode_bit_conversion(data)
+            converted = self.alphanumeric_mode_bit_conversion(data)
         elif mode == "byte":
-            converted_bits = self.byte_mode_bit_conversion(data)
+            converted = self.byte_mode_bit_conversion(data)
         else:
             raise ValueError("Invalid mode. Choose from: numeric, alphanumeric, byte.")
+            
+        """ 保存 """
+        self.converted_bits = converted
         
         # 変換したビット列をワールドに反映させる
         self.one_time_world_instance.qRCodeBitConversionPlayer = self  # 自身のインスタンスを登録
