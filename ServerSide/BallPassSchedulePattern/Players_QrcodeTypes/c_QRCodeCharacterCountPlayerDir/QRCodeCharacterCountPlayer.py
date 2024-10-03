@@ -47,6 +47,6 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         self.character_count_bits = self.calculate_bit_count(char_count, mode_indicator)
 
         # self.one_time_world_instance に文字数ビット情報を渡す
-        self.one_time_world_instance.QRCodeCharacterCountPlayer = self  # 自身のインスタンスをworldに登録
+        self.one_time_world_instance.qRCodeCharacterCountPlayer = self  # 自身のインスタンスをworldに登録
 
         return f"Completed: {mode_indicator} {self.character_count_bits}"
