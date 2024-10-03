@@ -74,7 +74,7 @@ class QRCodeBitConversionPlayer(SuperPlayer):
         ビット列 → 011000010110001001100011001100010011001000110011
         """
         data = self.one_time_world_instance.initFromQrcodePlayer.data  # 
-        mode = self.one_time_world_instance.initFromQrcodePlayer.mode  # Worldからモードを取得する仮想的なメソッド
+        mode = self.one_time_world_instance.initFromQrcodePlayer.mode  # 
 
         if mode == "numeric":
             converted_bits = self.numeric_mode_bit_conversion(data)
