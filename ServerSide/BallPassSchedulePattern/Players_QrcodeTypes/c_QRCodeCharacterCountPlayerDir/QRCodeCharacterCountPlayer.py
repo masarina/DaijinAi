@@ -49,7 +49,7 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         
         """ 完成するモード指示子 """
         # モード指示子 + 文字数情報 + メインデータ(この時点ではまだ) + エラー訂正コード(この時点ではまだ)
-        self.character_count_bits = mode_indicator + self.calculate_bit_count(char_count, mode_indicator)
+        self.output_bits = mode_indicator + self.calculate_bit_count(char_count, mode_indicator)
 
         # self.one_time_world_instance に文字数ビット情報を渡す
         self.one_time_world_instance.qRCodeCharacterCountPlayer = self  # 自身のインスタンスをworldに登録
