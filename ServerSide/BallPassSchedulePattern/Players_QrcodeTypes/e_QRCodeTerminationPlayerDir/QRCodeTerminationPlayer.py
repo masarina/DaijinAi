@@ -66,10 +66,8 @@ class QRCodeTerminationPlayer(SuperPlayer):
         - 左下のダークモジュール（1 モジュール）
         - フォーマット情報（15 モジュール）
     
-        これらの合計243ビットを差し引いた、有効なデータ領域は
-        625 - 243 = 382ビットです。
+        これらの合計243ビットを差し引いた数値を、有効なデータ領域とします。
     
-        したがって、シンボル容量は 382 ビットとしています。
         """
         
         """ 初期化 """
@@ -79,6 +77,8 @@ class QRCodeTerminationPlayer(SuperPlayer):
         mode_indicator = self.one_time_world_instance.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
         # モードによるbit数を取得
+        symbol = 25 * 25 # - 25 × 25 = 625 モジュール（全体のシンボル数）
+        symbol -= 4 # - 文字の種類情報 4bit
         if mode_indicator == "0001": # 数字
             weight = 10
         elif mode_indicator == "0010": # 英数字
@@ -87,10 +87,15 @@ class QRCodeTerminationPlayer(SuperPlayer):
             weight = 8
         elif mode_indicator == "1000": # 漢字
             weight = 8
-        
-        
-        
-        symbol_capacity = 382
+        symbol -= weight # - 数字:10bit, 英数字:9bit, byte:8bit, 漢字:8bit
+        symbol -= 7 * 7 * 3 # - 位置検出パターン（7 × 7 × 3 = 147 モジュール）
+        symbol -= 5 * 5 # - アライメントパターン（5 × 5 = 25 モジュール）
+        symbol -= 45 # - 読み取り禁止ゾーン（45 モジュール）
+        symbol -= 10 # - タイミングパターン（10 モジュール）
+        symbol -= 1 # - 左下のダークモジュール（1 モジュール）
+        symbol -= 15 # - フォーマット情報（15 モジュール）
+   
+        symbol_capacity = symbol
         
         # データサイズの確認(エラー訂正コード部分に入り組んでいたら、ダメなので。)
         self.check_data_size(data_bits, symbol_capacity)  
