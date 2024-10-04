@@ -106,7 +106,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         
 
         # 結果をワールドに反映
-        self.one_time_world_instance.QRCodeTerminationPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.qRCodeTerminationPlayer = self  # 自身のインスタンスを登録
         self.one_time_world_instance.set_converted_bits(data_bits_with_termination)  # 変換結果をWorldに反映する仮想的なメソッド
 
         return "Completed"
