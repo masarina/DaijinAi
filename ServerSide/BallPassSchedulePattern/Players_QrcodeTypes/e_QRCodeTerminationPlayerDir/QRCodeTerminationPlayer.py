@@ -95,7 +95,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         symbol -= 1 # - 左下のダークモジュール（1 モジュール）
         symbol -= 15 # - フォーマット情報（15 モジュール）
    
-        symbol_capacity = symbol
+        symbol_capacity = symbol # データ容量がこれを超えたら、アウトとする。
         
         # データサイズの確認(エラー訂正コード部分に入り組んでいたら、ダメなので。)
         self.check_data_size(data_bits, symbol_capacity)  
