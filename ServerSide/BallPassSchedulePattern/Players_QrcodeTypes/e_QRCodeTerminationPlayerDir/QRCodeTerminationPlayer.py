@@ -100,8 +100,10 @@ class QRCodeTerminationPlayer(SuperPlayer):
         # データサイズの確認(エラー訂正コード部分に入り組んでいたら、ダメなので。)
         self.check_data_size(data_bits, symbol_capacity)  
 
+        """ 完成 """
         # 終端パターンを追加
         self.data_bits_with_termination = self.add_termination_pattern(data_bits, symbol_capacity)
+        
 
         # 結果をワールドに反映
         self.one_time_world_instance.QRCodeTerminationPlayer = self  # 自身のインスタンスを登録
