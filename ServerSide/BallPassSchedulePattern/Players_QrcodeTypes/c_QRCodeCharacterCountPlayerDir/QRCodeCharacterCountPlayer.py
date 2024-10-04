@@ -46,7 +46,8 @@ class QRCodeCharacterCountPlayer(SuperPlayer):
         char_count = len(self.one_time_world_instance.initFromQrcodePlayer.data) # 文字数(数値であれば、数字の数)
         mode_indicator = self.one_time_world_instance.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
-        # 文字数をビットで表現
+        """ 完成するモード指示子 """
+        # モード指示子 + 文字数情報 + メインデータ + エラー訂正コード(この時点ではまだ)
         self.character_count_bits = self.calculate_bit_count(char_count, mode_indicator)
 
         # self.one_time_world_instance に文字数ビット情報を渡す
