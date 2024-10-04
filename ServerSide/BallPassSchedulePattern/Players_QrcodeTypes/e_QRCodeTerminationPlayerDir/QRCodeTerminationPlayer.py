@@ -57,8 +57,8 @@ class QRCodeTerminationPlayer(SuperPlayer):
         25 × 25 のシンボルサイズから計算した。
     
         - 25 × 25 = 625 モジュール（全体のシンボル数）
-        - 文字の種類情報 bit
-        - 
+        - 文字の種類情報 4bit
+        - 数字:10bit, 英数字:9bit, byte:8bit, 漢字:8bit
         - 位置検出パターン（7 × 7 × 3 = 147 モジュール）
         - アライメントパターン（5 × 5 = 25 モジュール）
         - 読み取り禁止ゾーン（45 モジュール）
@@ -73,8 +73,22 @@ class QRCodeTerminationPlayer(SuperPlayer):
         """
         
         """ 初期化 """
+        # 変数の取得
         character_count_bits = self.one_time_world_instance.qRCodeCharacterCountPlayer.character_count_bits # 文字の種類情報、の次に追加する、文字数情報
         data_bits = self.one_time_world_instance.qRCodeBitConversionPlayer.converted_bits  # 仮想的にQRデータビット列を取得
+        mode_indicator = self.one_time_world_instance.qRCodeModePlayer.mode_indicator  # モード指示子を取得
+        
+        # モードによるbit数を取得
+        if mode_indicator == "0001": # 数字
+            weight = 10
+        elif mode_indicator == "0010": # 英数字
+            weight = 9
+        elif mode_indicator == "0100": # byte
+            weight = 8
+        elif mode_indicator == "1000": # 漢字
+            weight = 8
+        
+        
         
         symbol_capacity = 382
         
