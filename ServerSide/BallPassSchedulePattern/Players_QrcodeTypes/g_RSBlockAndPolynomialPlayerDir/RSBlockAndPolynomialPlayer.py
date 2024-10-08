@@ -26,12 +26,12 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
         メイン処理を行います。データをRSブロックに分割し、多項式を設定します。
         """
         # ワールドからデータを取得（仮想的なメソッドとして想定）
-        data = self.one_time_world_instance.get_data()
+        data = self.one_time_world_instance.qRCode8BitPaddingWithFillPlayer.data_bits
 
         # データをRSブロックに分割
         self.divide_into_rs_blocks(data)
 
         # self.one_time_world_instance にRSブロックと多項式を登録
-        self.one_time_world_instance.RSBlockAndPolynomialPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.rSBlockAndPolynomialPlayer = self  # 自身のインスタンスを登録
 
         return "Completed"
