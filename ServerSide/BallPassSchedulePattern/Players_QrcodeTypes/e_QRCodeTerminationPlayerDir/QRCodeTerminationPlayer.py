@@ -7,6 +7,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
         self.data_bits_with_termination
+        self.error_message
 
     def return_my_name(self):
         return "QRCodeTerminationPlayer"
@@ -51,7 +52,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         bit_size = len(data_bits) + pad_size + len(character_count_bits)
 
         if bit_size > max_data_bits:
-            raise ValueError("データビット列がエラー訂正レベルHの制限を超えています。")  # ← 追加部分
+            self.error_message += ["データビット列がエラー訂正レベルHの制限を超えています。"]
 
 
     def main(self):
