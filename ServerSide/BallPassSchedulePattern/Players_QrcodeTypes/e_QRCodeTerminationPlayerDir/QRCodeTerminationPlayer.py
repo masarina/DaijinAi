@@ -74,7 +74,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         # 変数の取得
         wo = self.one_time_world_instance
         character_count_bits = wo.qRCodeBitConversionPlayer.mode_and_countinfo_bit # 文字の種類情報、の次に追加する、文字数情報
-        data_bits = wo.qRCodeBitConversionPlayer.converted_bits  # 仮想的にQRデータビット列を取得
+        data_bits = wo.qRCodeBitConversionPlayer.data_bits  # 仮想的にQRデータビット列を取得
         mode_indicator = wo.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
         # モードによるbit数を取得
