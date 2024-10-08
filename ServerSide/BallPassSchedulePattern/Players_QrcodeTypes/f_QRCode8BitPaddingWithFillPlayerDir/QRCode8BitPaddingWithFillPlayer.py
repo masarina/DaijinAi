@@ -6,6 +6,10 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
+        self.data_4pad_8pad = None
+        self.data_bits = None
+        self.padding_48bits = None
+        self.mode_charaCount = None
     
     def return_my_name(self):
         return "QRCode8BitPaddingWithFillPlayer"
@@ -101,7 +105,7 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         
 
         # 処理後のデータをワールドに反映させる仮想的なメソッド
-        self.one_time_world_instance.QRCode8BitPaddingWithFillPlayer = self  # 自身のインスタンスをワールドに登録
+        self.one_time_world_instance.qRCode8BitPaddingWithFillPlayer = self  # 自身のインスタンスをワールドに登録
         self.one_time_world_instance.set_bit_chunks(bit_chunks_with_fillers)  # 8ビット区切りされたビット列を反映
 
         return "Completed"
