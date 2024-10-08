@@ -86,6 +86,7 @@ class QRCodeBitConversionPlayer(SuperPlayer):
             raise ValueError("Invalid mode. Choose from: numeric, alphanumeric, byte.")
             
         """ 保存 """
+        self.mode_and_countinfo_bit = self.one_time_world_instance.qRCodeCharacterCountPlayer.output_bits
         self.data_bits = converted # まだ 指示子情報と、文字数情報は分別しておきます。エラー訂正はデータのみに反映させる為です。
         
         # 変換したビット列をワールドに反映させる
