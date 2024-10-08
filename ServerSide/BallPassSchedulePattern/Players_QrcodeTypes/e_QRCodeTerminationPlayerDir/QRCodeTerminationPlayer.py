@@ -13,7 +13,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
 
     def add_termination_pattern(self, data_bits, symbol_capacity):
         """
-        終端パターンとして0000を付加し、その後8ビットの倍数に揃えるために0でパディングします。
+        終端パターンとして0000を付加
         データビット列がシンボル容量を満たしている場合は終端パターンは不要です。
         - data_bits: QRコードのデータビット列 (文字列としての2進数)
         - symbol_capacity: QRコードのシンボル容量 (許容される最大ビット数)
@@ -27,12 +27,6 @@ class QRCodeTerminationPlayer(SuperPlayer):
             # 最低4ビットの終端パターンを追加
             termination_bits = "0000"
             data_bits += termination_bits[:min(remaining_bits, 4)]
-    
-            # 8ビットの倍数になるように0でパディング
-            new_length = len(data_bits)
-            if new_length % 8 != 0:
-                padding_bits = 8 - (new_length % 8)
-                data_bits += '0' * padding_bits
     
         return data_bits
 
