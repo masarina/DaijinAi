@@ -72,9 +72,10 @@ class QRCodeTerminationPlayer(SuperPlayer):
         
         """ 初期化 """
         # 変数の取得
-        character_count_bits = self.one_time_world_instance.qRCodeCharacterCountPlayer.character_count_bits # 文字の種類情報、の次に追加する、文字数情報
-        data_bits = self.one_time_world_instance.qRCodeBitConversionPlayer.converted_bits  # 仮想的にQRデータビット列を取得
-        mode_indicator = self.one_time_world_instance.qRCodeModePlayer.mode_indicator  # モード指示子を取得
+        wo = self.one_time_world_instance
+        character_count_bits = wo.qRCodeBitConversionPlayer.mode_and_countinfo_bit # 文字の種類情報、の次に追加する、文字数情報
+        data_bits = wo.qRCodeBitConversionPlayer.converted_bits  # 仮想的にQRデータビット列を取得
+        mode_indicator = wo.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
         # モードによるbit数を取得
         symbol = 25 * 25 # - 25 × 25 = 625 モジュール（全体のシンボル数）
