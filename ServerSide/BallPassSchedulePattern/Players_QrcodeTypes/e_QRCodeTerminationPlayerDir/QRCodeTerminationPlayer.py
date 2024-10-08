@@ -80,8 +80,8 @@ class QRCodeTerminationPlayer(SuperPlayer):
         """ 初期化 """
         # 変数の取得
         wo = self.one_time_world_instance
-        character_count_bits = wo.qRCodeBitConversionPlayer.mode_and_countinfo_bit # 文字の種類情報、の次に追加する、文字数情報
-        data_bits = wo.qRCodeBitConversionPlayer.data_bits  # 仮想的にQRデータビット列を取得
+        character_count_bits = wo.qRCodeBitConversionPlayer.mode_and_countinfo_bit # モード指示子 + 文字数情報
+        data_bits = wo.qRCodeBitConversionPlayer.data_bits  # QRデータビット列
         mode_indicator = wo.qRCodeModePlayer.mode_indicator  # モード指示子を取得
         
         # モードによるbit数を取得
@@ -114,8 +114,8 @@ class QRCodeTerminationPlayer(SuperPlayer):
 
         """ 完成 """
         # 終端パターンを追加
-        self.data_bits_with_termination = self.add_termination_pattern(data_bits, symbol_capacity)
-        
+        self.data_and_last4pattern = self.add_termination_pattern(data_bits, symbol_capacity)
+        self.modeBit_and_characterCountBit = character_count_bits
 
         # 結果をワールドに反映
         self.one_time_world_instance.qRCodeTerminationPlayer = self  # 自身のインスタンスを登録
