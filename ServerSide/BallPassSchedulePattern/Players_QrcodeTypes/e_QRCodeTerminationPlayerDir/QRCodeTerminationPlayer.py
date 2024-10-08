@@ -31,7 +31,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
             # 最低4ビットの終端パターンを追加
             termination_bits = "0000"
             added_bits = termination_bits[:min(remaining_bits, 4)]
-            data_bits += added_bits
+            data_bits += added_bits # データ + pad(4bit的な穴埋め)
     
             # パディングとして追加されたビット数を記録
             padding_bits = added_bits  # この場合は追加された4ビット分
@@ -121,7 +121,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         """ 完成 """
         # 終端パターンを追加
         
-        self.data_and_last4pattern = self.add_termination_pattern(data_bits, symbol_capacity)
+        self.data_and_last4pattern, padding_bits = self.add_termination_pattern(data_bits, symbol_capacity)
         self.modeBit_and_characterCountBit = character_count_bits
 
         # 結果をワールドに反映
