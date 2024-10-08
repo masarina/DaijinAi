@@ -34,7 +34,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         return data_bits
 
 
-    def check_data_size(self, data_bits, symbol_capacity):  # ← 追加部分
+    def check_data_size(self, data_bits, symbol_capacity, character_count_bits):  # ← 追加部分
         """
         エラー訂正レベルHに基づき、データビット列がシンボル容量の70%以下であることを確認します。
         """
@@ -43,8 +43,10 @@ class QRCodeTerminationPlayer(SuperPlayer):
         
         # データ容量の最大値はシンボル容量の70%
         max_data_bits = symbol_capacity * 0.7  # データビット列がシンボル容量の70%を超えないことが条件
+        
+        bit_size = len(data_bits) + pad_size + len(character_count_bits)
 
-        if (len(data_bits) + pad_size) > max_data_bits:
+        if bit_size > max_data_bits:
             raise ValueError("データビット列がエラー訂正レベルHの制限を超えています。")  # ← 追加部分
 
 
@@ -99,7 +101,11 @@ class QRCodeTerminationPlayer(SuperPlayer):
         symbol_capacity = symbol # データ容量がこれを超えたら、アウトとする。
         
         # データサイズの確認(エラー訂正コード部分に入り組んでいたら、ダメなので。)
-        self.check_data_size(data_bits, symbol_capacity)  
+        self.check_data_size(
+            data_bits, # データ
+            symbol_capacity, # macデータ容量の想定数
+            character_count_bits, # 文字種類情報、文字数情報。(bitタイプ)
+        )  
 
         """ 完成 """
         # 終端パターンを追加
