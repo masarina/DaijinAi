@@ -39,7 +39,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
         エラー訂正レベルHに基づき、データビット列がシンボル容量の70%以下であることを確認します。
         """
         # 4bitの倍数にした時の0の数を算出
-        pad_size = max_data_bits % 4
+        pad_size = max_data_bits % 4 # あまりを求めて、パディングするべき数を算出。
         
         # データ容量の最大値はシンボル容量の70%
         max_data_bits = symbol_capacity * 0.7  # データビット列がシンボル容量の70%を超えないことが条件
