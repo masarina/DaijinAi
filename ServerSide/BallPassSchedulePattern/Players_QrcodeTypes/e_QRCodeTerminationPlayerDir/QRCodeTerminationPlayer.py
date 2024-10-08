@@ -6,10 +6,9 @@ class QRCodeTerminationPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
-        self.data_bits = None
         self.data_and_last4pattern = None # 完成した「データ + 終端パターン4bit」(次のプレイヤーで更に)
         self.modeBit_and_characterCountBit
-        self.error_message
+        self.error_message # パディングに失敗再スキャンなどのエラーハンドリングに使おう。
 
     def return_my_name(self):
         return "QRCodeTerminationPlayer"
@@ -118,10 +117,16 @@ class QRCodeTerminationPlayer(SuperPlayer):
             character_count_bits, # 文字種類情報、文字数情報。(bitタイプ)
         )  
 
+
+        """ 終端パターンを追加 """
+        _, __ = self.add_termination_pattern(
+                    data_bits, 
+                    symbol_capacity
+                )
+                
         """ 完成 """
-        # 終端パターンを追加
-        
-        self.data_and_last4pattern, self.padding_bits = self.add_termination_pattern(data_bits, symbol_capacity)
+        self.data_and_last4pattern = _ # パディングが追加されたデータ
+        self.padding_bits = __ # パディング部分のみ
         self.modeBit_and_characterCountBit = character_count_bits
 
         # 結果をワールドに反映
