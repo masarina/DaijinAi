@@ -16,17 +16,22 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         
         Args:
             bit_sequence (str): QRコードデータのビット列
-
+    
         Returns:
-            str: 8ビット区切りで、必要に応じて0埋めされたビット列
+            tuple: パディング後のビット列と、追加されたパディング部分
         """
         bit_length = len(bit_sequence)
         padding_needed = 8 - (bit_length % 8) if bit_length % 8 != 0 else 0
-        
+        padding_bits = ""
+    
+        # パディングが必要な場合は0を追加
         if padding_needed > 0:
-            bit_sequence += '0' * padding_needed
-        
-        return bit_sequence
+            padding_bits = '0' * padding_needed
+            bit_sequence += padding_bits
+    
+        # パディング後のビット列と、パディング部分を返す
+        return bit_sequence, padding_bits
+
 
     def split_to_8bit_chunks(self, bit_sequence):
         """
@@ -78,7 +83,7 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         target_data_code_words = version_2_data[error_correction_level]
 
         # 8ビットに整える
-        padded_bit_sequence = self.pad_to_8bit(bit_sequence)
+        padded_bit_sequence, padding_bits = self.pad_to_8bit(bit_sequence)
         
         # 8ビットごとに区切る
         bit_chunks = self.split_to_8bit_chunks(padded_bit_sequence)
@@ -87,9 +92,10 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         bit_chunks_with_fillers = self.add_fillers(bit_chunks, target_data_code_words)
         
         """ 出力 """
-        wo = self.one_time_world_instance.qRCodeTerminationPlayer
+        woT = self.one_time_world_instance.qRCodeTerminationPlayer
         self.data_4pad_8pad = bit_chunks_with_fillers
-        self.data_bits = wo.data_bits # データのみ
+        self.data_bits = woT.data_bits # データのみ
+        self.padding_48bits = woT.padding_bits + padding_bits
         self.mode_charaCount = wo.modeBit_and_CharacterCountBit
         
         
