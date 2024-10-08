@@ -126,8 +126,9 @@ class QRCodeTerminationPlayer(SuperPlayer):
                 
         """ 完成 """
         self.data_and_last4pattern = _ # パディングが追加されたデータ
+        self.data_bits = data_bits# データ部分のみ
         self.padding_bits = __ # パディング部分のみ
-        self.modeBit_and_characterCountBit = character_count_bits
+        self.modeBit_and_characterCountBit = character_count_bits # あとでデータの先頭に付け加え予定のbitベクトル
 
         # 結果をワールドに反映
         self.one_time_world_instance.qRCodeTerminationPlayer = self  # 自身のインスタンスを登録
