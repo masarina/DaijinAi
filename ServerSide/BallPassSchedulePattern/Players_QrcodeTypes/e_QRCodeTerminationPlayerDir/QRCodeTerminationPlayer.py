@@ -6,7 +6,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
-        self.data_bits = 
+        self.data_bits = None
         self.data_and_last4pattern = None # 完成した「データ + 終端パターン4bit」(次のプレイヤーで更に)
         self.modeBit_and_characterCountBit
         self.error_message
