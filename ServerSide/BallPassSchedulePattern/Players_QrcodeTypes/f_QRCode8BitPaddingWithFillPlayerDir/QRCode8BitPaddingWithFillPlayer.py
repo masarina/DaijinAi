@@ -85,6 +85,14 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
 
         # データコード数が足りない場合、11101100と00010001を交互に追加
         bit_chunks_with_fillers = self.add_fillers(bit_chunks, target_data_code_words)
+        
+        """ 出力 """
+        wo = self.one_time_world_instance.qRCodeTerminationPlayer
+        self.data_4pad_8pad = bit_chunks_with_fillers
+        self.data_bits = wo.data_bits # データのみ
+        self.mode_charaUounted
+        
+        
 
         # 処理後のデータをワールドに反映させる仮想的なメソッド
         self.one_time_world_instance.QRCode8BitPaddingWithFillPlayer = self  # 自身のインスタンスをワールドに登録
