@@ -6,7 +6,9 @@ class QRCodeTerminationPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
-        self.data_bits_with_termination
+        self.data_bits = 
+        self.padding_bits # 完成した「データ + 終端パターン4bit」(次のプレイヤーで更に)
+        self.modeBit_and_characterCountBit
         self.error_message
 
     def return_my_name(self):
@@ -14,23 +16,27 @@ class QRCodeTerminationPlayer(SuperPlayer):
 
     def add_termination_pattern(self, data_bits, symbol_capacity):
         """
-        終端パターンとして0000を付加
-        データビット列がシンボル容量を満たしている場合は終端パターンは不要です。
+        終端パターンとして0000を付加し、加えられたパディングのビットベクトルも返します。
         - data_bits: QRコードのデータビット列 (文字列としての2進数)
         - symbol_capacity: QRコードのシンボル容量 (許容される最大ビット数)
         """
         # 現在のデータビット数を取得
         current_length = len(data_bits)
+        padding_bits = ""  # パディングされた0ビットの部分を保持する
     
         # データビット列がシンボル容量を満たしていない場合のみ終端パターンを付加
         if current_length < symbol_capacity:
             remaining_bits = symbol_capacity - current_length
+            
             # 最低4ビットの終端パターンを追加
             termination_bits = "0000"
-            data_bits += termination_bits[:min(remaining_bits, 4)]
+            added_bits = termination_bits[:min(remaining_bits, 4)]
+            data_bits += added_bits
     
-        return data_bits
-
+            # パディングとして追加されたビット数を記録
+            padding_bits = added_bits  # この場合は追加された4ビット分
+        
+        return data_bits, padding_bits
 
 
     def check_data_size(self, data_bits, symbol_capacity, character_count_bits):  # ← 追加部分
@@ -114,6 +120,7 @@ class QRCodeTerminationPlayer(SuperPlayer):
 
         """ 完成 """
         # 終端パターンを追加
+        
         self.data_and_last4pattern = self.add_termination_pattern(data_bits, symbol_capacity)
         self.modeBit_and_characterCountBit = character_count_bits
 
