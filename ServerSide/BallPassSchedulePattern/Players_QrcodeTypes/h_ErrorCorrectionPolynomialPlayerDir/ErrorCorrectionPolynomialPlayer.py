@@ -10,8 +10,10 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
         # 誤り訂正用の生成多項式 g(x) の係数リストをメンバ変数に保持
         # リストにある数字は生成多項式の係数を表しています
         # QRコードのリード・ソロモン符号で、14符号語分（14 * 8 = 112ビット）のエラー訂正が行われます
-        self.error_correction_polynomial = [1, 25, 81, 228, 225, 202, 217, 141, 188, 180, 192, 181, 209, 246]
+        output = [1, 25, 81, 228, 225, 202, 217, 141, 188, 180, 192, 181, 209, 246]
         # ここでは、QRコードのバージョン2-H型の誤り訂正符号用に、14符号語を使います(この14要素は、国際規格から)
+
+        return output
 
     def return_my_name(self):
         # プレイヤーの名前を返すメソッド。これで、このプレイヤーがどの処理を行うかを識別できる。
@@ -25,9 +27,19 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
         QRコードのリード・ソロモン符号は、データが破損しても復元できるようにエラー訂正符号を追加します。
         ここでは、生成多項式 g(x) を次のプレイヤーに渡していきます。
         """
+        """ 初期化 """
+        woB = self.one_time_world_instance.rSBlockAndPolynomialPlayer
+        self.data = wo8B.data_bits
+        self.data_4pad_8pad = woB.data_4pad_8pad
+        self.padding_48bits = woB.padding_48bits
+        self.mode_charaCount = woB.mode_charaCount
+        self.rs_blocks = woB.self.rs_blocks
+        
+        self.error_correction_polynomial =
         # self.one_time_world_instance に生成多項式を渡す
         # QRコードのリード・ソロモン符号の誤り訂正符号語の生成に使われる多項式を持たせています。
         self.one_time_world_instance.ErrorCorrectionPolynomialPlayer = self  # 自身のインスタンスを登録
+
 
         # 処理が完了したら "Completed" を返します
         return "Completed"
