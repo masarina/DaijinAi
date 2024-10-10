@@ -32,13 +32,13 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
         """
         # ワールドからデータを取得
         wo8 = self.one_time_world_instance.qRCode8BitPaddingWithFillPlayer
-        data = wo8.data_bits
-        data_4pad_8pad = wo8.data_4pad_8pad
-        padding_48bits = wo8.padding_48bits
-        mode_charaCount = wo8.mode_charaCount
+        self.data = wo8.data_bits
+        self.data_4pad_8pad = wo8.data_4pad_8pad
+        self.padding_48bits = wo8.padding_48bits
+        self.mode_charaCount = wo8.mode_charaCount
 
         # データをRSブロックに分割
-        self.divide_into_rs_blocks(data)
+        self. = self.divide_into_rs_blocks(self.data)
 
         # self.one_time_world_instance にRSブロックと多項式を登録
         self.one_time_world_instance.rSBlockAndPolynomialPlayer = self  # 自身のインスタンスを登録
