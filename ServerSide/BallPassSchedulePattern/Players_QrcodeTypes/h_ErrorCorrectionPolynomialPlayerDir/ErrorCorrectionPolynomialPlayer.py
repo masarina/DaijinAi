@@ -7,7 +7,7 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
         
-    def 
+    def get_error_correction_polynomial(self):
         # 誤り訂正用の生成多項式 g(x) の係数リストを返します。(バージョン2,エラー訂正レベルH専用)
         # リストにある数字は生成多項式の係数を表しています
         # QRコードのリード・ソロモン符号で、14符号語分（14 * 8 = 112ビット）のエラー訂正が行われます
@@ -36,7 +36,7 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
         self.mode_charaCount = woB.mode_charaCount
         self.rs_blocks = woB.self.rs_blocks
         
-        self.error_correction_polynomial =
+        self.error_correction_polynomial = self.get_error_correction_polynomial()
         # self.one_time_world_instance に生成多項式を渡す
         # QRコードのリード・ソロモン符号の誤り訂正符号語の生成に使われる多項式を持たせています。
         self.one_time_world_instance.ErrorCorrectionPolynomialPlayer = self  # 自身のインスタンスを登録
