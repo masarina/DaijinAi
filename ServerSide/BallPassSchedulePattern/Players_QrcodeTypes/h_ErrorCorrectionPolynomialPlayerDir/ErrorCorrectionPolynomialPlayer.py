@@ -6,6 +6,12 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
+        self.data = None
+        self.data_4pad_8pad = None
+        self.padding_48bits = None
+        self.mode_charaCount = None
+        self.rs_blocks = None
+        self.error_correction_polynomial = None
         
     def get_error_correction_polynomial(self):
         # 誤り訂正用の生成多項式 g(x) の係数リストを返します。(バージョン2,エラー訂正レベルH専用)
