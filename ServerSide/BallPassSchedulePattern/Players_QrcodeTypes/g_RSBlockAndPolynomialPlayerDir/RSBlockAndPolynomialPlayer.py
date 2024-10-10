@@ -20,11 +20,11 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
     def divide_into_rs_blocks(self, data):
         """
         データをRSブロックに分割します。
-        1-H型ではブロック数が1なので分割は不要。データをそのまま格納します。
+        2-H型ではブロック数が1なので分割は不要。データをそのまま格納します。
         """
-        # 1-H型の場合、ブロック数は1のため、そのままデータを一つのブロックとして格納
-        self.rs_blocks = [data]
-        return self.rs_blocks
+        # 2-H型の場合、ブロック数は1のため、そのままデータを一つのブロックとして格納
+        output = [data]
+        return output
 
     def main(self):
         """
@@ -38,7 +38,7 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
         self.mode_charaCount = wo8.mode_charaCount
 
         # データをRSブロックに分割
-        self. = self.divide_into_rs_blocks(self.data)
+        self.rs_blocks = self.divide_into_rs_blocks(self.data)
 
         # self.one_time_world_instance にRSブロックと多項式を登録
         self.one_time_world_instance.rSBlockAndPolynomialPlayer = self  # 自身のインスタンスを登録
