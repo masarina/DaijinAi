@@ -8,6 +8,11 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
         self.my_name = None  # プレイヤー名をNoneで初期化
         self.rs_blocks = []  # RSブロックを保持するリスト
         self.galois_field_polynomial = 0b100011101  # ガロア体GF(2⁸)の原始多項式
+        self.data = None
+        self.data_4pad_8pad = None
+        self.padding_48bits = None
+        self.mode_charaCount = None
+        
 
     def return_my_name(self):
         return "RSBlockAndPolynomialPlayer"
