@@ -108,20 +108,20 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         target_data_code_words = version_2_data[error_correction_level]
 
         # 8ビットに整える
-        padded_bit_sequence, padding_bits = self.pad_to_8bit(bit_sequence)
+        mode_charNumInfo_data_pad4_pad8_str, padding_bits = self.pad_to_8bit(bit_sequence)
         
         # 8ビットごとに区切る
-        mode_charNumInfo_data_pad4_pad8_list2d = self.split_to_8bit_chunks(padded_bit_sequence)
+        mode_charNumInfo_data_pad4_pad8_list = self.split_to_8bit_chunks(padded_bit_sequence)
 
         # データコード数が足りない場合、11101100と00010001を交互に追加
-        loop_pad_only_list2d = self.add_fillers(bit_chunks, target_data_code_words)
+        loop11101100and00010001pad_only_list = self.add_fillers(bit_chunks, target_data_code_words)
         
         """ 出力 """
         woT = self.one_time_world_instance.qRCodeTerminationPlayer
         self.data_bits = woT.data_bits # データのみ
         self._4pad_8pad = woT.padding_bits + padding_bits
         self.modeBit_and_CharacterCountBit = wo.modeBit_and_CharacterCountBit
-        self.loop_pad_only_list2d = loop_pad_only_list2d
+        self.loop11101100and00010001pad_only_list = loop11101100and00010001pad_only_list
         
         
 
