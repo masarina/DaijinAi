@@ -75,15 +75,20 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         """
         fillers = ["11101100", "00010001"]
         index = 0
+        target_data_code_words # ここでは28が代入されているはず。
+        loop_pad = [] # fillersのループパディングのみの二次元リスト(今作るやつね)
+        data_bits_list2d = copy.deepcopy(bit_chunks)
     
         # データコード数が28に満たない場合、パディングバイトを交互に追加
-        while len(bit_chunks) < target_data_code_words:
-            bit_chunks.append(fillers[index])
+        while len(data_bits_list2d) < target_data_code_words:
+            bit_chunks.append(fillers[index]) # カウント用
+            data_bits_list2d.append(fillers[index])
+            
             # バージョン2、誤り訂正レベルHでは、コードワード数が28個必要
             # 11101100 (十六進数で0xEC)と00010001 (0x11)を交互に追加
             index = (index + 1) % 2  # 交互に11101100と00010001を追加
         
-        return bit_chunks
+        return data_bits_list2d
 
     def main(self):
         """
