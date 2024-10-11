@@ -54,6 +54,14 @@ class GaloisFieldPlayer(SuperPlayer):
         return log_table
 
     def main(self):
+        
+        self.data_str = woB.data_bits # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = woB.mode_charNumInfo_data_pad4_pad8_list
+        self.loop11101100and00010001pad_only_list = woB.loop11101100and00010001pad_only_list
+        self.rs_blocks = woB.rs_blocks
+        
+        self.error_correction_polynomial
+        
         """
         ガロア体 GF(2^8) の演算で使用するべき乗テーブルとログテーブルを設定します。
         """
