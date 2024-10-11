@@ -95,9 +95,13 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         メイン処理メソッド。
         ワールドからデータビット列をインポートし、8ビット単位に区切り、シンボル容量に満たない場合は11101100と00010001を交互に付加します。
         """
+        woT = self.one_time_world_instance.qRCodeTerminationPlayer
+        
         # Worldからデータビット列とシンボル容量を取得する仮想的なメソッド
-        bit_sequence = self.one_time_world_instance.qRCodeTerminationPlayer.data_and_last4pattern # データ + 4bitパディング
+        
+        mode_charNumInfo_data_pad4_str = woT.modeBit_and_CharacterCountBit + woT.data_and_last4pattern # 指示子 + 文字数情報 + データ + 4bitパディング
         error_correction_level = "H"  # 固定します
+        
         # Version 2のデータコード数を辞書から取得
         version_2_data = {
             'L': 34,
@@ -108,17 +112,17 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         target_data_code_words = version_2_data[error_correction_level]
 
         # 8ビットに整える
-        mode_charNumInfo_data_pad4_pad8_str, padding_bits = self.pad_to_8bit(bit_sequence)
+        mode_charNumInfo_data_pad4_pad8_str, _ = self.pad_to_8bit(mode_charNumInfo_data_pad4_str)
         
         # 8ビットごとに区切る
-        mode_charNumInfo_data_pad4_pad8_list = self.split_to_8bit_chunks(padded_bit_sequence)
+        mode_charNumInfo_data_pad4_pad8_list = self.split_to_8bit_chunks(mode_charNumInfo_data_pad4_pad8_str)
 
         # データコード数が足りない場合、11101100と00010001を交互に追加
-        loop11101100and00010001pad_only_list = self.add_fillers(bit_chunks, target_data_code_words)
+        loop11101100and00010001pad_only_list = self.add_fillers(mode_charNumInfo_data_pad4_pad8_list, target_data_code_words)
         
         """ 出力 """
-        woT = self.one_time_world_instance.qRCodeTerminationPlayer
-        self.data_bits = woT.data_bits # データのみ
+        
+        self.data_str = woT.data_bits # データのみ
         self._4pad_8pad = woT.padding_bits + padding_bits
         self.modeBit_and_CharacterCountBit = wo.modeBit_and_CharacterCountBit
         self.loop11101100and00010001pad_only_list = loop11101100and00010001pad_only_list
