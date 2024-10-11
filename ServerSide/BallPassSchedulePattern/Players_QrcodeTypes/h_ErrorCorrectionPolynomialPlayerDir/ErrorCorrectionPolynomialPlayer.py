@@ -36,11 +36,10 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
         """
         """ 初期化 """
         woB = self.one_time_world_instance.rSBlockAndPolynomialPlayer
-        self.data = wo8B.data_bits
-        self.data_4pad_8pad = woB.data_4pad_8pad
-        self.padding_48bits = woB.padding_48bits
-        self.mode_charaCount = woB.mode_charaCount
-        self.rs_blocks = woB.self.rs_blocks
+        self.data_str = wo8.data_bits # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = wo8.mode_charNumInfo_data_pad4_pad8_list
+        self.loop11101100and00010001pad_only_list = wo8.loop11101100and00010001pad_only_list
+        self.rs_blocks
         
         self.error_correction_polynomial = self.get_error_correction_polynomial()
         # self.one_time_world_instance に生成多項式を渡す
