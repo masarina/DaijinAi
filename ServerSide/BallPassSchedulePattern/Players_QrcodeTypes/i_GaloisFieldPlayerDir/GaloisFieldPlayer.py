@@ -54,11 +54,11 @@ class GaloisFieldPlayer(SuperPlayer):
         return log_table
 
     def main(self):
-        
-        self.data_str = woB.data_bits # データのみ
-        self.mode_charNumInfo_data_pad4_pad8_list = woB.mode_charNumInfo_data_pad4_pad8_list
-        self.loop11101100and00010001pad_only_list = woB.loop11101100and00010001pad_only_list
-        self.rs_blocks = woB.rs_blocks
+        woP = self.one_time_world_instance.ErrorCorrectionPolynomialPlayer
+        self.data_str = woP.data_bits # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = woP.mode_charNumInfo_data_pad4_pad8_list
+        self.loop11101100and00010001pad_only_list = woP.loop11101100and00010001pad_only_list
+        self.rs_blocks = woP.rs_blocks
         
         self.error_correction_polynomial
         
