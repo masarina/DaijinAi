@@ -6,10 +6,9 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
-        self.data = None
-        self.data_4pad_8pad = None
-        self.padding_48bits = None
-        self.mode_charaCount = None
+        self.data_str = None
+        self.mode_charNumInfo_data_pad4_pad8_list = None
+        self.loop11101100and00010001pad_only_list = None
         self.rs_blocks = None
         self.error_correction_polynomial = None
         
