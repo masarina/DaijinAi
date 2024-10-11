@@ -85,8 +85,7 @@ class GaloisFieldPlayer(SuperPlayer):
         self.mode_charNumInfo_data_pad4_pad8_list = woP.mode_charNumInfo_data_pad4_pad8_list
         self.loop11101100and00010001pad_only_list = woP.loop11101100and00010001pad_only_list
         self.rs_blocks = woP.rs_blocks
-        
-        self.error_correction_polynomial
+        self.error_correction_polynomial = woP.self.error_correction_polynomial
         
         """
         ガロア体 GF(2^8) の演算で使用する
