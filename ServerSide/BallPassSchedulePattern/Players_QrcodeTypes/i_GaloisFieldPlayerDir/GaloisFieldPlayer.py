@@ -63,8 +63,14 @@ class GaloisFieldPlayer(SuperPlayer):
         self.error_correction_polynomial
         
         """
-        ガロア体 GF(2^8) の演算で使用するべき乗テーブルとログテーブルを設定します。
+        ガロア体 GF(2^8) の演算で使用する
+        べき乗テーブルと
+        ログテーブルを
+        設定します。
         """
+        exponent_table = self.generate_exponent_table()
+        log_table = self.generate_log_table()
+        
         # self.one_time_world_instance にテーブルを渡す
         self.one_time_world_instance.galoisFieldPlayer = self  # 自身のインスタンスを登録
 
