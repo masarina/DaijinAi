@@ -99,8 +99,8 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         woT = self.one_time_world_instance.qRCodeTerminationPlayer
         self.data_4pad_8pad = bit_chunks_with_fillers
         self.data_bits = woT.data_bits # データのみ
-        self.padding_48bits = woT.padding_bits + padding_bits
-        self.mode_charaCount = wo.modeBit_and_CharacterCountBit
+        self._4pad_8pad = woT.padding_bits + padding_bits
+        self.modeBit_and_CharacterCountBit = wo.modeBit_and_CharacterCountBit
         
         
 
