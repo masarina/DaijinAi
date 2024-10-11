@@ -33,8 +33,8 @@ class GaloisFieldPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
         # ガロア体の指数テーブルと逆数テーブル（ログテーブル）を定義
-        self.galois_field_exponent_table = self.generate_exponent_table()
-        self.galois_field_log_table = self.generate_log_table()
+        self.galois_field_exponent_table = None
+        self.galois_field_log_table = None
 
     def return_my_name(self):
         return "GaloisFieldPlayer"
