@@ -68,8 +68,8 @@ class GaloisFieldPlayer(SuperPlayer):
         ログテーブルを
         設定します。
         """
-        exponent_table = self.generate_exponent_table()
-        log_table = self.generate_log_table()
+        self.exponent_table = self.generate_exponent_table()
+        self.log_table = self.generate_log_table()
         
         # self.one_time_world_instance にテーブルを渡す
         self.one_time_world_instance.galoisFieldPlayer = self  # 自身のインスタンスを登録
