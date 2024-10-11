@@ -59,6 +59,17 @@ class PolynomialDivisionPlayer(SuperPlayer):
         """
         メイン処理を行います。データコード多項式 f(x) を生成多項式 g(x) で除算し、剰余を計算します。
         """
+        
+        woF = self.one_time_world_instance.galoisFieldPlayer
+        self.data_str = woF.data_bits # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = woF.mode_charNumInfo_data_pad4_pad8_list
+        self.loop11101100and00010001pad_only_list = woF.loop11101100and00010001pad_only_list
+        self.rs_blocks = woF.rs_blocks
+        self.error_correction_polynomial = woF.error_correction_polynomial
+        self.exponent_table = woF.exponent_table
+        self.log_table = woF.log_table
+        
+        
         # 入力データとしてデータコード多項式を取得
         data = self.one_time_world_instance.get_data_polynomial()
 
