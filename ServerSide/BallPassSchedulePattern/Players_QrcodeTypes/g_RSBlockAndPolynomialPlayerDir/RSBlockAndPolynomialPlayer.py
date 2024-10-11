@@ -8,7 +8,10 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
         self.my_name = None  # プレイヤー名をNoneで初期化
         self.rs_blocks = []  # RSブロックを保持するリスト
         self.galois_field_polynomial = 0b100011101  # ガロア体GF(2⁸)の原始多項式
-
+        self.data_str = None
+        self.mode_charNumInfo_data_pad4_pad8_list = None
+        self.loop11101100and00010001pad_only_list = None
+        
         
 
     def return_my_name(self):
@@ -34,19 +37,12 @@ class RSBlockAndPolynomialPlayer(SuperPlayer):
         """
         # ワールドからデータを取得
         wo8 = self.one_time_world_instance.qRCode8BitPaddingWithFillPlayer
-        self.data_str = woT.data_bits # データのみ
-        self.mode_charNumInfo_data_pad4_pad8_list = mode_charNumInfo_data_pad4_pad8_list
-        self.loop11101100and00010001pad_only_list = loop11101100and00010001pad_only_list
+        self.data_str = wo8.data_bits # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = wo8.mode_charNumInfo_data_pad4_pad8_list
+        self.loop11101100and00010001pad_only_list = wo8.loop11101100and00010001pad_only_list
         
-        
-        
-        self.data = wo8.data_bits
-        self.data_4pad_8pad = wo8.data_4pad_8pad
-        self.padding_48bits = wo8.padding_48bits
-        self.mode_charaCount = wo8.mode_charaCount
-
         # データをRSブロックに分割
-        self.rs_blocks = self.divide_into_rs_blocks(self.data)
+        self.rs_blocks = self.divide_into_rs_blocks(self.mode_charNumInfo_data_pad4_pad8_list)
 
         # self.one_time_world_instance にRSブロックと多項式を登録
         self.one_time_world_instance.rSBlockAndPolynomialPlayer = self  # 自身のインスタンスを登録
