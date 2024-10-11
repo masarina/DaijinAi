@@ -123,8 +123,7 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         """ 出力 """
         
         self.data_str = woT.data_bits # データのみ
-        self._4pad_8pad = woT.padding_bits + padding_bits
-        self.modeBit_and_CharacterCountBit = wo.modeBit_and_CharacterCountBit
+        self.mode_charNumInfo_data_pad4_pad8_list = mode_charNumInfo_data_pad4_pad8_list
         self.loop11101100and00010001pad_only_list = loop11101100and00010001pad_only_list
         
         
