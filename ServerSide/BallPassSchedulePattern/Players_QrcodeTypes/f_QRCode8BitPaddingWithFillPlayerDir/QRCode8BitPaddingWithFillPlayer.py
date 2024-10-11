@@ -81,14 +81,14 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
     
         # データコード数が28に満たない場合、パディングバイトを交互に追加
         while len(data_bits_list2d) < target_data_code_words:
-            bit_chunks.append(fillers[index]) # カウント用
-            data_bits_list2d.append(fillers[index])
+            data_bits_list2d.append(fillers[index]) # カウント用
+            loop_pad.append(fillers[index])
             
             # バージョン2、誤り訂正レベルHでは、コードワード数が28個必要
             # 11101100 (十六進数で0xEC)と00010001 (0x11)を交互に追加
             index = (index + 1) % 2  # 交互に11101100と00010001を追加
         
-        return data_bits_list2d
+        return loop_pad
 
     def main(self):
         """
@@ -111,17 +111,17 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         padded_bit_sequence, padding_bits = self.pad_to_8bit(bit_sequence)
         
         # 8ビットごとに区切る
-        bit_chunks = self.split_to_8bit_chunks(padded_bit_sequence)
+        mode_charNumInfo_data_pad4_pad8_list2d = self.split_to_8bit_chunks(padded_bit_sequence)
 
         # データコード数が足りない場合、11101100と00010001を交互に追加
-        bit_chunks_with_fillers = self.add_fillers(bit_chunks, target_data_code_words)
+        loop_pad_only_list2d = self.add_fillers(bit_chunks, target_data_code_words)
         
         """ 出力 """
         woT = self.one_time_world_instance.qRCodeTerminationPlayer
-        self.data_4pad_8pad = bit_chunks_with_fillers
         self.data_bits = woT.data_bits # データのみ
         self._4pad_8pad = woT.padding_bits + padding_bits
         self.modeBit_and_CharacterCountBit = wo.modeBit_and_CharacterCountBit
+        self.loop_pad_only_list2d = loop_pad_only_list2d
         
         
 
