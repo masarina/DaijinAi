@@ -2,6 +2,32 @@ import os, sys
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
 
+"""ここで定義したふたつのリストは次のように使います。
+# 掛け算の場合
+
+# 仮のデータとテーブル
+values = [15, 22, 7]  # 掛け算したいデータ
+exponent_table = [1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180]  # 簡略化したべき乗テーブル
+log_table = [0, 0, 1, 25, 2, 50, 26, 198, 3, 223, 51, 238, 27, 104, 199, 75, 4, 100]  # 簡略化したログテーブル
+
+# 3つの値の掛け算を行う
+for i in range(2):  # 2回掛け算を繰り返してみる
+    a = values[i]
+    b = values[i + 1]
+
+    # ガロア体の掛け算
+    log_a = log_table[a]
+    log_b = log_table[b]
+    log_result = (log_a + log_b) % 255  # ログ同士の足し算と255での剰余
+
+    result = exponent_table[log_result]  # べき乗テーブルで戻す
+
+    print(f"掛け算結果: {a} * {b} = {result}")
+
+"""
+
+
+
 class GaloisFieldPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
