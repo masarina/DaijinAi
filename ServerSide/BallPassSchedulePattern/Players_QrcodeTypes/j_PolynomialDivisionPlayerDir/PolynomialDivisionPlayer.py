@@ -71,7 +71,8 @@ class PolynomialDivisionPlayer(SuperPlayer):
         
         
         # 入力データとしてデータコード多項式を取得
-        data = self.one_time_world_instance.get_data_polynomial()
+        data = self.mode_charNumInfo_data_pad4_pad8_list
+        data_10進数 = self.🦌(data)
 
         # 多項式の除算を実行し、出力データとして剰余を取得
         remainder = self.divide_polynomial(data)
