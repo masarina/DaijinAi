@@ -10,9 +10,28 @@ class PolynomialDivisionPlayer(SuperPlayer):
         self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
         # データコード多項式f(x)を保持するための変数
         self.data_polynomial = []
+        self.remainder = None #このメソッドの最終出力
 
     def return_my_name(self):
         return "PolynomialDivisionPlayer"
+
+    def bit_list_to_decimal_list(self, bit_list):
+        """
+        8ビットごとのビット列を10進数に変換し、256になった場合は0に置き換えます。
+        
+        Args:
+            bit_list (list): 8ビットのビット列のリスト
+        
+        Returns:
+            list: 各ビット列を10進数に変換し、256を0に置き換えたリスト
+        """
+        decimal_list = []
+        for bit_str in bit_list:
+            decimal_value = int(bit_str, 2)  # 2進数の文字列を10進数に変換
+            if decimal_value == 256:  # ガロア体では256は0になるので置き換える
+                decimal_value = 0
+            decimal_list.append(decimal_value)
+        return decimal_list
 
     def divide_polynomial(self, data_polynomial):
         """
@@ -72,13 +91,12 @@ class PolynomialDivisionPlayer(SuperPlayer):
         
         # 入力データとしてデータコード多項式を取得
         data = self.mode_charNumInfo_data_pad4_pad8_list
-        data_10進数 = self.🦌(data)
+        data_decimal = self.bit_list_to_decimal_list(data)
 
         # 多項式の除算を実行し、出力データとして剰余を取得
-        remainder = self.divide_polynomial(data)
+        self.remainder = self.divide_polynomial(data_decimal)
 
         # self.one_time_world_instance に剰余多項式を登録
         self.one_time_world_instance.polynomialDivisionPlayer = self  # 自身のインスタンスを登録
-        self.one_time_world_instance.set_remainder(remainder)  # 剰余をワールドに渡す仮想的なメソッド
 
         return "Completed"
