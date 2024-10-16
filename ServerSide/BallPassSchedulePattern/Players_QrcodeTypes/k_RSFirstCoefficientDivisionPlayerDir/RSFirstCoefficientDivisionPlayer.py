@@ -55,7 +55,19 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         その一番最初の要素のみの変換をする
         プレイヤーになります。
         """
-        # ワールドからデータを取得（仮想メソッドとして想定）
+        
+        # 前のプレイヤーから変数を取得
+        """ 入力 """
+        woP = self.one_time_world_instance.polynomialDivisionPlayer
+        self.data_str = woP.data_bits # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = woP.mode_charNumInfo_data_pad4_pad8_list
+        self.loop11101100and00010001pad_only_list = woP.loop11101100and00010001pad_only_list
+        self.rs_blocks = woP.rs_blocks
+        self.error_correction_polynomial = woP.error_correction_polynomial
+        self.exponent_table = woP.exponent_table
+        self.log_table = woP.log_table
+        self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
+        
         f_x = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
         g_x = self.one_time_world_instance.get_g_polynomial()  # 生成多項式g(x)
         alpha_exp_table = self.one_time_world_instance.galoisFieldPlayer.exponent_table  # αのべき乗テーブル
