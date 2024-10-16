@@ -7,7 +7,7 @@ class PolynomialDivisionPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # プレイヤー名をNoneで初期化
         # 生成多項式g(x)の係数リスト
-        self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
+        self.error_correction_polynomial = None
         # データコード多項式f(x)を保持するための変数
         self.data_polynomial = []
         self.remainder = None #このメソッドの最終出力
@@ -79,6 +79,7 @@ class PolynomialDivisionPlayer(SuperPlayer):
         メイン処理を行います。データコード多項式 f(x) を生成多項式 g(x) で除算し、剰余を計算します。
         """
         
+        """ 入力 """
         woF = self.one_time_world_instance.galoisFieldPlayer
         self.data_str = woF.data_bits # データのみ
         self.mode_charNumInfo_data_pad4_pad8_list = woF.mode_charNumInfo_data_pad4_pad8_list
@@ -87,6 +88,7 @@ class PolynomialDivisionPlayer(SuperPlayer):
         self.error_correction_polynomial = woF.error_correction_polynomial
         self.exponent_table = woF.exponent_table
         self.log_table = woF.log_table
+        self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
         
         
         # 入力データとしてデータコード多項式を取得
