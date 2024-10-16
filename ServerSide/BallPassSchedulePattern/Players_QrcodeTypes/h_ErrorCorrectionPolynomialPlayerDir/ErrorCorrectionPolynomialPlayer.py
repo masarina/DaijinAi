@@ -43,7 +43,7 @@ class ErrorCorrectionPolynomialPlayer(SuperPlayer):
         self.error_correction_polynomial = self.get_error_correction_polynomial()
         # self.one_time_world_instance に生成多項式を渡す
         # QRコードのリード・ソロモン符号の誤り訂正符号語の生成に使われる多項式を持たせています。
-        self.one_time_world_instance.ErrorCorrectionPolynomialPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.errorCorrectionPolynomialPlayer = self  # 自身のインスタンスを登録
 
 
         # 処理が完了したら "Completed" を返します
