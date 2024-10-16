@@ -68,7 +68,7 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         self.log_table = woP.log_table
         self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
         
-        f_x = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
+        f_x = self.one_time_world_instance.polynomialDivisionPlayer.mode_charNumInfo_data_pad4_pad8_Decimal_list  # （mode+文字数情報+データ+4bitパディング+8bitパディング のガロア基準の10進数リスト
         g_x = self.one_time_world_instance.get_g_polynomial()  # 生成多項式g(x)
         alpha_exp_table = self.one_time_world_instance.galoisFieldPlayer.exponent_table  # αのべき乗テーブル
 
