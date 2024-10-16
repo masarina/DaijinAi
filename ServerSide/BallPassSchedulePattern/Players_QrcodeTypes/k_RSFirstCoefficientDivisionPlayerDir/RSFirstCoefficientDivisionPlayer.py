@@ -78,11 +78,11 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         g_x = self.one_time_world_instance.polynomialDivisionPlayer.rs_blocks  # 生成多項式g(x)
         alpha_exp_table = self.one_time_world_instance.galoisFieldPlayer.exponent_table  # αのべき乗テーブル
 
+        """ メイン処理 """
         # f(x)の最初の係数を変換し、多項式を計算
         self.division_polynomial = self.calculate_division_polynomial(f_x, g_x, alpha_exp_table)
 
         # 結果をワールドに渡す
         self.one_time_world_instance.rSFirstCoefficientDivisionPlayer = self  # 自身のインスタンスを登録
-        self.one_time_world_instance.set_division_polynomial(self.division_polynomial)  # 計算結果を登録
 
         return "Completed"
