@@ -52,7 +52,7 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         # ワールドからデータを取得（仮想メソッドとして想定）
         f_x_first = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
         g_x_polynomial = self.one_time_world_instance.get_g_polynomial()  # 生成多項式g(x)
-        alpha_exp_table = self.one_time_world_instance.get_alpha_exponent_table()  # αのべき乗テーブル
+        alpha_exp_table = self.one_time_world_instance.galoisFieldPlayer.exponent_table  # αのべき乗テーブル
 
         # f(x)の最初の係数を変換し、多項式を計算
         self.calculate_division_polynomial(f_x_first, g_x_polynomial, alpha_exp_table)
