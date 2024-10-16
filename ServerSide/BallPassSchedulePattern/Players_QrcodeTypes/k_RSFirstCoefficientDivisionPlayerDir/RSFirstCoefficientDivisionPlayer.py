@@ -69,14 +69,14 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         self.error_correction_polynomial = self.one_time_world_instance.errorCorrectionPolynomialPlayer.error_correction_polynomial
         
         f_x = self.one_time_world_instance.polynomialDivisionPlayer.mode_charNumInfo_data_pad4_pad8_Decimal_list  # （mode+文字数情報+データ+4bitパディング+8bitパディング のガロア基準の10進数リスト
-        g_x = self.one_time_world_instance.get_g_polynomial()  # 生成多項式g(x)
+        g_x = self.one_time_world_instance.polynomialDivisionPlayer.rs_blocks  # 生成多項式g(x)
         alpha_exp_table = self.one_time_world_instance.galoisFieldPlayer.exponent_table  # αのべき乗テーブル
 
         # f(x)の最初の係数を変換し、多項式を計算
-        self.calculate_division_polynomial(f_x, g_x, alpha_exp_table)
+        self.division_polynomial = self.calculate_division_polynomial(f_x, g_x, alpha_exp_table)
 
         # 結果をワールドに渡す
-        self.one_time_world_instance.RSFirstCoefficientDivisionPlayer = self  # 自身のインスタンスを登録
+        self.one_time_world_instance.rSFirstCoefficientDivisionPlayer = self  # 自身のインスタンスを登録
         self.one_time_world_instance.set_division_polynomial(self.division_polynomial)  # 計算結果を登録
 
         return "Completed"
