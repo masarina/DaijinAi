@@ -8,7 +8,16 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         self.my_name = None  # プレイヤー名をNoneで初期化
         self.first_coefficient = None  # f(x)の最初の項の係数
         self.alpha_exponent_first = None  # 最初の係数をαのべき乗に変換
-        self.division_polynomial = []  # g(x)にα^5を掛けた多項式を格納するリスト。次のプレイヤーに渡すデータ。
+        self.division_polynomial = []  # g(x)にα^5を掛けた多項式を格納するリスト。次のプレイヤーに渡すデータ。このプレイヤーのの完成系。
+        self.data_str = None # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = None
+        self.loop11101100and00010001pad_only_list = None
+        self.rs_blocks = None
+        self.error_correction_polynomial = None
+        self.exponent_table = None
+        self.log_table = None
+        self.error_correction_polynomial = None
+        
 
     def return_my_name(self):
         return "RSFirstCoefficientDivisionPlayer"
@@ -50,10 +59,7 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         最初の項を生成多項式 g(x) で割って、
         その結果をもとに次のステップに進む
         という形で、1つずつ処理を進めていくの。
-        
-        このプレイヤーは、
-        その一番最初の要素のみの変換をする
-        プレイヤーになります。
+
         """
         
         # 前のプレイヤーから変数を取得
