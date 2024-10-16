@@ -13,25 +13,31 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
     def return_my_name(self):
         return "RSFirstCoefficientDivisionPlayer"
 
-    def calculate_division_polynomial(self, first_coefficient, g_polynomial, exponent_table):
+    def calculate_division_polynomial(self, f_coefficients, g_polynomial, exponent_table):
         """
-        f(x)の最初の項の係数をαのべき乗に変換し、g(x)に掛けた多項式を計算します。
-
+        f(x)の全ての項の係数をαのべき乗に変換し、g(x)に掛けた多項式を計算します。
+    
         Parameters:
-        first_coefficient: int - f(x)の最初の項の係数（例: 32）
-        g_polynomial: list - 生成多項式g(x)の係数リスト（例: [43, 139, 206, ...]）
+        f_coefficients: list - f(x)の全ての項の係数のリスト
+        g_polynomial: list - 生成多項式g(x)の係数リスト
         exponent_table: list - αのべき乗を参照するテーブル
-
+    
         Returns:
-        list - g(x)にαのべき乗を掛けた結果の多項式
+        list - g(x)にそれぞれのαのべき乗を掛けた結果の多項式
         """
-        # f(x)の最初の係数をαのべき乗に変換（exponent_tableを使用）
-        self.alpha_exponent_first = exponent_table[first_coefficient]
-
-        # g(x)にαのべき乗を掛けて多項式を計算
-        self.division_polynomial = [(coef + self.alpha_exponent_first) % 255 for coef in g_polynomial]
+        division_polynomial = []
         
-        return self.division_polynomial
+        # f(x)の各項に対して処理
+        for i, coef in enumerate(f_coefficients):
+            # それぞれの係数をαのべき乗に変換
+            alpha_exponent = exponent_table[coef]
+    
+            # g(x)にαのべき乗を掛けて多項式を計算
+            result = [(g_coef + alpha_exponent) % 255 for g_coef in g_polynomial]
+            
+            division_polynomial.append(result)
+        
+        return division_polynomial
 
     def main(self):
         """
@@ -50,12 +56,12 @@ class RSFirstCoefficientDivisionPlayer(SuperPlayer):
         プレイヤーになります。
         """
         # ワールドからデータを取得（仮想メソッドとして想定）
-        f_x_first = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
-        g_x_polynomial = self.one_time_world_instance.get_g_polynomial()  # 生成多項式g(x)
+        f_x = self.one_time_world_instance.get_first_coefficient()  # f(x)の最初の項
+        g_x = self.one_time_world_instance.get_g_polynomial()  # 生成多項式g(x)
         alpha_exp_table = self.one_time_world_instance.galoisFieldPlayer.exponent_table  # αのべき乗テーブル
 
         # f(x)の最初の係数を変換し、多項式を計算
-        self.calculate_division_polynomial(f_x_first, g_x_polynomial, alpha_exp_table)
+        self.calculate_division_polynomial(f_x, g_x, alpha_exp_table)
 
         # 結果をワールドに渡す
         self.one_time_world_instance.RSFirstCoefficientDivisionPlayer = self  # 自身のインスタンスを登録
