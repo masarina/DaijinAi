@@ -10,6 +10,7 @@ class PolynomialDivisionPlayer(SuperPlayer):
         self.error_correction_polynomial = None
         # データコード多項式f(x)を保持するための変数
         self.data_polynomial = []
+        self.mode_charNumInfo_data_pad4_pad8_Decimal_list = None # データの10進数(モジュロ値256(0~255))バージョン
         self.remainder = None #このメソッドの最終出力
 
     def return_my_name(self):
@@ -97,6 +98,9 @@ class PolynomialDivisionPlayer(SuperPlayer):
 
         # 多項式の除算を実行し、出力データとして剰余を取得
         self.remainder = self.divide_polynomial(data_decimal)
+
+        # 10進数バージョンも保持する。
+        self.mode_charNumInfo_data_pad4_pad8_Decimal_list = data_decimal
 
         # self.one_time_world_instance に剰余多項式を登録
         self.one_time_world_instance.polynomialDivisionPlayer = self  # 自身のインスタンスを登録
