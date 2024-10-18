@@ -10,6 +10,11 @@ class QRCode8BitPaddingWithFillPlayer(SuperPlayer):
         self.data_bits = None
         self.padding_48bits = None
         self.mode_charaCount = None
+        
+        self.data_str = None # データのみ
+        self.mode_charNumInfo_data_pad4_pad8_list = None
+        self.loop11101100and00010001pad_only_list = None
+        
     
     def return_my_name(self):
         return "QRCode8BitPaddingWithFillPlayer"
