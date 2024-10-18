@@ -6,7 +6,7 @@ class ChecksumPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # 必ずNoneで初期化
-        self.mode_charNumInfo_data_pad4_pad8_checksum_decimal_list
+        self.self.mode_charNumInfo_checksum_bitlist = None
         self.loop11101100and00010001pad_only_list = None
 
     def return_my_name(self):
@@ -43,24 +43,23 @@ class ChecksumPlayer(SuperPlayer):
         """
         
         """ 入力 """
-        self.data_str = woT.data_bits # データのみ
-        self.mode_charNumInfo_data_pad4_pad8_list = mode_charNumInfo_data_pad4_pad8_list
-        self.loop11101100and00010001pad_only_list = loop11101100and00010001pad_only_list
+        woP = self.one_time_world_instance.qRCodeBitConversionPlayer
+        self.data_str = woP.data_bits # データのみ
+        self.mode_charNumInfo_bitlist = woP.mode_and_countinfo_bit + self.data_str
         to_decimal = self.one_time_world_instance.polynomialDivisionPlayer.bit_list_to_decimal_list # to10bitメソッド
         
         """ メイン """
         # 任意のデータリスト
-        mode_charNumInfo_data_pad4_pad8_decimal_list = to_decimal(self.mode_charNumInfo_data_pad4_pad8_list)
+        mode_charNumInfo_decimallist = to_decimal(self.self.mode_charNumInfo_bitlist)
         
         # Checksumの計算
-        checksum = self.calculate_checksum(mode_charNumInfo_data_pad4_pad8_decimal_list)
+        checksum = self.calculate_checksum(mode_charNumInfo_decimallist)
         
         # Checksumをデータに追加
-        self.mode_charNumInfo_data_pad4_pad8_checksum_decimal_list = self.append_checksum(mode_charNumInfo_data_pad4_pad8_decimal_list, checksum)
+        self.mode_charNumInfo_checksum_bitlist  = self.append_checksum(self.mode_charNumInfo_bitlist , checksum)
         
         """ 出力 """
-        self.mode_charNumInfo_data_pad4_pad8_checksum_decimal_list
-        self.loop11101100and00010001pad_only_list  
+        self.mode_charNumInfo_checksum_bitlist
         
         """ プレイヤー自身を更新 """
         self.one_time_world_instance.checksumPlayer = self
