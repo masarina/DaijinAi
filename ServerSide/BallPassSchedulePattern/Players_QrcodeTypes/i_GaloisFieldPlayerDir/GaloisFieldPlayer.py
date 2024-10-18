@@ -1,3 +1,5 @@
+""" このプレイヤーは使用しません """
+
 import os, sys
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
