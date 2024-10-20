@@ -7,7 +7,6 @@ class QRCodeMapInitializerPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.version = 2  # QRコードのバージョン
         self.grid_size = 25  # QRコードのグリッドサイズ
-        self.qr_code_map = [[0 for _ in range(self.grid_size)] for _ in range(self.grid_size)]  # 2次元リストを0で初期化
         self.mode_charNumInfo_checksum_bitlist = None
 
     def return_my_name(self):
@@ -37,7 +36,6 @@ class QRCodeMapInitializerPlayer(SuperPlayer):
         self.mode_charNumInfo_checksum_bitlist # データ
         self.version # QRコードのバージョン
         self.grid_size # QRコードのグリッドサイズ
-        self.qr_code_map # 空のマップ
   
         
         # 自身を更新
