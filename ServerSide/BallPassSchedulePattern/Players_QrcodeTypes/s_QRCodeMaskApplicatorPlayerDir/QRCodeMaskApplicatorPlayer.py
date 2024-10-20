@@ -7,6 +7,13 @@ class QRCodeMaskApplicatorPlayer(SuperPlayer):  # 新しい名前！
         super().__init__()
         self.my_name = None  # 初期化は必ずNone
         self.qr_map_2Dlist = None  # QRコードの2Dリストを保持
+        self.mode_charNumInfo_checksum_bitlist = None
+        self.version = None
+        self.grid_size = None
+        self.qr_code_map = None
+        self.modified_qr_code_map = None
+        self.updated_qr_map_2Dlist = None
+        
 
     def return_my_name(self):
         return "QRCodeMaskApplicatorPlayer"  # 新しい名前！
