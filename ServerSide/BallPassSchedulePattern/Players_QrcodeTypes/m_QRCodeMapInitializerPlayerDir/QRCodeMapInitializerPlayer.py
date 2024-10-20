@@ -8,6 +8,7 @@ class QRCodeMapInitializerPlayer(SuperPlayer):
         self.version = 2  # QRコードのバージョン
         self.grid_size = 25  # QRコードのグリッドサイズ
         self.qr_code_map = [[0 for _ in range(self.grid_size)] for _ in range(self.grid_size)]  # 2次元リストを0で初期化
+        self.mode_charNumInfo_checksum_bitlist = None
 
     def return_my_name(self):
         return "QRCodeMapInitializerPlayer"
@@ -26,8 +27,18 @@ class QRCodeMapInitializerPlayer(SuperPlayer):
         更新しています。
         """
         
+        """ 入力 """
+        self.mode_charNumInfo_checksum_bitlist = self.one_time_world_instance.checksumPlayer.mode_charNumInfo_checksum_bitlist
+        
         # QRコードマップを初期化して保持
         print(f"{self.return_my_name()}が実行されました。")
+        
+        """ 出力 """
+        self.mode_charNumInfo_checksum_bitlist # データ
+        self.version # QRコードのバージョン
+        self.grid_size # QRコードのグリッドサイズ
+        self.qr_code_map # 空のマップ
+  
         
         # 自身を更新
         self.one_time_world_instance.qRCodeMapInitializerPlayer = self
