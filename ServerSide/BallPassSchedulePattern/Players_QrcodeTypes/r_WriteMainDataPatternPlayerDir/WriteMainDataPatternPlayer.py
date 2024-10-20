@@ -74,7 +74,7 @@ class WriteMainDataPatternPlayer(SuperPlayer):
         self.grid_size
         self.qr_code_map
         self.modified_qr_code_map
-        
+        self.updated_qr_map_2Dlist
         
         
         self.one_time_world_instance.writeMainDataPatternPlayer = self
