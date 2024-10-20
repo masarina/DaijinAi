@@ -47,11 +47,25 @@ class QRCodeAlignmentPatternPlayer(SuperPlayer):
         one_time_world_instanceで上書きし、
         更新しています。
         """
+        """ 入力 """
+        woP = self.one_time_world_instance.qRCodeTimingPatternPlayer
+        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
+        self.version = woP.version
+        self.grid_size = woP.grid_size
+        self.qr_code_map = woP.qr_code_map
+        
         
         # アライメントパターンを適用して、qr_code_mapに保存
         self.qr_code_map = self.fill_alignment_pattern(self.qr_code_map)
 
         print(f"{self.return_my_name()}が実行されました。")
+        
+        """ 出力 """
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size 
+        self.qr_code_map
+
 
         # 自身を更新
         self.one_time_world_instance.qRCodeAlignmentPatternPlayer = self
