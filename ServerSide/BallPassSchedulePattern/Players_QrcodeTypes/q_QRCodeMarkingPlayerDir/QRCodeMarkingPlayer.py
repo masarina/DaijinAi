@@ -9,6 +9,10 @@ class QRCodeMarkingPlayer(SuperPlayer):  # 名前を変更
         self.my_name = None  # プレイヤーの名前
         self.modified_qr_code_map = None  # 更新されたQRコードのグリッドを保存する変数
         self.marking_num = -4  # マーキングする値（今回は-4と言う数字を書き込むことにした）
+        self.mode_charNumInfo_checksum_bitlist = None
+        self.version = None
+        self.grid_size = None
+        self.qr_code_map = None
 
     def return_my_name(self):
         return "QRCodeMarkingPlayer"  # 新しい名前を返す
@@ -39,6 +43,13 @@ class QRCodeMarkingPlayer(SuperPlayer):  # 名前を変更
         このメソッド実行直前に、スーパークラスのメンバ変数
         one_time_world_instanceに最新のworldインスタンスが代入されている。
         """
+        """ 入力 """
+        woP = self.one_time_world_instance.qRCodeAlignmentPatternPlayer
+        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
+        self.version = woP.version
+        self.grid_size = woP.grid_size
+        self.qr_code_map = woP.qr_code_map
+        
         # 前のプレイヤーが生成したQRコードの2次元リストを取得
         qr_code_map = self.one_time_world_instance.qRCodeAlignmentPatternPlayer.qr_code_map
 
@@ -46,6 +57,13 @@ class QRCodeMarkingPlayer(SuperPlayer):  # 名前を変更
         self.modified_qr_code_map = self.modify_qr_code(qr_code_map)
 
         print(f"{self.return_my_name()}が実行されました。QRコードが修正されました。")
+        
+        """ 出力 """
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size
+        self.qr_code_map
+        self.self.modified_qr_code_map
 
         # 自身を更新
         self.one_time_world_instance.qRCodeMarkingPlayer = self
