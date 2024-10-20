@@ -10,6 +10,10 @@ class QRCodePositionDetectionPlayer(SuperPlayer):
         self.my_name = None  # プレイヤーの名前
         self.grid_size = 25  # QRコードのグリッドサイズ
         self.qr_code_map = None  # 位置検出パターンを格納するための変数
+        
+        self.mode_charNumInfo_checksum_bitlist = None # データ
+        self.version = None
+
 
     def return_my_name(self):
         return "QRCodePositionDetectionPlayer"
@@ -66,12 +70,17 @@ class QRCodePositionDetectionPlayer(SuperPlayer):
         self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist # データ
         self.version = woP.version # QRコードのバージョン
         self.grid_size = woP.grid_size # QRコードのグリッドサイズ
-        self.qr_code_map = woP.qr_code_map # 空のマップ
         
         # 位置検出パターンを適用して、qr_code_mapに保存
         self.qr_code_map = self.fill_position_detection_patterns()
 
         print(f"{self.return_my_name()}が実行されました。QRコードの位置検出パターンが適用されました。")
+        
+        """ 出力 """
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size
+        self.qr_code_map
 
         # 自身を更新
         self.one_time_world_instance.qRCodePositionDetectionPlayer = self
