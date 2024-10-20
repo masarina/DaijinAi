@@ -8,11 +8,24 @@ class WriteMainDataPatternPlayer(SuperPlayer):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # 必ずNoneで初期化
         self.updated_qr_map_2Dlist = None
+        self.mode_charNumInfo_checksum_bitlist = None
+        self.version = None
+        self.grid_size = None
+        self.qr_code_map = None
+        self.self.modified_qr_code_map = None
 
     def return_my_name(self):
         return "WriteMainDataPatternPlayer"
         
     def main(self):
+        """ 入力 """ 
+        woP = self.one_time_world_instance.qRCodeMarkingPlayer
+        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
+        self.version = woP.version
+        self.grid_size = woP.grid_size
+        self.qr_code_map = woP.qr_code_map
+        self.modified_qr_code_map = woP.modified_qr_code_map
+        
         # マップを取得
         qr_map_2Dlist = self.one_time_world_instance.qRCodeMarkingPlayer.modified_qr_code_map
         
@@ -54,6 +67,15 @@ class WriteMainDataPatternPlayer(SuperPlayer):
     
         # メンバ変数に保存
         self.updated_qr_map_2Dlist = maindata_2Dlist
+        
+        """ 出力 """
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size
+        self.qr_code_map
+        self.modified_qr_code_map
+        
+        
         
         self.one_time_world_instance.writeMainDataPatternPlayer = self
         
