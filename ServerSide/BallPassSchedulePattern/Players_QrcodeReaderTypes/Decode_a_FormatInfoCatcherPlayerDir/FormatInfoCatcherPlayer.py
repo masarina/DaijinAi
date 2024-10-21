@@ -1,3 +1,5 @@
+""" このプレイヤーは使用しません """
+
 import os, sys
 import numpy as np
 sys.path.append("../..")
@@ -8,6 +10,8 @@ vec ▶︎ matrix
 のコードを改造する方法で
 matrix ▶︎ vec
 を作成中(2024-09-26)
+
+▶︎ 作成しません！！！！！(2024-10-22)
 """
 
 class FormatInfoCatcherPlayer(SuperPlayer):
@@ -16,6 +20,10 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         self.my_name = None  # 初期化は必ずNone
         self.data_caught_15bit_list = None
         self.matrix = None
+        self.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist # コード部分25＊25
+
+
     
     def return_my_name(self):
         return "FormatInfoCatcherPlayer"
@@ -59,10 +67,15 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         QRコードマトリックスから、15bit情報を抜き取り
         抜き取り時、抜き取った痕跡として -10 を代入
         """
+        """ 入力 """ 
+        woP.one_time_world_instance.patternDetectionPlayer
+        self.png_file_path = woP.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist # コード部分25＊25
+
         
         """ 初期化 """
         # QRコードのマトリックスを取得
-        matrix_2Dlist = copy.deepcopy(self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist)
+        matrix_2Dlist = copy.deepcopy(self.binary_matrix_2Dlist)
         
         """ matrixからフォーマット情報を取得 """
         # 形式情報の15bit、抜き取られ後のmatrixを、を取得
@@ -75,7 +88,7 @@ class FormatInfoCatcherPlayer(SuperPlayer):
         # 自信を更新
         self.one_time_world_instance.formatInfoCatcherPlayer = self
         
-        """ 結果 """
+        """ 出力 """
         # フォーマット情報の抽出の完了
         self.data_caught_15bit_list
         
