@@ -6,14 +6,10 @@ class PatternDetectionPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
-        self.patterns_detected = False  # パターン検出結果を保持
-        self.binary_matrix_2Dlist = None
-        self.png_file_path = None
-        self.mode_charNumInfo_checksum_bitlist = None
-        self.version = None
-        self.grid_size = None
-        self.qr_code_map = None
-        self.modified_qr_code_map = None
+
+        self.png_file_path = None # 写真のパス
+        self.binary_matrix_2Dlist = None # コード部分25＊25
+
 
     def return_my_name(self):
         return "PatternDetectionPlayer"
@@ -24,14 +20,9 @@ class PatternDetectionPlayer(SuperPlayer):
         """
         """ 入力 """
         woP ＝ self.one_time_world_instance.trapezoidCorrectionPlayer
-        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist
-        self.png_file_path = woP.png_file_path
-        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
-        self.version = woP.mode_charNumInfo_checksum_bitlist
-        self.grid_size = woP.grid_size
-        self.qr_code_map = woP.qr_code_map
-        self.modified_qr_code_map = woP.modified_qr_code_map
-        
+        self.png_file_path = woP.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist # コード部分25＊25
+
         
         # TrapezoidCorrectionPlayerから25x25のマトリックスを取得
         binary_matrix = self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist
@@ -61,14 +52,13 @@ class PatternDetectionPlayer(SuperPlayer):
             if not dark_module_detected:
                 print("ダークモジュールの検出に失敗しました。")
                 
+        # 検査が終了したので戻す。(可読性の為)
+        self.binary_matrix_2Dlist = self.binary_matrix 
+        
         """ 出力 """
-        self.binary_matrix_2Dlist
-        self.png_file_path
-        self.mode_charNumInfo_checksum_bitlist
-        self.version
-        self.grid_size
-        self.qr_code_map
-        self.modified_qr_code_map
+        self.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist # コード部分25＊25
+
 
         # 自身を更新
         self.one_time_world_instance.patternDetectionPlayer = self
