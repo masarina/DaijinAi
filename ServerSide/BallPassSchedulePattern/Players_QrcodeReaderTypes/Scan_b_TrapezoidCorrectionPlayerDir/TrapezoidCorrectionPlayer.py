@@ -8,11 +8,7 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         self.my_name = None  # プレイヤー名は初期化時にNoneに設定
         self.binary_matrix_2Dlist = None  # QRコードの台形2次元リストを保持
         self.png_file_path = None
-        self.mode_charNumInfo_checksum_bitlist = None
-        self.version = None
-        self.grid_size = None
-        self.qr_code_map = None
-        self.modified_qr_code_map = None
+
 
         
 
@@ -164,15 +160,8 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
     def main(self):
         """ 入力 """
         woP.one_time_world_instance.centralSquareReaderPlayer
-        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist # # 中央の80%部分の正方形(この中にコード存在)
         self.png_file_path = png_file_path
-        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
-        self.version = woP.version
-        self.grid_size = woP.grid_size
-        self.qr_code_map = woP.qr_code_map
-        self.modified_qr_code_map = woP.modified_qr_code_map
-
-        
         
         trapezoid_image = self.one_time_world_instance.centralSquareReaderPlayer.binary_matrix_2Dlist
 
@@ -188,13 +177,8 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
 
             
         """ 出力 """
-        self.binary_matrix_2Dlist
-        self.png_file_path
-        self.mode_charNumInfo_checksum_bitlist
-        self.version
-        self.grid_size
-        self.qr_code_map
-        self.modified_qr_code_map
+        self.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist # コード部分25＊25
 
 
         # 自身を更新
