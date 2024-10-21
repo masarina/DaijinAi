@@ -3,14 +3,7 @@ class CentralSquareReaderPlayer:
         self.my_name = None  # 初期化は必ずNone
         self.binary_matrix_2Dlist = None  # QRコードの2次元リストを保持する
         self.png_file_path = None
-        
-        self.mode_charNumInfo_checksum_bitlist = None
-        self.version = None
-        self.grid_size = None
-        self.qr_code_map = None
-        self.modified_qr_code_map = None
-        self.updated_qr_map_2Dlist = None
-        
+    
         
 
     def return_my_name(self):
@@ -85,37 +78,21 @@ class CentralSquareReaderPlayer:
         QRコード画像を読み込み、binary_matrix_2Dlist にリサイズして保持。
         """
         """ 入力 """
-        woP.self.one_time_world_instance.writeMainDataPatternPlayer
-        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
-        self.version = woP.version
-        self.grid_size = woP.grid_size
-        self.qr_code_map = woP.qr_code_map
-        self.modified_qr_code_map = woP.modified_qr_code_map
-        self.updated_qr_map_2Dlist = woP.updated_qr_map_2Dlist
-        
-        
+        woP = 画像を撮影するプレイヤーインスタンス
+        self.png_file_path = woP.png_file_path # 画像を取得
         
         # ここに画像の読み込み処理 (既存の処理)
         self.read_qr_code(self.png_file_path)
 
         # 中央の80%部分の正方形を取得
         self.binary_matrix_2Dlist = self.extract_central_square()
-
-        # 結果を表示
-        print("中央部分の抽出結果（ビットデータ化のみの時点）:")
-        print(self.binary_matrix_2Dlist) 
         
         """ 出力 """
-        self.binary_matrix_2Dlist
-        self.png_file_path
-        self.mode_charNumInfo_checksum_bitlist
-        self.version
-        self.grid_size
-        self.qr_code_map
-        self.modified_qr_code_map
+        self.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist # 中央の80%部分の正方形(この中にコード存在)
 
         
-        
+        # 自信を更新
         self.one_time_world_instance.centralSquareReaderPlayer = self
 
         return "Completed"
