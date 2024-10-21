@@ -7,6 +7,7 @@ class PatternDetectionPlayer(SuperPlayer):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
 
+        self.patterns_detected
         self.png_file_path = None # 写真のパス
         self.binary_matrix_2Dlist = None # コード部分25＊25
 
