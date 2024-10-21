@@ -105,6 +105,17 @@ class CentralSquareReaderPlayer:
         print("中央部分の抽出結果（ビットデータ化のみの時点）:")
         print(self.binary_matrix_2Dlist) 
         
+        """ 出力 """
+        self.binary_matrix_2Dlist
+        self.png_file_path
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size
+        self.qr_code_map
+        self.modified_qr_code_map
+
+        
+        
         self.one_time_world_instance.centralSquareReaderPlayer = self
 
         return "Completed"
