@@ -7,6 +7,13 @@ class PatternDetectionPlayer(SuperPlayer):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
         self.patterns_detected = False  # パターン検出結果を保持
+        self.binary_matrix_2Dlist = None
+        self.png_file_path = None
+        self.mode_charNumInfo_checksum_bitlist = None
+        self.version = None
+        self.grid_size = None
+        self.qr_code_map = None
+        self.modified_qr_code_map = None
 
     def return_my_name(self):
         return "PatternDetectionPlayer"
@@ -15,6 +22,17 @@ class PatternDetectionPlayer(SuperPlayer):
         """
         25x25のバイナリマトリックスからパターンを検出します。
         """
+        """ 入力 """
+        woP ＝ self.one_time_world_instance.trapezoidCorrectionPlayer
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist
+        self.png_file_path = woP.png_file_path
+        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
+        self.version = woP.mode_charNumInfo_checksum_bitlist
+        self.grid_size = woP.grid_size
+        self.qr_code_map = woP.qr_code_map
+        self.modified_qr_code_map = woP.modified_qr_code_map
+        
+        
         # TrapezoidCorrectionPlayerから25x25のマトリックスを取得
         binary_matrix = self.one_time_world_instance.trapezoidCorrectionPlayer.binary_matrix_2Dlist
 
@@ -24,7 +42,7 @@ class PatternDetectionPlayer(SuperPlayer):
 
         # パターン検出
         position_detected = self.detect_position_patterns(binary_matrix)
-        alignment_detected = self.detect_alignment_pattern(binary_matrix)
+        #alignment_detected = self.detect_alignment_pattern(binary_matrix) # 現在不使用中
         timing_detected = self.detect_timing_patterns(binary_matrix)
         dark_module_detected = self.detect_dark_module(binary_matrix)
 
@@ -36,12 +54,21 @@ class PatternDetectionPlayer(SuperPlayer):
             print("パターンの検出に失敗しました。")
             if not position_detected:
                 print("位置検出パターンの検出に失敗しました。")
-            if not alignment_detected:
-                print("アライメントパターンの検出に失敗しました。")
+            #if not alignment_detected:
+                #print("アライメントパターンの検出に失敗しました。") #現在不使用中
             if not timing_detected:
                 print("タイミングパターンの検出に失敗しました。")
             if not dark_module_detected:
                 print("ダークモジュールの検出に失敗しました。")
+                
+        """ 出力 """
+        self.binary_matrix_2Dlist
+        self.png_file_path
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size
+        self.qr_code_map
+        self.modified_qr_code_map
 
         # 自身を更新
         self.one_time_world_instance.patternDetectionPlayer = self
