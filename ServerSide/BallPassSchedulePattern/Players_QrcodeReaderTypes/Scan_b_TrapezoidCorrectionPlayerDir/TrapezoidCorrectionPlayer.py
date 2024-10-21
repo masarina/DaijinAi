@@ -186,10 +186,16 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         # 補正された行列を25x25にリサイズ
         self.binary_matrix_2Dlist = self.resize_matrix_to_25x25(corrected_matrix)
 
-        # 補正結果を表示（デバッグ用）
-        print("Resized Matrix (25x25にリサイズされた行列):")
-        for row in self.binary_matrix_2Dlist:
-            print(row)
+            
+        """ 出力 """
+        self.binary_matrix_2Dlist
+        self.png_file_path
+        self.mode_charNumInfo_checksum_bitlist
+        self.version
+        self.grid_size
+        self.qr_code_map
+        self.modified_qr_code_map
+
 
         # 自身を更新
         self.one_time_world_instance.trapezoidCorrectionPlayer = self
