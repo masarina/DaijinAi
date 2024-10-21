@@ -9,6 +9,8 @@ class ReplacePatternPlayer(SuperPlayer):
         super().__init__()
         self.my_name = None  # 初期化は必ずNone
         self.replaced_matrix = None
+        self.png_file_path = None # 写真のパス
+        self.binary_matrix_2Dlist = None # コード部分25＊25
     
     def return_my_name(self):
         return "ReplacePatternPlayer"
@@ -41,6 +43,10 @@ class ReplacePatternPlayer(SuperPlayer):
         抽出後のmatrixを取得し、位置検出パターン、タイミングパターン、ダークモジュールを
         -11に置き換える。
         """
+        """ 入力 """
+        woP = self.one_time_world_instance.patternDetectionPlayer
+        self.png_file_path = woP.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist # コード部分25＊25
         
         """ 初期化 """
         # FormatInfoCatcherPlayerで取得したmatrixを取得
@@ -52,8 +58,9 @@ class ReplacePatternPlayer(SuperPlayer):
         # 自身を更新
         self.one_time_world_instance.replacePatternPlayer = self
         
-        """ 結果 """
-        # 置き換え後のmatrixを準備
-        self.replaced_matrix
+        """ 出力 """
+        self.replaced_matrix # 置き換え後のmatrix
+        self.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist # 置き換え前のmatrix
 
         return "Completed"
