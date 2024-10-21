@@ -7,6 +7,14 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         super().__init__()
         self.my_name = None  # プレイヤー名は初期化時にNoneに設定
         self.binary_matrix_2Dlist = None  # QRコードの台形2次元リストを保持
+        self.png_file_path = None
+        self.mode_charNumInfo_checksum_bitlist = None
+        self.version = None
+        self.grid_size = None
+        self.qr_code_map = None
+        self.modified_qr_code_map = None
+
+        
 
     def return_my_name(self):
         return "TrapezoidCorrectionPlayer"
@@ -154,6 +162,18 @@ class TrapezoidCorrectionPlayer(SuperPlayer):
         return resized_matrix
 
     def main(self):
+        """ 入力 """
+        woP.one_time_world_instance.centralSquareReaderPlayer
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist
+        self.png_file_path = png_file_path
+        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
+        self.version = woP.version
+        self.grid_size = woP.grid_size
+        self.qr_code_map = woP.qr_code_map
+        self.modified_qr_code_map = woP.modified_qr_code_map
+
+        
+        
         trapezoid_image = self.one_time_world_instance.centralSquareReaderPlayer.binary_matrix_2Dlist
 
         # 入力データの検証
