@@ -3,6 +3,15 @@ class CentralSquareReaderPlayer:
         self.my_name = None  # 初期化は必ずNone
         self.binary_matrix_2Dlist = None  # QRコードの2次元リストを保持する
         self.png_file_path = None
+        
+        self.mode_charNumInfo_checksum_bitlist = None
+        self.version = None
+        self.grid_size = None
+        self.qr_code_map = None
+        self.modified_qr_code_map = None
+        self.updated_qr_map_2Dlist = None
+        
+        
 
     def return_my_name(self):
         return "CentralSquareReaderPlayer"
@@ -75,6 +84,17 @@ class CentralSquareReaderPlayer:
         """
         QRコード画像を読み込み、binary_matrix_2Dlist にリサイズして保持。
         """
+        """ 入力 """
+        woP.self.one_time_world_instance.writeMainDataPatternPlayer
+        self.mode_charNumInfo_checksum_bitlist = woP.mode_charNumInfo_checksum_bitlist
+        self.version = woP.version
+        self.grid_size = woP.grid_size
+        self.qr_code_map = woP.qr_code_map
+        self.modified_qr_code_map = woP.modified_qr_code_map
+        self.updated_qr_map_2Dlist = woP.updated_qr_map_2Dlist
+        
+        
+        
         # ここに画像の読み込み処理 (既存の処理)
         self.read_qr_code(self.png_file_path)
 
