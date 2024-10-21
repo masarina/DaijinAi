@@ -15,6 +15,10 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
         self.new_list2d = []
+        self.replaced_matrix = None # 置き換え後のmatrix
+        self.png_file_path = None # 写真のパス
+        self.binary_matrix_2Dlist = None # 置き換え前のmatrix
+        
 
     def return_my_name(self):
         return "ColumnSplitterConcatPlayer"
@@ -68,6 +72,11 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
             新しい2次元リストとする
         出力：新しい2次元リスト
         """
+        """ 入力 """
+        woP = self.one_time_world_instance.replacePatternPlayer
+        self.replaced_matrix = woP.replaced_matrix # 置き換え後のmatrix
+        self.png_file_path = woP.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist = woP.binary_matrix_2Dlist # 置き換え前のmatrix
         
         """ 初期化 """
         # 読み込んだqr配列(読み込み禁止箇所マーキング済み)を取得
@@ -107,8 +116,11 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
             # new_list2d に追加
             self.new_list2d += onetime_list2d
 
-        # 結果を保存
-        self.new_list2d = new_list2d
+        """ 出力 """
+        self.replaced_matrix # 置き換え後のmatrix
+        self.png_file_path # 写真のパス
+        self.binary_matrix_2Dlist # 置き換え前のmatrix
+        self.new_list2d = new_list2d # データ部分をn*2のリストに変換したもの
 
         # 自身のプレイヤーの更新
         self.one_time_world_instance.columnSplitterConcatPlayer = self
