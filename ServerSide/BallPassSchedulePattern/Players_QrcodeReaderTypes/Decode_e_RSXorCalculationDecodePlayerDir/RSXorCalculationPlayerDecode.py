@@ -1,3 +1,4 @@
+""" このプレイヤーは使用しません """
 
 import os, sys
 sys.path.append("../..")
