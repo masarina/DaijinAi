@@ -76,7 +76,7 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
         """ 出力 """
         self.replaced_matrix # 置き換え後のmatrix
         self.png_file_path # 写真のパス
-        self.new_list2d = new_list2d # データ部分をn*2のリストに変換したもの
+        self.new_list2d # データ部分をn*2のリストに変換したもの
         self.data_read # データ部分を1次元リスト化したもの。
 
         # 自身を更新
