@@ -6,6 +6,12 @@ class BitDataProcessorPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()
         self.my_name = None  # 必ずNoneで初期化
+        self.replaced_matrix  # 置き換え後のmatrix
+        self.png_file_path # 写真のパス
+        self.new_list2d # データ部分をn*2のリストに変換したもの
+        self.data_read # データ部分を1次元リスト化したもの。
+        self.processed_data # 8bit事にスプリットしたデータ
+
 
     def return_my_name(self):
         return "BitDataProcessorPlayer"
@@ -38,10 +44,16 @@ class BitDataProcessorPlayer(SuperPlayer):
         bit_data = "0001011010111101010110"  # 22ビットのデータ
         
         # ビットデータを8ビットごとに変換
-        processed_data = self.process_bit_data(bit_data)
+        self.processed_data = self.process_bit_data(bit_data)
         
-        # 結果を表示
-        print(processed_data)
+
+        """ 出力 """
+        self.replaced_matrix # 置き換え後のmatrix
+        self.png_file_path # 写真のパス
+        self.new_list2d # データ部分をn*2のリストに変換したもの
+        self.data_read # データ部分を1次元リスト化したもの。
+        self.processed_data # 8bit事にスプリットしたデータ
+
 
         # 自身を更新して、return "Completed"を返す
         self.one_time_world_instance.bitDataProcessorPlayer = self
