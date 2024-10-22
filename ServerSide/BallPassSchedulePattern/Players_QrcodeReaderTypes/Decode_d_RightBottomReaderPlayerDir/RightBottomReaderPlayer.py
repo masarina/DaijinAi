@@ -1,6 +1,7 @@
 import os, sys
 sys.path.append("../..")
 from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
+
 class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもらってもOKよ！
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
