@@ -15,7 +15,7 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
     
     def flatten_list2d(self, list2d=None):
         """ 2次元リストを1次元リストにするメソッド
-        ・QRcodeに特化。shape的に(n, 2)の2次元リストに限る
+        ・shape的に(n, 2)の2次元リストに限る
         """
         
         """ 入力 """
@@ -25,18 +25,19 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
         read_list = [] # 読み込まれた1次元リスト(最終的に完成品となる)
         
         """ メイン処理 """
-        for pair in list2d:
+        # 全体を回す。
+        for pair in list2d: # 1行取る
             
             """ 右, 左の順に格納。負の数である場合は格納しないでパスする。 """
-            # 右の要素
-            if 0 > pair[1]:
-                read_list.append(pair[1])
+            # 右から見る。
+            if 0 <= pair[1]: # 0以上であれば
+                read_list.append(pair[1]) # 登録
             else:
                 pass
                 
-            # 左の要素
-            if 0 > pair[0]:
-                read_list.append(pair[0]):
+            # 次に左を見る。
+            if 0 <= pair[0]: # 0以上であれば
+                read_list.append(pair[0]) # 登録
             else:
                 pass
         
@@ -51,8 +52,8 @@ class RightBottomReaderPlayer(SuperPlayer):  # 名前はりなに決めてもら
         最新のworldインスタンスを代入しています。
         """
         
-        """ 初期化 """
-        # QRコードのマトリックスを取得
+        """ 入力 """
+        # n行2列のマトリックスを取得
         binary_matrix = self.one_time_world_instance.qrCodeCorrectionPlayer.binary_matrix_2Dlist
         
         """ メイン処理 """
