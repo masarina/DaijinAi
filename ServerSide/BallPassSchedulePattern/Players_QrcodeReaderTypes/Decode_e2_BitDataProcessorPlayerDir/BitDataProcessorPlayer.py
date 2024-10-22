@@ -10,7 +10,7 @@ class BitDataProcessorPlayer(SuperPlayer):
         self.png_file_path # 写真のパス
         self.new_list2d # データ部分をn*2のリストに変換したもの
         self.data_read # データ部分を1次元リスト化したもの。
-        self.processed_data # 8bit事にスプリットしたデータ
+        self.processed_data # 8bit毎にスプリットしたデータ
 
 
     def return_my_name(self):
@@ -34,27 +34,24 @@ class BitDataProcessorPlayer(SuperPlayer):
         """
         """ 入力 """
         woP = self.one_time_world_instance.rightBottomReaderPlayer
-        self.replaced_matrix = woP.replaced_matrix # 置き換え後のmatrix
         self.png_file_path = woP.png_file_path # 写真のパス
-        self.new_list2d = woP.new_list2d # データ部分をn*2のリストに変換したもの
         self.data_read = woP.data_read # データ部分を1次元リスト化したもの。
 
         
-        # 仮のビットデータを用意
-        bit_data = "0001011010111101010110"  # 22ビットのデータ
+        # ビットデータを用意
+        bit_data = self.data_read
         
         # ビットデータを8ビットごとに変換
         self.processed_data = self.process_bit_data(bit_data)
         
 
         """ 出力 """
-        self.replaced_matrix # 置き換え後のmatrix
         self.png_file_path # 写真のパス
-        self.new_list2d # データ部分をn*2のリストに変換したもの
         self.data_read # データ部分を1次元リスト化したもの。
         self.processed_data # 8bit事にスプリットしたデータ
 
 
         # 自身を更新して、return "Completed"を返す
         self.one_time_world_instance.bitDataProcessorPlayer = self
+        
         return "Completed"
