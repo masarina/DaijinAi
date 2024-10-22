@@ -80,14 +80,17 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         
         """ 初期化 """
         # 読み込んだqr配列(読み込み禁止箇所マーキング済み)を取得
-        matrix = self.one_time_world_instance.replacePatternPlayer.replaced_matrix.tolist()
+        matrix = self.replaced_matrix.tolist()
         self.new_list2d # 最終的に完成品となるもの
         col_point = -1
-        loop_point = len(list2d[0] // 2) # 処理回数を計算。今回はマトリックスの右側2列ごとに処理するため、(全体の行数 * 1/2)回とする
+
+        # 列数が奇数の場合
         is_last_col_bool = 1 == (len(list2d[0]) % 2) # マトリックスの列数が奇数だった場合True
-        
-        # マトリックスの列数が奇数の場合1番左の行の処理ができないので、1番左に列をひとつ追加。
-        matrix = self.add_column_with_negative_13_to_the_left(matrix) # 追加する列の各セルには-13を入れておく。
+        if is_last_col_bool:
+          # 列数が奇数の場合、1番左の行の処理ができないので、1番左に列をひとつ追加
+          matrix = self.add_column_with_negative_13_to_the_left(matrix) # 追加する列の各セルには-13を入れておく。
+          
+        loop_point = len(matrix[0] // 2) # 処理回数を計算。今回はマトリックスの右側2列ごとに処理するため、(全体の行数 * 1/2)回とする
         
         """ メイン処理 """
         # 列数の半分の回数、ループ処理
@@ -95,7 +98,7 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
           
           # 後ろ2列を取得
           onetime_list2d =[] # 一時的リスト
-          for i in range(len(list2d)): # 行数分ループ
+          for i in range(len(matrix)): # 行数分ループ
           
             # 1行をとる
             line = list2d[i]
@@ -105,17 +108,24 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
             
             # 一時的リストに追加
             onetime_list2d += [pair] # [[0, 1]] (appendと異なり、ひとつカッコが消滅するので…)
+          
+          """
+          [...[2,3],...[5,6],...[8,9]]
+          ↓
+          [[2,3],[5,6],[8,9]] (▶︎ onetime_list2d)
+          """
         
-            # col_point を進める
-            col_point += -2 # 後ろから2列ずつずらして読み込むので。
+          # col_point を進める
+          col_point += -2 # 後ろから2列ずつずらして読み込むので。
+          
+          # 2回に1回、行を反転させる
+          if 0 == (j % 2): # 偶数で反転
+            onetime_list2d = self.list2d_to_reverseRow(copy.deepcopy(onetime_list2d))
             
-            # 2回に1回、行を反転させる
-            if 0 == (j % 2): # 偶数で反転
-              onetime_list2d = self.list2d_to_reverseRow(copy.deepcopy(onetime_list2d))
-              
-            # new_list2d に追加
-            self.new_list2d += onetime_list2d
-
+          # new_list2d に追加
+          self.new_list2d += onetime_list2d
+        
+        
         """ 出力 """
         self.replaced_matrix # 置き換え後のmatrix
         self.png_file_path # 写真のパス
