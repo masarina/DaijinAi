@@ -48,7 +48,7 @@ class BitDataProcessorPlayer(SuperPlayer):
         """ 出力 """
         self.png_file_path # 写真のパス
         self.data_read # データ部分を1次元リスト化したもの。
-        self.processed_data # 8bit事にスプリットしたデータ
+        self.processed_data # 8bit毎にスプリットしたデータ
 
 
         # 自身を更新して、return "Completed"を返す
