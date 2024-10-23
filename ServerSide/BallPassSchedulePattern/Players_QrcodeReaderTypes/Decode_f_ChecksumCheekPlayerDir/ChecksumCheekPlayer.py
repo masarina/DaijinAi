@@ -15,13 +15,25 @@ class ChecksumCheekPlayer(SuperPlayer):
         このメソッド実行直前に、
         one_time_world_instanceに、最新のworldインスタンスを代入しています。
         """
-        # プレイヤーのメインロジックを書く場所
-        print(f"{self.return_my_name()}が実行されました。")
-
-        # チェックサムを計算する処理を想定
-        data_to_check = self.one_time_world_instance.allDataPlayer.data_to_check
-        checksum = self.calculate_checksum(data_to_check)
-        print(f"チェックサム: {checksum}")
+        """ 入力 """
+        woP = self.one_time_world_instance.bitDataProcessorPlayer
+        self.png_file_path = woP.png_file_path # 写真のパス
+        self.processed_data = woP.processed_data # 8bit毎にスプリットしたデータ
+        self.encode_time_check_code = self.processed_data.pop() # encode時のチェックサムを取り除く。
+        woC = self.one_time_world_instance.checksumPlayer
+        
+        
+        """ メイン """
+        # 任意のデータリスト
+        mode_charNumInfo_decimallist = woC.to_decimal(self.processed_data)     
+          
+        # Checksumの計算
+        decode_time_checksum = woC.calculate_checksum(mode_charNumInfo_decimallist)
+        
+        # チェックサムが正しいか確認
+        if encode_time_checksum != decode_time_checksum:
+            # もしチェックサムが正しくない場合、commonプレイヤー以外の実行を拒むフラグを立てる。
+            # ↪︎ KBprojectの方で実装したので、その方法をここでも使用しよう。
 
         # 自身のインスタンスを更新
         self.one_time_world_instance.checksumCheekPlayer = self
