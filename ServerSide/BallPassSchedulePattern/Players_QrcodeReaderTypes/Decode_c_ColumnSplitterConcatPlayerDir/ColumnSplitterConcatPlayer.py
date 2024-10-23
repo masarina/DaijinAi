@@ -93,15 +93,27 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
         loop_point = len(matrix[0] // 2) # 処理回数を計算。今回はマトリックスの右側2列ごとに処理するため、(全体の行数 * 1/2)回とする
         
         """ メイン処理 """
+        
         # 列数の半分の回数、ループ処理
         for j in range(loop_point): # 列数の半分の数だけループ
+          # 列を算出する
           
+          
+          row_num = len(matrix) # 行数
           # 後ろ2列を取得
           onetime_list2d =[] # 一時的リスト
-          for i in range(len(matrix)): # 行数分ループ
+          
+          """ 2列を次のようにする。
+          [...[2,3],...[5,6],...[8,9]]
+          ↓
+          [[8,9],[5,6],[2,3]] (▶︎ onetime_list2d)
+          """
+          for i in range(row_num): # 行数分ループ
+            # インデックスを算出
+            row_index = row_num - i
           
             # 1行をとる
-            line = list2d[i]
+            line = list2d[row_index] # 下から順に…
             
             # 2列部分にあたる箇所を取得
             pair = [line[col_point - 1], line[col_point]]
@@ -109,21 +121,17 @@ class ColumnSplitterConcatPlayer(SuperPlayer):
             # 一時的リストに追加
             onetime_list2d += [pair] # [[0, 1]] (appendと異なり、ひとつカッコが消滅するので…)
           
-          """
-          [...[2,3],...[5,6],...[8,9]]
-          ↓
-          [[2,3],[5,6],[8,9]] (▶︎ onetime_list2d)
-          """
+      
         
           # col_point を進める
           col_point += -2 # 後ろから2列ずつずらして読み込むので。
           
           # 2回に1回、行を反転させる
-          if 0 == (j % 2): # 偶数で反転
+          if 0 == (col_point % 2): # 偶数で反転
             onetime_list2d = self.list2d_to_reverseRow(copy.deepcopy(onetime_list2d))
             
-          # new_list2d に追加
-          self.new_list2d += onetime_list2d
+          # new_list2d の先頭に追加
+          self.new_list2d = onetime_list2d + self.new_list2d
         
         
         """ 出力 """
