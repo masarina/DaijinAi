@@ -6,7 +6,11 @@ class ChecksumCheekPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # 必ずNoneで初期化
-
+        self.png_file_path = None # 写真のパス
+        self.processed_data = None # 8bit毎にスプリットしたデータ
+        encode_time_check_code = None # encode時のチェックサム
+        
+        
     def return_my_name(self):
         return "ChecksumCheekPlayer"
 
@@ -19,7 +23,7 @@ class ChecksumCheekPlayer(SuperPlayer):
         woP = self.one_time_world_instance.bitDataProcessorPlayer
         self.png_file_path = woP.png_file_path # 写真のパス
         self.processed_data = woP.processed_data # 8bit毎にスプリットしたデータ
-        self.encode_time_check_code = self.processed_data.pop() # encode時のチェックサムを取り除く。
+        encode_time_check_code = self.processed_data.pop() # encode時のチェックサムを取り除く。
         woC = self.one_time_world_instance.checksumPlayer
         
         
@@ -34,20 +38,12 @@ class ChecksumCheekPlayer(SuperPlayer):
         if encode_time_checksum != decode_time_checksum:
             # もしチェックサムが正しくない場合、commonプレイヤー以外の実行を拒むフラグを立てる。
             # ↪︎ KBprojectの方で実装したので、その方法をここでも使用しよう。
+            
+        """ 出力 """
+        self.png_file_path # 写真のパス
+        self.processed_data # 8bit毎にスプリットしたデータ
 
         # 自身のインスタンスを更新
         self.one_time_world_instance.checksumCheekPlayer = self
 
         return "Completed"
-
-    def calculate_checksum(self, data):
-        """
-        チェックサムを計算するメソッド。dataはリストや文字列などのデータ。
-        """
-        if isinstance(data, str):
-            return sum(ord(char) for char in data)
-        elif isinstance(data, list):
-            return sum(data)
-        else:
-            return 0
-            
