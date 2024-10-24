@@ -25,28 +25,33 @@ class SpiritBitDataPlayer(SuperPlayer):
         flat_str = ''.join(map(str, numbers))
         return flat_str
         
-    def charNumInfo_catcher(self, mode, str_bit):
+    def charNumInfo_catcher(self, mode=None, str_bit=None):
         if mode == "0001": # 数字モードの場合、10bit
-            binary_str = str_bit[5:16] 
+            firstDatas_point = 16
+            binary_str = str_bit[5:firstDatas_point] 
             decimal_number = int(binary_str, 2)
             
         elif mode == "0010": # 英数字モードの場合、9bit
-            binary_str = str_bit[5:15] 
+            firstDatas_point = 15
+            binary_str = str_bit[5:firstDatas_point] 
             decimal_number = int(binary_str, 2)
             
         elif mode == "0100": # 8bitバイトモードの場合、8bit
-            binary_str = str_bit[5:14] 
+            firstDatas_point = 16 4
+            binary_str = str_bit[5:firstDatas_point] 
             decimal_number = int(binary_str, 2)
         
         elif mode == "1000": # 漢字モードの場合、8bit
-            binary_str = str_bit[5:14] 
+            firstDatas_point = 14
+            binary_str = str_bit[5:firstDatas_point] 
             decimal_number = int(binary_str, 2)
             
         else:
             print(f"モードが正しく読み込めませんでした。mode▶︎{mode}")
             exit(1)
         
-        return decimal_number
+        
+        return decimal_number, firstDatas_point
             
 
     def main(self):
@@ -69,10 +74,11 @@ class SpiritBitDataPlayer(SuperPlayer):
         self.mode = mode_charNumInfo_data_flattenBit[0:5]
         
         # 文字数情報の摘出
-        # 文字数情報を取得するメソッド
-        # 2進数を10進数にもどすメソッド
-        charNumInfo = mode_charNumInfo_data_flattenBit[5:]
-        
+        self.charNumInfo_decimal, firstDatas_point = charNumInfo_catcher(
+                                        mode=self.mode,
+                                        str_bit=mode_charNumInfo_data_flattenBit,
+                                    )
+                    
         # データの摘出
 
         # プレイヤー自身を更新
