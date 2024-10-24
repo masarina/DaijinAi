@@ -24,6 +24,28 @@ class SpiritBitDataPlayer(SuperPlayer):
         # 数字を文字列に変換して結合する
         flat_str = ''.join(map(str, numbers))
         return flat_str
+        
+    def charNumInfo_catcher(self, mode, str_bit):
+        if mode == "0001": # 数字モードの場合、10bit
+            binary_str = str_bit[5:16] 
+            decimal_number = int(binary_str, 2)
+            
+        elif mode == "0010": # 英数字モードの場合、9bit
+            binary_str = str_bit[5:15] 
+            decimal_number = int(binary_str, 2)
+            
+        elif mode == "0100": # 8bitバイトモードの場合、8bit
+            binary_str = str_bit[5:14] 
+            decimal_number = int(binary_str, 2)
+        
+        elif mode == "1000": # 漢字モードの場合、8bit
+            binary_str = str_bit[5:14] 
+            decimal_number = int(binary_str, 2)
+            
+        else:
+            print(f"モードが正しく読み込めませんでした。mode▶︎{mode}")
+            exit(1)
+            
 
     def main(self):
         """
@@ -39,12 +61,14 @@ class SpiritBitDataPlayer(SuperPlayer):
         
         """ メイン """
         # 8bitデータを1次元的にし、さらにbit文字列に変換する。
-        mode_charNumInfo_data_flattenBit = flatten_numbers_and_to_str
+        mode_charNumInfo_data_flattenBit = flatten_numbers_and_to_str(self.processed_data)
         
         # modeの摘出
         self.mode = mode_charNumInfo_data_flattenBit[0:5]
         
         # 文字数情報の摘出
+        # 文字数情報を取得するメソッド
+        # 2進数を10進数にもどすメソッド
         charNumInfo = mode_charNumInfo_data_flattenBit[5:]
         
         # データの摘出
