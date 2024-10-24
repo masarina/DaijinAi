@@ -29,6 +29,8 @@ class SpiritBitDataPlayer(SuperPlayer):
         self.processed_data = woP.processed_data # 8bit毎にスプリットしたデータ
         
         """ メイン """
+        # 8bitデータを1次元的にし、さらにbit文字列に変換する。
+        
         # modeの摘出
         
         # 文字数情報の摘出
