@@ -16,6 +16,15 @@ class SpiritBitDataPlayer(SuperPlayer):
     def return_my_name(self):
         return "SpiritBitDataPlayer"
 
+    def flatten_numbers_and_to_str(self,numbers):
+        """
+        数字のリストをフラットにして一つの文字列にするメソッド。
+        例: [222, 33, 55] -> 2223355
+        """
+        # 数字を文字列に変換して結合する
+        flat_str = ''.join(map(str, numbers))
+        return flat_str
+
     def main(self):
         """
         このメソッド実行直前に、最新のworldインスタンスを
@@ -30,10 +39,13 @@ class SpiritBitDataPlayer(SuperPlayer):
         
         """ メイン """
         # 8bitデータを1次元的にし、さらにbit文字列に変換する。
+        mode_charNumInfo_data_flattenBit = flatten_numbers_and_to_str
         
         # modeの摘出
+        self.mode = mode_charNumInfo_data_flattenBit[0:5]
         
         # 文字数情報の摘出
+        charNumInfo = mode_charNumInfo_data_flattenBit[5:]
         
         # データの摘出
 
