@@ -45,6 +45,8 @@ class SpiritBitDataPlayer(SuperPlayer):
         else:
             print(f"モードが正しく読み込めませんでした。mode▶︎{mode}")
             exit(1)
+        
+        return decimal_number
             
 
     def main(self):
