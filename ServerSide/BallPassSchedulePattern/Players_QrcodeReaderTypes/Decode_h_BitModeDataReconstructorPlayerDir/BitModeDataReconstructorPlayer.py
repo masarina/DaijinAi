@@ -14,6 +14,11 @@ class BitModeDataReconstructorPlayer(SuperPlayer):
         """ 
         modeに応じたデータ復元を行う
         """
+        """ 入力 """
+        woP = self.one_time_world_instance.spiritBitDataPlayer
+        self.mode = woP.mode
+        self.charNumInfo_decimal = woP.charNumInfo_decimal
+        self.data = woP.data
 
         # 8bitデータをフラットなビット文字列に変換
         mode_charNumInfo_data_flattenBit = flatten_numbers_and_to_str(self.processed_data)
