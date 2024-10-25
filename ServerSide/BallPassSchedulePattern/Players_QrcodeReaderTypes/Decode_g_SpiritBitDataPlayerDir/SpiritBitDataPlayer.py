@@ -56,10 +56,9 @@ class SpiritBitDataPlayer(SuperPlayer):
 
     def main(self):
         """
-        このメソッド実行直前に、最新のworldインスタンスを
-        one_time_world_instanceに代入しています。
-        
-        このプレイヤーはSpiritBitに関連するデータを操作する予定です。
+        二次元コードから読み込んだビット配列を
+        モード、文字数情報、データ
+        の3つ2分けるプレイヤーです。
         """
         """ 入力 """
         woP = self.one_time_world_instance.checksumCheekPlayer
@@ -78,8 +77,8 @@ class SpiritBitDataPlayer(SuperPlayer):
                                         mode=self.mode,
                                         str_bit=mode_charNumInfo_data_flattenBit,
                                     )
-                    
-        # データの摘出
+        # データ部分の抽出
+        self.data = mode_charNumInfo_data_flattenBit[firstDatas_point:]
 
         # プレイヤー自身を更新
         self.one_time_world_instance.spiritBitDataPlayer = self
