@@ -6,6 +6,9 @@ class BitModeDataReconstructorPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # イニシャライザでself.my_nameをNoneで初期化する
+        self.mode = None
+        self.charNumInfo_decimal = None
+        self.data = None
 
     def return_my_name(self):
         return "BitModeDataReconstructorPlayer"
@@ -28,6 +31,10 @@ class BitModeDataReconstructorPlayer(SuperPlayer):
                     bit_string += f"{int(chunk):07b}"   # 2桁→7ビット
                 elif len(chunk) == 1:
                     bit_string += f"{int(chunk):04b}"   # 1桁→4ビット
+        
+        elif == "0001": # 英数字の場合
+            # 未設定
+            pass
         
         
         return bit_string
@@ -55,6 +62,7 @@ class BitModeDataReconstructorPlayer(SuperPlayer):
             # 一致しなかった場合、以降commonプレイヤー以外実行しなくするフラグを立てる
         
         """ 出力 """
+        self.reconstructed_data # 読み込んだデータの完成
         
         # 自身のプレイヤー情報を更新
         self.one_time_world_instance.bitModeDataReconstructorPlayer = self
