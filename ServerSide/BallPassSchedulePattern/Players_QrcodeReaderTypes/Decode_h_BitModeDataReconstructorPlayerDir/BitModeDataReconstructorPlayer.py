@@ -9,6 +9,10 @@ class BitModeDataReconstructorPlayer(SuperPlayer):
 
     def return_my_name(self):
         return "BitModeDataReconstructorPlayer"
+        
+    def reconstruct_data(self):
+        if mode == "0001": # 数字の場合
+            
 
     def main(self):
         """ 
@@ -20,24 +24,15 @@ class BitModeDataReconstructorPlayer(SuperPlayer):
         self.charNumInfo_decimal = woP.charNumInfo_decimal
         self.data = woP.data
 
-        # 8bitデータをフラットなビット文字列に変換
-        mode_charNumInfo_data_flattenBit = flatten_numbers_and_to_str(self.processed_data)
-        
-        # モードを摘出
-        self.mode = mode_charNumInfo_data_flattenBit[0:5]
-
-        # 文字数情報の摘出とデータの最初のインデックス取得
-        self.charNumInfo_decimal, firstDatas_point = charNumInfo_catcher(
-            mode=self.mode,
-            str_bit=mode_charNumInfo_data_flattenBit,
-        )
-
+        """メイン  """
         # データの復元処理 (具体的な復元処理をここに実装)
         self.reconstructed_data = reconstruct_data(
             mode=self.mode,
-            data=mode_charNumInfo_data_flattenBit[firstDatas_point:],
+            data=data,
             char_count=self.charNumInfo_decimal
         )
+        
+        """ 出力 """
         
         # 自身のプレイヤー情報を更新
         self.one_time_world_instance.bitModeDataReconstructorPlayer = self
