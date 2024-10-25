@@ -12,6 +12,7 @@ class SpiritBitDataPlayer(SuperPlayer):
         self.mode = None
         self.charNum_info = None
         self.data = None
+        self.charNumInfo_decimal
 
     def return_my_name(self):
         return "SpiritBitDataPlayer"
