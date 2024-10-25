@@ -77,8 +77,14 @@ class SpiritBitDataPlayer(SuperPlayer):
                                         mode=self.mode,
                                         str_bit=mode_charNumInfo_data_flattenBit,
                                     )
+                                    
         # データ部分の抽出
         self.data = mode_charNumInfo_data_flattenBit[firstDatas_point:]
+        
+        """ 出力 """
+        self.mode
+        self.charNumInfo_decimal
+        self.data
 
         # プレイヤー自身を更新
         self.one_time_world_instance.spiritBitDataPlayer = self
