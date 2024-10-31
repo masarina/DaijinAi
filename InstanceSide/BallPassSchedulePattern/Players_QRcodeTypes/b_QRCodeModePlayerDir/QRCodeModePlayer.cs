@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class QRCodeModePlayer : SuperPlayer
 {
-    private string modeIndicator = null;  // モード指示子を保持する変数
+    private string modeIndicator;
 
-    private void Start()
+    // 初期化メソッド
+    public bool QRCodeModePlayerReset()
     {
-        // プレイヤーの名前を初期化
-        this.myName = null;
+        myName = "QRCodeModePlayer";
+        modeIndicator = null;  // モード指示子を初期化
+        return true;
     }
 
     public override string ReturnMyName()
@@ -19,45 +21,41 @@ public class QRCodeModePlayer : SuperPlayer
     public void SetMode(string modeType)
     {
         /*
-         * モードタイプを受け取って、それに応じたモード指示子を設定する。
+         * モードタイプを受け取って、それに応じたモード指示子を設定する。
          * modeType: "numeric", "alphanumeric", "byte", "kanji"
          */
-        switch (modeType)
+        if (modeType == "numeric")
         {
-            case "numeric":
-                modeIndicator = "0001";
-                break;
-            case "alphanumeric":
-                modeIndicator = "0010";
-                break;
-            case "byte":
-                modeIndicator = "0100";
-                break;
-            case "kanji":
-                modeIndicator = "1000";
-                break;
-            default:
-                Debug.LogError("Invalid modeType. Choose from: numeric, alphanumeric, byte, kanji.");
-                break;
+            modeIndicator = "0001";
+        }
+        else if (modeType == "alphanumeric")
+        {
+            modeIndicator = "0010";
+        }
+        else if (modeType == "byte")
+        {
+            modeIndicator = "0100";
+        }
+        else if (modeType == "kanji")
+        {
+            modeIndicator = "1000";
+        }
+        else
+        {
+            Debug.LogError("Invalid modeType. Choose from: numeric, alphanumeric, byte, kanji.");
         }
     }
 
     public override string ExecuteMain()
     {
-        Debug.Log("\n==== QRCodeModePlayer ExecuteMain ==============================");
-
-        // モードが設定されているか確認
-        if (modeIndicator == null)
+        // 初期化された `modeIndicator` をチェックし、セットされていなければエラーを出力
+        if (string.IsNullOrEmpty(modeIndicator))
         {
-            Debug.LogError("Mode indicator is not set. Please call SetMode before executing ExecuteMain.");
-            return "Failed";
+            Debug.LogError("Mode indicator is not set. Please call SetMode before executing main.");
+            return "Error";
         }
 
-        // QRCodeModePlayerのインスタンスをworldに登録
-        world.qRCodeModePlayer = this;
-
-        Debug.Log($"Mode Indicator: {modeIndicator}");
-        Debug.Log("\n==== QRCodeModePlayer ExecuteMain (END) ==============================\n");
+        Debug.Log($"{ReturnMyName()}が実行されました。モード指示子: {modeIndicator}");
 
         return "Completed";
     }
