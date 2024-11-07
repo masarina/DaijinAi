@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class QRCodeModePlayer : SuperPlayer
 {
-    private string modeIndicator;
+    private string modeIndicator; // モード指示子を保持する変数
 
-    // 初期化メソッド
     public bool QRCodeModePlayerReset()
     {
         myName = "QRCodeModePlayer";
-        modeIndicator = null;  // モード指示子を初期化
+        modeIndicator = null; // 初期化時にモード指示子をnullに設定
+
         return true;
     }
 
@@ -21,7 +21,7 @@ public class QRCodeModePlayer : SuperPlayer
     public void SetMode(string modeType)
     {
         /*
-         * モードタイプを受け取って、それに応じたモード指示子を設定する。
+         * モードタイプを受け取って、それに応じたモード指示子を設定する
          * modeType: "numeric", "alphanumeric", "byte", "kanji"
          */
         if (modeType == "numeric")
@@ -48,14 +48,22 @@ public class QRCodeModePlayer : SuperPlayer
 
     public override string ExecuteMain()
     {
-        // 初期化された `modeIndicator` をチェックし、セットされていなければエラーを出力
-        if (string.IsNullOrEmpty(modeIndicator))
+        /*
+         * メインの処理: QRコードのモード指示子を設定して、次のプロセスに渡す準備をする
+         */
+
+        // モード設定を行う
+        SetMode(world.initFromQrcodePlayer.mode);
+
+        // モード指示子が設定されているか確認
+        if (modeIndicator == null)
         {
             Debug.LogError("Mode indicator is not set. Please call SetMode before executing main.");
             return "Error";
         }
 
-        Debug.Log($"{ReturnMyName()}が実行されました。モード指示子: {modeIndicator}");
+        // world インスタンスにモード情報を渡す
+        world.qRCodeModePlayer = this; // 自身のインスタンスを world に登録
 
         return "Completed";
     }
