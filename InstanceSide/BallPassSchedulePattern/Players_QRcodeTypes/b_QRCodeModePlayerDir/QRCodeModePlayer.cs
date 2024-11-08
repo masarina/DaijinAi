@@ -4,7 +4,8 @@ using UnityEngine;
 public class QRCodeModePlayer : SuperPlayer
 {
     public PreviousPlayer previousPlayer; // アタッチ
-    public string modeIndicator; // モード指示子を保持する変数
+    public string ModeStr;
+    public string ModeBitStr; // モード指示子を保持する変数
 
     public bool QRCodeModePlayerReset()
     {
@@ -54,17 +55,8 @@ public class QRCodeModePlayer : SuperPlayer
          */
 
         // モード設定を行う
-        public string mode = previousPlayer.mode;
-
-        // モード指示子が設定されているか確認
-        if (modeIndicator == null)
-        {
-            Debug.LogError("Mode indicator is not set. Please call SetMode before executing main.");
-            return "Error";
-        }
-
-        // world インスタンスにモード情報を渡す
-        world.qRCodeModePlayer = this; // 自身のインスタンスを world に登録
+        this.ModeStr = previousPlayer.mode;
+        this.ModeBitStr = this.Setmode(this.ModeStr);
 
         return "Completed";
     }
