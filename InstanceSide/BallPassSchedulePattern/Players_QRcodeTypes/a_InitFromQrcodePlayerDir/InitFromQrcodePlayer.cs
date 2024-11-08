@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class InitFromQrcodePlayer : SuperPlayer
 {
-    private int data;
-    private string mode;
+    public int data;
+    public string mode;
 
     // 初期化メソッド
     public bool InitFromQrcodePlayerReset()
