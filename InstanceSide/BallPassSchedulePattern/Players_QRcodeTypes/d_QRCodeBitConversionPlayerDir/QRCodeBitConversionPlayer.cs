@@ -7,6 +7,8 @@ public class QRCodeBitConversionPlayer : SuperPlayer
     public string modeIndicator;
     public string dataBits;
     public string modeAndCountInfoBit;
+    public QRCodeCharacterCountPlayer qRCodeCharacterCountPlayer;
+    public InitFromQrcodePlayer initFromQrcodePlayer;
 
     public override string ReturnMyName()
     {
@@ -78,8 +80,8 @@ public class QRCodeBitConversionPlayer : SuperPlayer
     public override string ExecuteMain()
     {
         // データとモードの取得
-        string data = oneTimeWorldInstance.initFromQrcodePlayer.data;
-        string mode = oneTimeWorldInstance.initFromQrcodePlayer.mode;
+        string data = this.initFromQrcodePlayer.data;
+        string mode = this.initFromQrcodePlayer.mode;
 
         // モードに応じたビット変換
         if (mode == "numeric")
@@ -101,10 +103,7 @@ public class QRCodeBitConversionPlayer : SuperPlayer
         }
 
         // モードと文字数情報のビットを設定
-        modeAndCountInfoBit = oneTimeWorldInstance.qRCodeCharacterCountPlayer.output_bits;
-
-        // ワールドに自身のインスタンスを反映
-        oneTimeWorldInstance.qRCodeBitConversionPlayer = this;
+        modeAndCountInfoBit = this.qRCodeCharacterCountPlayer.output_bits;
 
         return "Completed";
     }
