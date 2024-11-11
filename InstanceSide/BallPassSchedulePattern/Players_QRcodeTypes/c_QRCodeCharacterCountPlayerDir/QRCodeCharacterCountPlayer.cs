@@ -6,7 +6,8 @@ public class QRCodeCharacterCountPlayer : SuperPlayer
     public string modeIndicator; // モード指示子を保持
     public int charCount; // 文字数を保持する変数
     public string outputBits; // ビット列の出力を保持する変数
-
+    public OneTimeWorldInstance oneTimeWorldInstance
+;
     // 初期化メソッド (Pythonの__init__に相当)
     public bool QRCodeCharacterCountPlayerReset()
     {
