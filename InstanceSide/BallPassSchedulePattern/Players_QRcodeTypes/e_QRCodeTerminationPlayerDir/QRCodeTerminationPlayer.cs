@@ -63,7 +63,7 @@ public class QRCodeTerminationPlayer : SuperPlayer
         dataAndLast4Pattern = AddTerminationPattern(dataBits, symbolCapacity);
 
         // 結果をワールドに反映
-        this.oneTimeWorldInstance.qRCodeTerminationPlayer = this;
+
 
         return "Completed";
     }
