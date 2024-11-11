@@ -3,56 +3,57 @@ using UnityEngine;
 
 public class QRCodeCharacterCountPlayer : SuperPlayer
 {
-    private string characterCountBits; // 文字数ビット表記を格納する変数
+    public string modeIndicator; // モード指示子を保持
+    public int charCount; // 文字数を保持する変数
+    public string outputBits; // ビット列の出力を保持する変数
 
-    // 初期化メソッド
+    // 初期化メソッド (Pythonの__init__に相当)
     public bool QRCodeCharacterCountPlayerReset()
     {
         myName = "QRCodeCharacterCountPlayer";
-        characterCountBits = null; // 初期化
+        modeIndicator = null;
+        outputBits = null;
         return true;
     }
 
+    // プレイヤーの名前を返すメソッド
     public override string ReturnMyName()
     {
         return "QRCodeCharacterCountPlayer";
     }
 
+    // 指定された文字数のビット数を計算するメソッド
     public string CalculateBitCount(int charCount, string modeIndicator)
     {
-        string bitCount = "";
-
-        // モードに基づいてビット数を計算
-        if (modeIndicator == "0001") // 数字モード
+        // modeIndicatorに基づいてビット数を設定
+        switch (modeIndicator)
         {
-            bitCount = Convert.ToString(charCount, 2).PadLeft(10, '0'); // 10bit
+            case "0001": // 数字モード
+                return Convert.ToString(charCount, 2).PadLeft(10, '0'); // 10bit
+            case "0010": // 英数字モード
+                return Convert.ToString(charCount, 2).PadLeft(9, '0'); // 9bit
+            case "0100": // 8bitバイトモード
+                return Convert.ToString(charCount, 2).PadLeft(8, '0'); // 8bit
+            case "1000": // 漢字モード
+                return Convert.ToString(charCount, 2).PadLeft(8, '0'); // 8bit
+            default:
+                Debug.LogError("Invalid modeIndicator. Ensure the mode is set correctly.");
+                return null;
         }
-        else if (modeIndicator == "0010") // 英数字モード
-        {
-            bitCount = Convert.ToString(charCount, 2).PadLeft(9, '0'); // 9bit
-        }
-        else if (modeIndicator == "0100" || modeIndicator == "1000") // 8bitバイトモードと漢字モード
-        {
-            bitCount = Convert.ToString(charCount, 2).PadLeft(8, '0'); // 8bit
-        }
-        else
-        {
-            Debug.LogError("Invalid mode_indicator. Ensure the mode is set correctly.");
-        }
-
-        return bitCount;
     }
 
+    // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
-        string modeIndicator = worldInstance.qRCodeModePlayer.modeIndicator; // モード指示子を取得
-        int charCount = worldInstance.initFromQrcodePlayer.data.Length; // データの長さから文字数を取得
+        // モード指示子と文字数を取得
+        modeIndicator = oneTimeWorldInstance.qRCodeModePlayer.modeIndicator;
+        charCount = oneTimeWorldInstance.initFromQrcodePlayer.data.Length; // 文字数を取得
 
-        // モード指示子と文字数ビットを組み合わせた出力
-        characterCountBits = modeIndicator + CalculateBitCount(charCount, modeIndicator);
+        // モード指示子 + 文字数ビット情報を出力に設定
+        outputBits = modeIndicator + CalculateBitCount(charCount, modeIndicator);
 
-        // 実行結果を表示
-        Debug.Log($"Completed: {modeIndicator} {characterCountBits}");
+        // Worldインスタンスにこのプレイヤーの情報を設定
+        oneTimeWorldInstance.qRCodeCharacterCountPlayer = this;
 
         return "Completed";
     }
