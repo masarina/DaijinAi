@@ -6,8 +6,9 @@ public class QRCodeCharacterCountPlayer : SuperPlayer
     public string modeIndicator; // モード指示子を保持
     public int charCount; // 文字数を保持する変数
     public string outputBits; // ビット列の出力を保持する変数
-    public OneTimeWorldInstance oneTimeWorldInstance
-;
+    public QRCodeModePlayer qRCodeModePlayer; // アタッチ
+    public InitFromQrcodePlayer initFromQrcodePlayer // アタッチ
+
     // 初期化メソッド (Pythonの__init__に相当)
     public bool QRCodeCharacterCountPlayerReset()
     {
@@ -47,14 +48,11 @@ public class QRCodeCharacterCountPlayer : SuperPlayer
     public override string ExecuteMain()
     {
         // モード指示子と文字数を取得
-        modeIndicator = oneTimeWorldInstance.qRCodeModePlayer.modeIndicator;
-        charCount = oneTimeWorldInstance.initFromQrcodePlayer.data.Length; // 文字数を取得
+        this.modeIndicator = this.qRCodeModePlayer.modeIndicator;
+        this.charCount = this..data.Length; // 文字数を取得
 
         // モード指示子 + 文字数ビット情報を出力に設定
-        outputBits = modeIndicator + CalculateBitCount(charCount, modeIndicator);
-
-        // Worldインスタンスにこのプレイヤーの情報を設定
-        oneTimeWorldInstance.qRCodeCharacterCountPlayer = this;
+        this.outputBits = this.modeIndicator + this.CalculateBitCount(this.charCount, this.modeIndicator);
 
         return "Completed";
     }
