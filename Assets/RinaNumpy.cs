@@ -215,5 +215,29 @@ public class RinaNumpy : UdonSharpBehaviour
         }
         return Mathf.Sqrt(sumOfSquares / x.Length); // その平均の平方根を取る
     }
+    
+    /// <summary>
+    /// 整数を指定したビット数の2進数文字列に変換します。
+    /// </summary>
+    /// <param name="value">変換する整数値</param>
+    /// <param name="bitCount">指定するビット数</param>
+    /// <returns>指定ビット数の2進数文字列</returns>
+    public string ConvertToBinary(int value, int bitCount)
+    {
+        string binaryString = "";  // 変換結果の2進数文字列を保持する変数
+        for (int i = 0; i < bitCount; i++)
+        {
+            // 指定のビット位置の値を取得し、文字列に追加
+            binaryString = ((value >> i) & 1) + binaryString;
+        }
+
+        // ビット数に満たない場合、左側に0を追加して補完
+        while (binaryString.Length < bitCount)
+        {
+            binaryString = "0" + binaryString;
+        }
+
+        return binaryString;
+    }
             
 }
