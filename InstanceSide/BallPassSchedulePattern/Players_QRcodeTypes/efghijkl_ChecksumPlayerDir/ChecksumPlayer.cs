@@ -46,13 +46,10 @@ public class ChecksumPlayer : SuperPlayer
         int[] modeCharNumInfoDecimalList = polynomialDivisionPlayer.BitListToDecimalList(modeCharNumInfoBitList);
 
         // チェックサムの計算
-        int checksum = CalculateChecksum(modeCharNumInfoDecimalList);
+        int checksum = this.CalculateChecksum(modeCharNumInfoDecimalList);
 
         // チェックサムをデータに追加
         modeCharNumInfoChecksumBitList = AppendChecksum(modeCharNumInfoDecimalList, checksum);
-
-        // 自身のインスタンスをワールドに反映
-        oneTimeWorldInstance.checksumPlayer = this;
 
         return "Completed";
     }
