@@ -30,7 +30,7 @@ public class PolynomialDivisionPlayer : SuperPlayer
         int[] decimalList = new int[bitList.Length];
         for (int i = 0; i < bitList.Length; i++)
         {
-            int decimalValue = this.BitStringToInt(bitList[i], 2);  // 2進数の文字列を10進数に変換
+            int decimalValue = this.BitStringToInt(bitList[i]);  // 2進数の文字列を10進数に変換
             if (decimalValue == 256)  // ガロア体では256は0になるので置き換える
             {
                 decimalValue = 0;
@@ -47,7 +47,10 @@ public class PolynomialDivisionPlayer : SuperPlayer
 
         // 出力データ: 剰余多項式（初期化）
         int[] remainder = new int[data_polynomial.Length];
-        data_polynomial.CopyTo(remainder, 0);
+        for (int i = 0; i < data_polynomial.Length; i++)
+        {
+            remainder[i] = data_polynomial[i];  // 手動で配列をコピー
+        }
 
         // 生成多項式の長さを取得
         int gLen = error_correction_polynomial.Length;
@@ -68,7 +71,10 @@ public class PolynomialDivisionPlayer : SuperPlayer
         
         // 出力データとして剰余多項式を返す
         int[] resultRemainder = new int[gLen];
-        System.Array.Copy(remainder, remainder.Length - gLen, resultRemainder, 0, gLen);
+        for (int i = 0; i < gLen; i++)
+        {
+            resultRemainder[i] = remainder[remainder.Length - gLen + i];  // 手動で配列の部分をコピー
+        }
         return resultRemainder;
     }
 
@@ -116,7 +122,7 @@ public class PolynomialDivisionPlayer : SuperPlayer
         {
             if (bitString[i] == '1')
             {
-                result += (1 << (bitString.Length - i - 1));  // ビットシフトを使って各桁を加算
+                result += (1 << (bitString.Length - i - 1));  // ビットシフトを使って各桁を加算
             }
         }
         return result;
