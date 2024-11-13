@@ -6,7 +6,7 @@ class ChecksumPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
         self.my_name = None  # 必ずNoneで初期化
-        self.self.mode_charNumInfo_checksum_bitlist = None
+        self.mode_charNumInfo_checksum_bitlist = None
         self.loop11101100and00010001pad_only_list = None
 
     def return_my_name(self):
