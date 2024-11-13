@@ -31,7 +31,7 @@ public class PolynomialDivisionPlayer : SuperPlayer
         int[] decimalList = new int[bitList.Length];
         for (int i = 0; i < bitList.Length; i++)
         {
-            int decimalValue = this.BitStringToInt(bitList[i]);  // 2進数の文字列を10進数に変換
+            int decimalValue = rinaNumpy.BitStringToInt(bitList[i]);  // 2進数の文字列を10進数に変換
             if (decimalValue == 256)  // ガロア体では256は0になるので置き換える
             {
                 decimalValue = 0;
