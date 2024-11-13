@@ -39,7 +39,16 @@ class ChecksumPlayer(SuperPlayer):
 
     def main(self):
         """
-        mainメソッドで全てのメソッドを実行
+        mainメソッドで全てのメソッドを実行します。
+        このメソッドの流れ:
+        
+        1. `QRCodeBitConversionPlayer`から、データビットとモード・文字数のビット情報を取得。
+        2. 取得したビット列情報を10進数のリストに変換(`polynomialDivisionPlayer`のメソッドを使用)。
+        3. 変換された10進数リストを用いて、Checksumを計算。
+        4. 計算したChecksumを元のデータリストに追加し、最終的なデータリストとして保持。
+        5. 自身のインスタンスを`one_time_world_instance`に登録。
+        
+        これにより、データリストにChecksumを追加し、他のプレイヤーがアクセスできるように設定。
         """
         
         """ 入力 """
