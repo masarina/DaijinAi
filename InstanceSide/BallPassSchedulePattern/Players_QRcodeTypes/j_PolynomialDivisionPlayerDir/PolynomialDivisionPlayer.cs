@@ -30,7 +30,7 @@ public class PolynomialDivisionPlayer : SuperPlayer
         int[] decimalList = new int[bitList.Length];
         for (int i = 0; i < bitList.Length; i++)
         {
-            int decimalValue = Convert.ToInt32(bitList[i], 2);  // 2進数の文字列を10進数に変換
+            int decimalValue = this.BitStringToInt(bitList[i], 2);  // 2進数の文字列を10進数に変換
             if (decimalValue == 256)  // ガロア体では256は0になるので置き換える
             {
                 decimalValue = 0;
@@ -107,5 +107,18 @@ public class PolynomialDivisionPlayer : SuperPlayer
         oneTimeWorldInstance.polynomialDivisionPlayer = this;
 
         return "Completed";
+    }
+
+    public int BitStringToInt(string bitString)
+    {
+        int result = 0;
+        for (int i = 0; i < bitString.Length; i++)
+        {
+            if (bitString[i] == '1')
+            {
+                result += (1 << (bitString.Length - i - 1));  // ビットシフトを使って各桁を加算
+            }
+        }
+        return result;
     }
 }
