@@ -1,4 +1,6 @@
 /// version_0.0.0
+/// this library made by Masarina
+
 using UdonSharp;
 using UnityEngine;
 
