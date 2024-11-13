@@ -2,6 +2,7 @@
 /// このプレイヤーは
 /// プレイヤーとしては使用していませんが
 /// ライブラリとしては使っています。
+/// BitListToDecimalList だけ使用中です。
 /// </summary>
 
 using UdonSharp;
