@@ -248,5 +248,18 @@ public class RinaNumpy : UdonSharpBehaviour
             destination[i] = source[i];
         }
     }
+
+    public int BitStringToInt(string bitString)
+    {
+        int result = 0;
+        for (int i = 0; i < bitString.Length; i++)
+        {
+            if (bitString[i] == '1')
+            {
+                result += (1 << (bitString.Length - i - 1));  // ビットシフトを使って各桁を加算
+            }
+        }
+        return result;
+    }
             
 }
