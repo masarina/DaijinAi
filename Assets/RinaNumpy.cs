@@ -239,5 +239,14 @@ public class RinaNumpy : UdonSharpBehaviour
 
         return binaryString;
     }
+    
+    public static void CopyIntArray(int[] source, int[] destination, int length)
+    {
+        // 指定された長さ分だけsourceからdestinationへコピーします
+        for (int i = 0; i < length; i++)
+        {
+            destination[i] = source[i];
+        }
+    }
             
 }
