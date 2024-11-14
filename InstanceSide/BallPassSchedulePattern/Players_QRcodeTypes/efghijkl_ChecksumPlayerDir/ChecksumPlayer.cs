@@ -86,9 +86,6 @@ public class ChecksumPlayer : SuperPlayer
             this.modeCharNumInfoChecksumBitlist[i] = modeCharNumInfoChecksumBitlist[i].ToString();
         }
 
-        // 自身のインスタンスをone_time_world_instanceに登録
-        oneTimeWorldInstance.checksumPlayer = this;
-
         return "Completed";
     }
 }
