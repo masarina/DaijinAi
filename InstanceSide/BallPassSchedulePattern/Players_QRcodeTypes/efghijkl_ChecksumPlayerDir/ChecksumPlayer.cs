@@ -43,12 +43,22 @@ public class ChecksumPlayer : SuperPlayer
 
     private string ArrayToString(int[] array)
     {
-        // 配列を文字列に変換
+        // 配列を効率よく文字列に変換
         string result = "";
-        for (int i = 0; i < array.Length; i++)
+        int length = array.Length;
+        string[] tempArray = new string[length];
+
+        // 配列を文字列として変換してtempArrayに格納
+        for (int i = 0; i < length; i++)
         {
-            result += array[i].ToString();
-            if (i < array.Length - 1)
+            tempArray[i] = array[i].ToString();
+        }
+
+        // tempArrayの内容をresultに一度に連結
+        for (int i = 0; i < length; i++)
+        {
+            result += tempArray[i];
+            if (i < length - 1)
             {
                 result += ", ";
             }
