@@ -9,7 +9,7 @@ public class QRCodeMapInitializerPlayer : UdonSharpBehaviour
     public float[] ModeCharNumInfoChecksumBitlist; // モード/文字数情報/チェックサムのビットリスト
 
     // RinaNumpyをアタッチ
-    public RinaNumpy RinaNumpyInstance; // Unityエディタでアタッチすることを想定
+    public RinaNumpy rinaNumpy; // Unityエディタでアタッチすることを想定
 
     // 依存するプレイヤー
     public UdonSharpBehaviour ChecksumPlayer; // Unityでアタッチすることを想定
@@ -32,10 +32,10 @@ public class QRCodeMapInitializerPlayer : UdonSharpBehaviour
         ModeCharNumInfoChecksumBitlist = checksumPlayer.ModeCharNumInfoChecksumBitlist;
 
         // RinaNumpyを活用した処理例: 配列の正規化
-        float mean = RinaNumpyInstance.Mean_FloatArray(ModeCharNumInfoChecksumBitlist);
-        float std = RinaNumpyInstance.Std_FloatArray(ModeCharNumInfoChecksumBitlist);
-        ModeCharNumInfoChecksumBitlist = RinaNumpyInstance.Subtract_FloatArray_Float(ModeCharNumInfoChecksumBitlist, mean);
-        ModeCharNumInfoChecksumBitlist = RinaNumpyInstance.Divide_FloatArray_Float(ModeCharNumInfoChecksumBitlist, std);
+        float mean = rinaNumpy.Mean_FloatArray(ModeCharNumInfoChecksumBitlist);
+        float std = rinaNumpy.Std_FloatArray(ModeCharNumInfoChecksumBitlist);
+        ModeCharNumInfoChecksumBitlist = rinaNumpy.Subtract_FloatArray_Float(ModeCharNumInfoChecksumBitlist, mean);
+        ModeCharNumInfoChecksumBitlist = rinaNumpy.Divide_FloatArray_Float(ModeCharNumInfoChecksumBitlist, std);
 
         // 実行の確認用メッセージ
         Debug.Log($"{ReturnMyName()}が実行されました。");
