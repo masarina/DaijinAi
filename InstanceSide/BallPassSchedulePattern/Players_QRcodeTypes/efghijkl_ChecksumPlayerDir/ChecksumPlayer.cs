@@ -29,34 +29,6 @@ public class ChecksumPlayer : SuperPlayer
         return sum % 256;
     }
 
-    public int[] AppendChecksum(int[] dataList, int checksum)
-    {
-        // データリストにChecksumを追加
-        int[] dataListWithChecksum = new int[dataList.Length + 1];
-        RinaNumpy.CopyIntArray(dataList, dataListWithChecksum, dataList.Length); // RinaNumpyで配列をコピー
-        dataListWithChecksum[dataList.Length] = checksum;
-        return dataListWithChecksum;
-    }
-
-    private string ArrayToString(int[] array)
-    {
-        // 配列を文字列に変換
-        int[] tempArray = new int[array.Length]; // コピー用の一時配列
-        RinaNumpy.CopyIntArray(array, tempArray, array.Length); // 配列をコピー
-        string result = "";
-
-        for (int i = 0; i < tempArray.Length; i++)
-        {
-            result += tempArray[i].ToString(); // 各要素を文字列化して結合
-            if (i < tempArray.Length - 1)
-            {
-                result += ", "; // 区切り文字を追加
-            }
-        }
-
-        return result;
-    }
-
     public void PrintData(int[] dataList, int checksum, int[] dataListWithChecksum)
     {
         // データリスト、Checksum、Checksum付きデータリストをログ出力
@@ -78,7 +50,11 @@ public class ChecksumPlayer : SuperPlayer
         int checksum = CalculateChecksum(modeCharNumInfoDecimalList);
 
         // Checksumをデータリストに追加
-        int[] modeCharNumInfoChecksumBitlist = AppendChecksum(modeCharNumInfoDecimalList, checksum);
+        int[] modeCharNumInfoChecksumBitlist = new int[modeCharNumInfoDecimalList.Length + 1];
+        // 配列をコピーして、Checksumを追加
+        RinaNumpy.CopyIntArray(modeCharNumInfoDecimalList, modeCharNumInfoChecksumBitlist, modeCharNumInfoDecimalList.Length);
+        modeCharNumInfoChecksumBitlist[modeCharNumInfoDecimalList.Length] = checksum;
+
         this.modeCharNumInfoChecksumBitlist = new string[modeCharNumInfoChecksumBitlist.Length];
 
         // 配列の内容を文字列形式で保存
@@ -88,5 +64,24 @@ public class ChecksumPlayer : SuperPlayer
         }
 
         return "Completed";
+    }
+
+    private string ArrayToString(int[] array)
+    {
+        // 配列を文字列に変換
+        int[] tempArray = new int[array.Length]; // コピー用の一時配列
+        RinaNumpy.CopyIntArray(array, tempArray, array.Length); // 配列をコピー
+        string result = "";
+
+        for (int i = 0; i < tempArray.Length; i++)
+        {
+            result += tempArray[i].ToString(); // 各要素を文字列化して結合
+            if (i < tempArray.Length - 1)
+            {
+                result += ", "; // 区切り文字を追加
+            }
+        }
+
+        return result;
     }
 }
