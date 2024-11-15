@@ -8,7 +8,7 @@ public class ChecksumPlayer : SuperPlayer
     public RinaNumpy rinaNumpy;  // RinaNumpyクラスのインスタンス
     public QRCodeBitConversionPlayer qRCodeBitConversionPlayer;
     public PolynomialDivisionPlayer polynomialDivisionPlayer;
-    
+
     public string[] modeCharNumInfoChecksumBitlist;
     public string dataStr;
     public string modeCharNumInfoBitlist;
@@ -33,36 +33,27 @@ public class ChecksumPlayer : SuperPlayer
     {
         // データリストにChecksumを追加
         int[] dataListWithChecksum = new int[dataList.Length + 1];
-        for (int i = 0; i < dataList.Length; i++)
-        {
-            dataListWithChecksum[i] = dataList[i];
-        }
+        RinaNumpy.CopyIntArray(dataList, dataListWithChecksum, dataList.Length); // RinaNumpyで配列をコピー
         dataListWithChecksum[dataList.Length] = checksum;
         return dataListWithChecksum;
     }
 
     private string ArrayToString(int[] array)
     {
-        // 配列を効率よく文字列に変換
+        // 配列を文字列に変換
+        int[] tempArray = new int[array.Length]; // コピー用の一時配列
+        RinaNumpy.CopyIntArray(array, tempArray, array.Length); // 配列をコピー
         string result = "";
-        int length = array.Length;
-        string[] tempArray = new string[length];
 
-        // 配列を文字列として変換してtempArrayに格納
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < tempArray.Length; i++)
         {
-            tempArray[i] = array[i].ToString();
-        }
-
-        // tempArrayの内容をresultに一度に連結
-        for (int i = 0; i < length; i++)
-        {
-            result += tempArray[i];
-            if (i < length - 1)
+            result += tempArray[i].ToString(); // 各要素を文字列化して結合
+            if (i < tempArray.Length - 1)
             {
-                result += ", ";
+                result += ", "; // 区切り文字を追加
             }
         }
+
         return result;
     }
 
@@ -89,7 +80,7 @@ public class ChecksumPlayer : SuperPlayer
         // Checksumをデータリストに追加
         int[] modeCharNumInfoChecksumBitlist = AppendChecksum(modeCharNumInfoDecimalList, checksum);
         this.modeCharNumInfoChecksumBitlist = new string[modeCharNumInfoChecksumBitlist.Length];
-        
+
         // 配列の内容を文字列形式で保存
         for (int i = 0; i < modeCharNumInfoChecksumBitlist.Length; i++)
         {
