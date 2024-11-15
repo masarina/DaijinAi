@@ -1,7 +1,7 @@
 using UdonSharp;
 using UnityEngine;
 
-public class QRCodeMapInitializerPlayer : UdonSharpBehaviour
+public class QRCodeMapInitializerPlayer : SuperPlayer
 {
     // メンバ変数（Pythonのインスタンス変数に相当）
     public int Version = 2; // QRコードのバージョン
