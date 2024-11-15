@@ -5,6 +5,7 @@ from Players_CommonPlayers.SuperPlayerDir.SuperPlayer import SuperPlayer
 class QRCodeMapInitializerPlayer(SuperPlayer):
     def __init__(self):
         super().__init__()  # スーパークラスの初期化メソッドを呼び出す
+        self.my_name = None  # プレイヤー名をNoneで初期化
         self.version = 2  # QRコードのバージョン
         self.grid_size = 25  # QRコードのグリッドサイズ
         self.mode_charNumInfo_checksum_bitlist = None
