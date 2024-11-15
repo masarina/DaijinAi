@@ -6,9 +6,12 @@ public class QRCodeMapInitializerPlayer : UdonSharpBehaviour
     // メンバ変数（Pythonのインスタンス変数に相当）
     public int Version = 2; // QRコードのバージョン
     public int GridSize = 25; // QRコードのグリッドサイズ
-    public int[] ModeCharNumInfoChecksumBitlist; // モード/文字数情報/チェックサムのビットリスト
+    public float[] ModeCharNumInfoChecksumBitlist; // モード/文字数情報/チェックサムのビットリスト
 
-    // 依存するプレイヤー（Pythonの`self.one_time_world_instance`の置き換え）
+    // RinaNumpyをアタッチ
+    public RinaNumpy RinaNumpyInstance; // Unityエディタでアタッチすることを想定
+
+    // 依存するプレイヤー
     public UdonSharpBehaviour ChecksumPlayer; // Unityでアタッチすることを想定
 
     // 自分の名前を返すメソッド
@@ -21,22 +24,25 @@ public class QRCodeMapInitializerPlayer : UdonSharpBehaviour
     public string ExecuteMain()
     {
         /*
-         * UnityエディタでChecksumPlayerをアタッチすることを前提に処理を進める
+         * UnityエディタでChecksumPlayerとRinaNumpyInstanceをアタッチすることを前提に処理を進める
          */
-        
-        // ChecksumPlayerからモード/文字数情報/チェックサムのビットリストを取得
+
+        // ChecksumPlayerからデータを取得
         QRCodeMapInitializerPlayer checksumPlayer = (QRCodeMapInitializerPlayer)ChecksumPlayer;
         ModeCharNumInfoChecksumBitlist = checksumPlayer.ModeCharNumInfoChecksumBitlist;
 
+        // RinaNumpyを活用した処理例: 配列の正規化
+        float mean = RinaNumpyInstance.Mean_FloatArray(ModeCharNumInfoChecksumBitlist);
+        float std = RinaNumpyInstance.Std_FloatArray(ModeCharNumInfoChecksumBitlist);
+        ModeCharNumInfoChecksumBitlist = RinaNumpyInstance.Subtract_FloatArray_Float(ModeCharNumInfoChecksumBitlist, mean);
+        ModeCharNumInfoChecksumBitlist = RinaNumpyInstance.Divide_FloatArray_Float(ModeCharNumInfoChecksumBitlist, std);
+
         // 実行の確認用メッセージ
         Debug.Log($"{ReturnMyName()}が実行されました。");
-
-        // データの出力（Unityエディタのインスペクタで確認可能）
         Debug.Log($"Version: {Version}, GridSize: {GridSize}");
+        Debug.Log($"Normalized ModeCharNumInfoChecksumBitlist: {ModeCharNumInfoChecksumBitlist}");
 
         // プレイヤー自身を更新する処理
-        // Unityでの設計に応じて、他のスクリプトやオブジェクトと連携させる
-
         return "Completed";
     }
 }
