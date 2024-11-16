@@ -11,7 +11,7 @@ public class QRCodeTimingPatternPlayer : SuperPlayer
     public QRCodePositionDetectionPlayer qRCodePositionDetectionPlayer; // Unityエディタでアタッチ
     public RinaNumpy rinaNumpy; // UnityエディタでRinaNumpyをアタッチ
 
-    private void Reset()
+    private void QRCodeTimingPatternPlayerReset()
     {
         myName = "QRCodeTimingPatternPlayer";
         version = 0;
