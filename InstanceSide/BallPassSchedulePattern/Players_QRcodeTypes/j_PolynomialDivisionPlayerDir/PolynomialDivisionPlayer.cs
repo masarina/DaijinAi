@@ -25,6 +25,12 @@ public class PolynomialDivisionPlayer : SuperPlayer
         return "PolynomialDivisionPlayer";
     }
 
+    public bool PolynomialDivisionPlayerReset()
+    {
+        return true;
+    }
+    
+
     public int[] BitListToDecimalList(string[] bitList)
     {
         // 8ビットごとのビット列を10進数に変換し、256になった場合は0に置き換えます。
