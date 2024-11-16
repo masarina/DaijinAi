@@ -20,6 +20,11 @@ public class QRCodeMapInitializerPlayer : SuperPlayer
         return "QRCodeMapInitializerPlayer";
     }
 
+    public bool QRCodeMapInitializerPlayerReset()
+    {
+        return true;
+    }
+
     // メイン処理
     public string ExecuteMain()
     {
