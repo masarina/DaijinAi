@@ -13,6 +13,11 @@ public class QRCodePositionDetectionPlayer : SuperPlayer
         return "QRCodePositionDetectionPlayer";
     }
 
+    public bool QRCodePositionDetectionPlayerReset()
+    {
+        return true;
+    }
+
     public void FillPositionDetectionPatterns()
     {
         // 25x25の2次元配列を初期化（すべて0）
