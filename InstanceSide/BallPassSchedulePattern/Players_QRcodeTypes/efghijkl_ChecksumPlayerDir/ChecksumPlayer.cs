@@ -13,6 +13,11 @@ public class ChecksumPlayer : SuperPlayer
     public string dataStr;
     public string modeCharNumInfoBitlist;
 
+    public bool ChecksumPlayerReset()
+    {
+        return true;
+    }
+
     public override string ReturnMyName()
     {
         return "ChecksumPlayer";
