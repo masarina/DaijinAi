@@ -15,6 +15,11 @@ public class QRCodeBitConversionPlayer : SuperPlayer
         return "QRCodeBitConversionPlayer";
     }
 
+    public bool QRCodeBitConversionPlayerReset()
+    {
+        return true;
+    }
+
     public string NumericModeBitConversion(string data)
     {
         // 数字モードのビット変換ロジック
