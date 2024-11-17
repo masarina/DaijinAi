@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class QRCodeModePlayer : SuperPlayer
 {
-    public PreviousPlayer previousPlayer; // アタッチ
+    public SuperPlayer ; // アタッチ
     public string ModeStr;
     public string ModeBitStr; // モード指示子を保持する変数
 
