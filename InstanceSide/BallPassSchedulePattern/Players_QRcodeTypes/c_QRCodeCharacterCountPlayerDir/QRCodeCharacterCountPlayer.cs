@@ -48,7 +48,7 @@ public class QRCodeCharacterCountPlayer : SuperPlayer
     public override string ExecuteMain()
     {
         // モード指示子と文字数を取得
-        this.modeIndicator = this.qRCodeModePlayer.modeIndicator;
+        this.modeIndicator = this.qRCodeModePlayer.ModeBitStr;
         this.charCount = this.initFromQrcodePlayer.data.Length; // 文字数を取得
 
         // モード指示子 + 文字数ビット情報を出力に設定
