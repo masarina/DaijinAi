@@ -8,6 +8,7 @@ public class QRCodeCharacterCountPlayer : SuperPlayer
     public string outputBits; // ビット列の出力を保持する変数
     public QRCodeModePlayer qRCodeModePlayer; // アタッチ
     public InitFromQrcodePlayer initFromQrcodePlayer // アタッチ
+    public RinaNumpy rinaNumpy;
 
     // 初期化メソッド (Pythonの__init__に相当)
     public bool QRCodeCharacterCountPlayerReset()
@@ -48,7 +49,7 @@ public class QRCodeCharacterCountPlayer : SuperPlayer
     public override string ExecuteMain()
     {
         // モード指示子と文字数を取得
-        this.modeIndicator = this.qRCodeModePlayer.ModeBitStr;
+        this.modeIndicator = rinaNumpy.IntToStr(this.qRCodeModePlayer.ModeBitStr);
         this.charCount = this.initFromQrcodePlayer.data.Length; // 文字数を取得
 
         // モード指示子 + 文字数ビット情報を出力に設定
