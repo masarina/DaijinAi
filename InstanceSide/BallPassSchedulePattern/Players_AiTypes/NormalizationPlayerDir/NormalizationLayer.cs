@@ -1,7 +1,7 @@
 using UdonSharp;
 using UnityEngine;
 
-public class LayerNormalizationSingle : UdonSharpBehaviour
+public class NormalizationLayer : UdonSharpBehaviour
 {
     public RinaNumpy rNp; // InspectorからRinaNumpyオブジェクトをアサイン
 
