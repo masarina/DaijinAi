@@ -7,6 +7,7 @@ public class SwishLayer : UdonSharpBehaviour
     public float beta = 1.0f; // 学習可能なパラメータとしてbetaを初期化
     private float[] outArray; // forward時の出力を保持する配列
     private float[] xArray; // forward時の入力を保持する配列
+    public float dbeta; // betaに関する勾配を保持する変数
 
     public float[] Forward(float[] x)
     {
@@ -21,11 +22,11 @@ public class SwishLayer : UdonSharpBehaviour
         return outArray; // 出力を返す
     }
 
-    public void Backward(float[] dout, ref float[] dx, ref float dbeta)
+    public float[] Backward(float[] dout)
     {
         // 勾配配列の初期化
-        dx = new float[dout.Length]; // 入力に関する勾配
-        dbeta = 0.0f; // betaに関する勾配
+        float[] dx = new float[dout.Length]; // 入力に関する勾配
+        dbeta = 0.0f; // betaに関する勾配をリセット
 
         // 各入力について計算
         for (int i = 0; i < dout.Length; i++)
@@ -49,5 +50,8 @@ public class SwishLayer : UdonSharpBehaviour
 
         // dbetaを平均化
         dbeta /= dout.Length;
+
+        // dxを返す
+        return dx;
     }
 }
