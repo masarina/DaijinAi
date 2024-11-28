@@ -23,7 +23,7 @@ public class EmbeddingLayer : UdonSharpBehaviour
 
     public float[] Forward(int tokenId)
     {
-        // 入力トークンIDに対応する単語表現ベクトルを取得
+        // トークンIDに対応する単語表現ベクトルを取得
         if (weights == null || tokenId < 0 || tokenId >= weights.Length)
         {
             Debug.LogError("EmbeddingLayer: Invalid tokenId or weights not initialized.");
@@ -32,19 +32,19 @@ public class EmbeddingLayer : UdonSharpBehaviour
         return weights[tokenId];
     }
 
-    public void Backward(int tokenId, float[] gradient)
+    public float[] Backward(int tokenId, float[] gradient)
     {
         // 勾配を保持する
         if (weights == null || tokenId < 0 || tokenId >= weights.Length)
         {
             Debug.LogError("EmbeddingLayer: Invalid tokenId or weights not initialized for Backward.");
-            return;
+            return null;
         }
 
         if (gradient == null || gradient.Length != weights[tokenId].Length)
         {
             Debug.LogError("EmbeddingLayer: Gradient size mismatch.");
-            return;
+            return null;
         }
 
         // 勾配を蓄積
@@ -52,12 +52,15 @@ public class EmbeddingLayer : UdonSharpBehaviour
         {
             gradients[tokenId][i] += gradient[i];
         }
+
+        // 勾配をそのまま返す（次のレイヤー用）
+        return gradient;
     }
 
-    public float[][] GetGradients()
+    public void Update(System.Action<float[][], float[][], float> updateFunc, float learningRate)
     {
-        // 勾配を取得（他のプロセスで更新するため）
-        return gradients;
+        // Update関数を実行
+        updateFunc(weights, gradients, learningRate);
     }
 
     public void ClearGradients()
