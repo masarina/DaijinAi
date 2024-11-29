@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AffinePlayer : SuperPlayer
 {
+    public AffineLayer affineLayer;
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AffinePlayerReset()
     {
