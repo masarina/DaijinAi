@@ -29,6 +29,8 @@ public class AffinePlayer : SuperPlayer
     public float[] Backward(float[] dx)
     {
         dout = affineLayer.Backward(dx = dx)
+
+        return dout;
     }
     
     // メイン処理を行うメソッド
