@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class InitAiTypesPlayer : SuperPlayer
 {
-
+    public string AiMode;
+    
     // 初期化メソッド (Pythonの__init__に相当)
     public bool InitAiTypesPlayerReset()
     {
         myName = "InitAiTypesPlayer";
+        AiMode = "None"
         return true;
     }
 
