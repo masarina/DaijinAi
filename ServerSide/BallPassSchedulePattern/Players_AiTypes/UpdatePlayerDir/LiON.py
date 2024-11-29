@@ -1,107 +1,80 @@
-using UdonSharp;
-using UnityEngine;
+import numpy as np
 
-public class LiON : UdonSharpBehaviour
-{
-    // パラメータ（クラス変数として設定）
-    public float alpha = 0.01f; // 初期学習率
-    public float beta = 0.9f;   // モーメント項の減衰率
-    public float threshold = 1.0f; // スケールダウンのしきい値
-    public float scalingFactor = 0.9f; // スケールダウン係数
-    public float minLearningRate = 0.001f; // 最小学習率
-    public float maxLearningRate = 0.05f; // 最大学習率
-    public float scaleFactor = 0.1f; // 学習率の調整係数
-    public float scaleBoostBeta = 0.05f; // スケールダウン時の学習率増加係数
-    public float dropoutRate = 0.2f; // ドロップアウト率
+class LiON:
+    def __init__(self):
+        # パラメータ
+        self.alpha = 0.01  # 初期学習率
+        self.beta = 0.9  # モーメント項の減衰率
+        self.threshold = 1.0  # スケールダウンのしきい値
+        self.scaling_factor = 0.9  # スケールダウン係数
+        self.min_learning_rate = 0.001  # 最小学習率
+        self.max_learning_rate = 0.05  # 最大学習率
+        self.scale_factor = 0.1  # 学習率の調整係数
+        self.scale_boost_beta = 0.05  # スケールダウン時の学習率増加係数
+        self.dropout_rate = 0.2  # ドロップアウト率（20%のユニットを無効化）
 
-    // 内部状態（クラス変数として設定）
-    private float[] v; // モーメントベクトル
-    private float[] layerLearningRates; // 各レイヤの学習率
+        # 内部状態
+        self.v = None  # モーメントベクトル
+        self.layer_learning_rates = None  # レイヤごとの学習率
 
-    // 初期化メソッド
-    public void Initialize(int parameterSize)
-    {
-        v = new float[parameterSize];
-        layerLearningRates = new float[parameterSize];
+    # 初期化メソッド
+    def initialize(self, parameter_size):
+        """ パラメータサイズに応じた初期化 """
+        self.v = np.zeros(parameter_size)  # モーメントベクトルをゼロ初期化
+        self.layer_learning_rates = np.full(parameter_size, self.alpha)  # 各レイヤの初期学習率を設定
 
-        // モーメントと学習率を初期化
-        for (int i = 0; i < parameterSize; i++)
-        {
-            v[i] = 0.0f;
-            layerLearningRates[i] = alpha; 
-        }
-    }
+    # ドロップアウトマスク生成
+    def generate_dropout_mask(self, size):
+        """ ドロップアウトマスクを生成 """
+        return np.random.rand(size) >= self.dropout_rate
 
-    // ドロップアウトマスク生成
-    private bool[] GenerateDropoutMask(int size)
-    {
-        bool[] mask = new bool[size];
-        for (int i = 0; i < size; i++)
-        {
-            mask[i] = Random.value >= dropoutRate;
-        }
-        return mask;
-    }
+    # モーメント更新ロジック
+    def update_momentum(self, current_momentum, gradient):
+        """ モーメントを更新 """
+        return self.beta * current_momentum + (1 - self.beta) * gradient
 
-    // 更新メソッド
-    public float[] UpdateWeights(float[] w, float[] dw)
-    {
-        if (v == null || v.Length != w.Length)
-        {
-            Debug.LogError("LiON not initialized or parameter size mismatch.");
-            return w;
-        }
+    # 学習率調整ロジック
+    def adjust_learning_rate(self, current_rate, gradient):
+        """ 学習率を調整 """
+        avg_change = abs(gradient)
+        adjusted_rate = current_rate + self.scale_factor * avg_change
+        return np.clip(adjusted_rate, self.min_learning_rate, self.max_learning_rate)
 
-        // ドロップアウトマスク生成
-        bool[] dropoutMask = GenerateDropoutMask(w.Length);
+    # 重み更新メソッド
+    def update_weights(self, weights, gradients):
+        """
+        重みと勾配を受け取り、更新後の重みを返す
+        weights: 重み配列
+        gradients: 勾配配列
+        """
+        if self.v is None or len(self.v) != len(weights):
+            raise ValueError("LiONが初期化されていない、またはパラメータサイズが一致しません。")
 
-        // 重み更新処理
-        for (int i = 0; i < w.Length; i++)
-        {
-            if (!dropoutMask[i]) continue;
+        # ドロップアウトマスク生成
+        dropout_mask = self.generate_dropout_mask(len(weights))
 
-            // 1. モーメント更新
-            v[i] = UpdateMomentum(v[i], dw[i]);
+        # 重み更新処理
+        for i in range(len(weights)):
+            if not dropout_mask[i]:
+                continue  # ドロップアウト対象のユニットはスキップ
 
-            // 2. スケールダウン（必要に応じて学習率調整）
-            if (Mathf.Abs(v[i]) > threshold)
-            {
-                v[i] *= scalingFactor;
-                layerLearningRates[i] += scaleBoostBeta;
-            }
+            # 1. モーメント更新
+            self.v[i] = self.update_momentum(self.v[i], gradients[i])
 
-            // 3. 学習率調整
-            layerLearningRates[i] = AdjustLearningRate(layerLearningRates[i], dw[i]);
+            # 2. スケールダウン（必要に応じて学習率調整）
+            if abs(self.v[i]) > self.threshold:
+                self.v[i] *= self.scaling_factor
+                self.layer_learning_rates[i] += self.scale_boost_beta
 
-            // 4. 重みの更新
-            w[i] -= layerLearningRates[i] * Mathf.Sign(v[i]);
+            # 3. 学習率調整
+            self.layer_learning_rates[i] = self.adjust_learning_rate(self.layer_learning_rates[i], gradients[i])
 
-            // 5. 重みスケールダウン
-            if (Mathf.Abs(w[i]) > threshold)
-            {
-                w[i] *= scalingFactor;
-                layerLearningRates[i] += scaleBoostBeta;
-            }
-        }
+            # 4. 重みの更新
+            weights[i] -= self.layer_learning_rates[i] * np.sign(self.v[i])
 
-        return w;
-    }
+            # 5. 重みスケールダウン
+            if abs(weights[i]) > self.threshold:
+                weights[i] *= self.scaling_factor
+                self.layer_learning_rates[i] += self.scale_boost_beta
 
-    // モーメント更新ロジック
-    private float UpdateMomentum(float currentMomentum, float gradient)
-    {
-        return beta * currentMomentum + (1 - beta) * gradient;
-    }
-
-    // 学習率調整ロジック
-    private float AdjustLearningRate(float currentRate, float gradient)
-    {
-        // 変化量に基づき学習率を調整
-        float adjustedRate = currentRate + scaleFactor * Mathf.Abs(gradient);
-
-        // 制約範囲にクリップ
-        return Mathf.Clamp(adjustedRate, minLearningRate, maxLearningRate);
-    }
-}
-
-
+        return weights
