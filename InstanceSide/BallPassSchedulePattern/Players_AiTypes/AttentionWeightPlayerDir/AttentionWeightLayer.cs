@@ -1,7 +1,7 @@
 using UdonSharp;
 using UnityEngine;
 
-public class AttentionWeight : UdonSharpBehaviour
+public class AttentionWeightLayer : UdonSharpBehaviour
 {
     public SoftmaxLayer softmaxLayer; // SoftmaxLayerをインスペクタからアタッチ
     public RinaNumpy rNp; // RinaNumpyをインスペクタからアタッチ
