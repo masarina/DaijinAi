@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AttentionWeightPlayer : SuperPlayer
 {
-
+    public AttentionWeightPlayer attentionWeightPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
     
     // 初期化メソッド (Pythonの__init__に相当)
@@ -21,14 +21,14 @@ public class AttentionWeightPlayer : SuperPlayer
 
     public float[] Forward(float[] x)
     {
-        y = affineLayer.Forward(x);
+        a = attentionWeightLayer.Forward(x);
         
-        return y;
+        return a;
     }
 
-    public float[] Backward(float[] dx)
+    public float[] Backward(float[] da)
     {
-        dout = affineLayer.Backward(dx)
+        dout = attentionWeightLayer.Backward(da)
 
         return dout;
     }
