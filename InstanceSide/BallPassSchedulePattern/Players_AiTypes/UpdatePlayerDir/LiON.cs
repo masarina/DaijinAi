@@ -6,6 +6,8 @@ public class LiON : UdonSharpBehaviour
     // デフォルトパラメータ（クラス変数として設定）
     public float alpha = 0.01f; // 学習率
     public float beta = 0.9f;   // モーメント項の減衰率
+    public float threshold = 1.0f; // スケールダウンのしきい値
+    public float scalingFactor = 0.9f; // スケールダウン係数
 
     // モーメントベクトル
     private float[] v;
@@ -25,7 +27,7 @@ public class LiON : UdonSharpBehaviour
     {
         if (v == null || v.Length != w.Length)
         {
-            Debug.LogError("LiONUpdater not initialized or parameter size mismatch.");
+            Debug.LogError("LiON not initialized or parameter size mismatch.");
             return w; // 初期化されていない場合は、入力の重みをそのまま返す
         }
 
@@ -33,12 +35,24 @@ public class LiON : UdonSharpBehaviour
         for (int i = 0; i < w.Length; i++)
         {
             v[i] = beta * v[i] + (1 - beta) * dw[i]; // モーメント更新
+
+            // モーメントのスケールダウン
+            if (Mathf.Abs(v[i]) > threshold)
+            {
+                v[i] *= scalingFactor;
+            }
         }
 
         // 重みを更新
         for (int i = 0; i < w.Length; i++)
         {
             w[i] -= alpha * Mathf.Sign(v[i]); // 符号に基づいて学習率を適用
+
+            // 重みのスケールダウン
+            if (Mathf.Abs(w[i]) > threshold)
+            {
+                w[i] *= scalingFactor;
+            }
         }
 
         return w;
