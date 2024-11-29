@@ -1,20 +1,20 @@
 using UdonSharp;
 using UnityEngine;
 
-public class AffinePlayer : SuperPlayer
+public class InitAiTypesPlayer : SuperPlayer
 {
-    public AffineLayer affineLayer;
+
     // 初期化メソッド (Pythonの__init__に相当)
-    public bool AffinePlayerReset()
+    public bool InitAiTypesPlayerReset()
     {
-        myName = "AffinePlayer";
+        myName = "InitAiTypesPlayer";
         return true;
     }
 
     // プレイヤーの名前を返すメソッド
     public override string ReturnMyName()
     {
-        return "AffinePlayer";
+        return "InitAiTypesPlayer";
     }
     
     // メイン処理を行うメソッド
