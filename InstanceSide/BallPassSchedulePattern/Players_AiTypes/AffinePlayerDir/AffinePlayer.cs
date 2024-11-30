@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AffinePlayer : SuperPlayer
 {
+    public string myName;
     public AffineLayer affineLayer;
     public InitAiTypesPlayer initAiTypesPlayer;
     
