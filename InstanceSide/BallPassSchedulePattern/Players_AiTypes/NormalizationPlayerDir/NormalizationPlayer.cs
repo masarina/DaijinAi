@@ -1,35 +1,35 @@
 using UdonSharp;
 using UnityEngine;
 
-public class AffinePlayer : SuperPlayer
+public class NormalizationPlayer : SuperPlayer
 {
     public string myName;
-    public AffineLayer affineLayer;
+    public NormalizationLayer normalizationLayer;
     public InitAiTypesPlayer initAiTypesPlayer;
     
     // 初期化メソッド (Pythonの__init__に相当)
-    public bool AffinePlayerReset()
+    public bool normalizationLayerReset()
     {
-        myName = "AffinePlayer";
+        myName = "normalizationLayer";
         return true;
     }
 
     // プレイヤーの名前を返すメソッド
     public override string ReturnMyName()
     {
-        return "AffinePlayer";
+        return "normalizationLayer";
     }
 
     public float[] Forward(float[] x)
     {
-        float[] y = affineLayer.Forward(x);
+        float[] y = normalizationLayer.Forward(x);
         
         return y;
     }
 
     public float[] Backward(float[] dx)
     {
-        float[] dout = affineLayer.Backward(dx)
+        float[] dout = normalizationLayer.Backward(dx)
 
         return dout;
     }
