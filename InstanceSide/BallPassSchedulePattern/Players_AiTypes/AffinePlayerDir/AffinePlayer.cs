@@ -21,14 +21,14 @@ public class AffinePlayer : SuperPlayer
 
     public float[] Forward(float[] x)
     {
-        y = affineLayer.Forward(x);
+        float[] y = affineLayer.Forward(x);
         
         return y;
     }
 
     public float[] Backward(float[] dx)
     {
-        dout = affineLayer.Backward(dx)
+        float[] dout = affineLayer.Backward(dx)
 
         return dout;
     }
