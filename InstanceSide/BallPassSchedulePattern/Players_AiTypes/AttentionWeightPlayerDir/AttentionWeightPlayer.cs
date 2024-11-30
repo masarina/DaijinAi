@@ -5,7 +5,7 @@ public class AttentionWeightPlayer : SuperPlayer
 {
     public AttentionWeightPlayer attentionWeightPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
-    public myName;
+    public string myName;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AttentionWeightPlayerReset()
