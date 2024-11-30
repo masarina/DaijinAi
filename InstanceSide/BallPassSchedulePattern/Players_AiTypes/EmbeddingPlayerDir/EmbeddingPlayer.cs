@@ -5,7 +5,7 @@ public class EmbeddingPlayer : SuperPlayer
 {
     public EmbeddingPlayer embeddingPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
-    public myName;
+    public string myName;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool EmbeddingPlayerReset()
