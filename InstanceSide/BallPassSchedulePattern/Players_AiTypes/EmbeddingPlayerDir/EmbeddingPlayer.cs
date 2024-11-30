@@ -1,34 +1,35 @@
 using UdonSharp;
 using UnityEngine;
 
-public class AffinePlayer : SuperPlayer
+public class EmbeddingPlayer : SuperPlayer
 {
-    public AffineLayer affineLayer;
+    public EmbeddingPlayer embeddingPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
+    public myName;
     
     // 初期化メソッド (Pythonの__init__に相当)
-    public bool AffinePlayerReset()
+    public bool EmbeddingPlayerReset()
     {
-        myName = "AffinePlayer";
+        myName = "EmbeddingPlayer";
         return true;
     }
 
     // プレイヤーの名前を返すメソッド
     public override string ReturnMyName()
     {
-        return "AffinePlayer";
+        return "EmbeddingPlayer";
     }
 
-    public float[] Forward(float[] x)
+    public float[] Forward(float[] id)
     {
-        y = affineLayer.Forward(x);
+        float[] vocab_vec = embeddingPlayer.Forward(id);
         
-        return y;
+        return vocab_vec;
     }
 
     public float[] Backward(float[] dx)
     {
-        dout = affineLayer.Backward(dx)
+        float[] dout = embeddingPlayer.Backward(dx)
 
         return dout;
     }
