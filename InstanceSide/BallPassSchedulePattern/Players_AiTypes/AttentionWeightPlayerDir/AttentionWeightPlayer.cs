@@ -5,6 +5,7 @@ public class AttentionWeightPlayer : SuperPlayer
 {
     public AttentionWeightPlayer attentionWeightPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
+    public myName;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AttentionWeightPlayerReset()
@@ -21,14 +22,14 @@ public class AttentionWeightPlayer : SuperPlayer
 
     public float[] Forward(float[] x)
     {
-        a = attentionWeightLayer.Forward(x);
+        float[] a = attentionWeightLayer.Forward(x);
         
         return a;
     }
 
     public float[] Backward(float[] da)
     {
-        dout = attentionWeightLayer.Backward(da)
+        float[] dout = attentionWeightLayer.Backward(da)
 
         return dout;
     }
