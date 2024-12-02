@@ -25,8 +25,8 @@ public class ParamsPlayer : SuperPlayer
     // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
-        // ForwardPlayerでライブラリ的に使用するので
-        // 実装今のところ不要
+
+
         return "Completed";
     }
 }
