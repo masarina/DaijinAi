@@ -22,6 +22,16 @@ public class ChangeAiModePlayer : SuperPlayer
     // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
+        if (initAiTypesPlayer.AiMode == "Train")
+        {
+            initAiTypesPlayer.AiMode = "Predict"
+        }
+
+        else
+        {
+            initAiTypesPlayer.AiMode = "Train"
+        }
+        
         return "Completed";
     }
 }
