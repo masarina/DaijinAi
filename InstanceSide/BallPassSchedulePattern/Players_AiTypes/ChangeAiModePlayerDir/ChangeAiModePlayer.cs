@@ -1,3 +1,5 @@
+// 実行する度に、モードが切り替わります。
+
 using UdonSharp;
 using UnityEngine;
 
