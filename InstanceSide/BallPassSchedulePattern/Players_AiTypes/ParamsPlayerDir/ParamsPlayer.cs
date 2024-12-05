@@ -6,6 +6,7 @@ public class ParamsPlayer : SuperPlayer
     public RinaNumpy rinaNumpy;
     public string myName;
     public InitAiTypesPlayer initAiTypesPlayer;
+    int[] Shape = {XSize, LayerSize,}
     public float[][][][] = rinaNumpy.
     
     // 初期化メソッド (Pythonの__init__に相当)
