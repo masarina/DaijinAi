@@ -4,6 +4,8 @@ using UnityEngine;
 public class AiSettingsPlayer : SuperPlayer
 {
     public string myName;
+    public int PositionSize;
+    public int XSize;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AiSettingsPlayerReset()
