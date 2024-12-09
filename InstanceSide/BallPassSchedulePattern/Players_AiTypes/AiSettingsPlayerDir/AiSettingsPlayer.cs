@@ -4,6 +4,8 @@ using UnityEngine;
 public class AiSettingsPlayer : SuperPlayer
 {
     public string myName;
+    public string[] XData;
+    public 
     public int PositionSize;
     public int XSize;
     
