@@ -4,15 +4,25 @@ using UnityEngine;
 public class AiSettingsPlayer : SuperPlayer
 {
     public string myName;
+    public string[] Data;
     public string[] XData;
-    public 
+    public string[] TData;
     public int PositionSize;
     public int XSize;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AiSettingsPlayerReset()
-    {
+    {    
+        # デザインパターン用
         myName = "AiSettingsPlayer";
+        
+        # 本プログラム用
+        XData = "半角 で 区切 った 文章";
+        XData = Data.data.Substring(0, data.Length - 1); // 0から-1までをとる
+        TData = Data.Substring(1); // インデックス1以降の文字列を取得
+        PositionSize = XData.Length
+        XSize = PositionSize
+        
         return true;
     }
 
@@ -31,4 +41,3 @@ public class AiSettingsPlayer : SuperPlayer
         return "Completed";
     }
 }
-
