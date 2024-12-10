@@ -1,15 +1,29 @@
+// EmbeddingLayerのみ、パラメータは自分で持たせてOK.
+
+
 using UdonSharp;
 using UnityEngine;
 
 public class EmbeddingPlayer : SuperPlayer
 {
-    public EmbeddingPlayer embeddingPlayer;
-    public InitAiTypesPlayer initAiTypesPlayer;
     public string myName;
+    
+    public EmbeddingPlayer embeddingPlayer;
+    public AiSettingsPlayer aiSettingsPlayer;
+    public RinaNumpy rinaNumpy;
+    
+    public float[][] W;
+    public float[][] dW;
+    public float[] XIdVer; // x
+    public string XVecVer; // y
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool EmbeddingPlayerReset()
     {
+        // パラメータ群の初期化
+        int[] shape
+        W = rinaNumpy.CreateArray2d
+        
         myName = "EmbeddingPlayer";
         return true;
     }
