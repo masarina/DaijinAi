@@ -3,19 +3,24 @@ using UnityEngine;
 
 public class ParamsPlayer : SuperPlayer
 {
+    public float[][] AllParams;
+
     public RinaNumpy rinaNumpy;
     public string myName;
-    public InitAiTypesPlayer initAiTypesPlayer;
-    int XSize = initAiTypesPlayer.XSize; //仮
-    int LayerSize = initAiTypesPlayer.LayerSize; //仮
-    int ParamsSize = initAiTypesPlayer.ParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
-    int[] Shape = {XSize, LayerSize, ParamsSize}
-    public float[][][][] = rinaNumpy.
-    
+    public AiSettingsPlayer aiSettingsPlayer;
+    int XSize;
+    int NumberOfAllLayers; // 全てのレイヤーの数
+    int LayersSettingsParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
+
+
     // 初期化メソッド (Pythonの__init__に相当)
-    public bool AffinePlayerReset()
+    public bool ParamsPlayerReset()
     {
-        myName = "AffinePlayer";
+        myName = "ParamsPlayer";
+        
+        XSize = aiSettingsPlayer.XSize
+        
+        
         return true;
     }
 
