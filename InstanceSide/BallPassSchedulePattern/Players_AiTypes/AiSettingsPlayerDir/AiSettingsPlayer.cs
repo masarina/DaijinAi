@@ -10,7 +10,7 @@ public class AiSettingsPlayer : SuperPlayer
     public int PositionSize;
     public int XSize;
     public int EmbeddingSize;
-    public int NumberOfAllLayers; 全てのレイヤーの数
+    public int NumberOfAllLayers; //全てのレイヤーの数
     public int LayersSettingsParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
     
     // 初期化メソッド (Pythonの__init__に相当)
