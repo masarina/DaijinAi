@@ -7,12 +7,15 @@ public class AiSettingsPlayer : SuperPlayer
     public string[] Data;
     public string[] XData;
     public string[] TData;
+    public int[] XDataIdVer;
+    public int[] TDataIdVer;
     public int PositionSize;
     public int XSize;
     public int EmbeddingSize;
     public int NumberOfAllLayers; //全てのレイヤーの数
     public int LayersSettingsParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
-    
+    public TokenizerPlayer tokenizerPlayer;
+
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AiSettingsPlayerReset()
     {    
@@ -23,6 +26,8 @@ public class AiSettingsPlayer : SuperPlayer
         XData = "半角 で 区切 った 文章";
         XData = Data.data.Substring(0, data.Length - 1); // 0から-1までをとる
         TData = Data.Substring(1); // インデックス1以降の文字列を取得
+        XDataIdVer = tokenizerPlayer.TokenToId(XData);
+        TDataIdVer = tokenizerPlayer.TokenToId(TData);
         PositionSize = XData.Length;
         XSize = PositionSize;
         NumberOfAllLayers = 1; // 100とかになると思う。最後に改良すべき。
