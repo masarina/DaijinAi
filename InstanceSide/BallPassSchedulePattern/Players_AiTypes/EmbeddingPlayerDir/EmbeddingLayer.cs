@@ -41,17 +41,6 @@ public class EmbeddingLayer : UdonSharpBehaviour
     public float[] Backward(float[] gradient)
     {
         // 勾配を保持する
-        if (weights == null || currentTokenId < 0 || currentTokenId >= weights.Length)
-        {
-            Debug.LogError("EmbeddingLayer: Invalid currentTokenId or weights not initialized for Backward.");
-            return null;
-        }
-
-        if (gradient == null || gradient.Length != weights[currentTokenId].Length)
-        {
-            Debug.LogError("EmbeddingLayer: Gradient size mismatch.");
-            return null;
-        }
 
         // 勾配を蓄積
         for (int i = 0; i < gradients[currentTokenId].Length; i++)
