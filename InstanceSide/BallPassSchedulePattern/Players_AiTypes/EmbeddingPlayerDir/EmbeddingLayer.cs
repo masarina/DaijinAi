@@ -5,47 +5,34 @@ using UnityEngine;
 public class EmbeddingLayer : UdonSharpBehaviour
 {
     // クラス内で保持する変数
+    public RinaNumpy rinaNumpy;
+
     private float[][] weights; // 単語表現ベクトル（埋め込み行列）
     private float[][] gradients; // 勾配を保持する配列
     private int currentTokenId; // Forwardで保持する現在のトークンID
     private float[] currentDx; // Backwardで保持する現在のトークンのdx
 
-    // 初期化メソッド
-    public void Start(float[][] initialWeights)
-    {
-        // 単語表現ベクトルを初期化
-        weights = initialWeights;
 
-        // 勾配の初期化（weightsと同じサイズ）
-        gradients = new float[weights.Length][];
-        for (int i = 0; i < weights.Length; i++)
-        {
-            gradients[i] = new float[weights[i].Length];
-        }
-    }
-
-    public float[] Forward(int tokenId)
+    public float[] Forward(int tokenId, float[][] W)
     {
+        // 重みのアタッチ
+        weights = W
+
         // 入力トークンIDを保持
         currentTokenId = tokenId;
 
-        // トークンIDに対応する単語表現ベクトルを取得
-        if (weights == null || tokenId < 0 || tokenId >= weights.Length)
-        {
-            Debug.LogError("EmbeddingLayer: Invalid tokenId or weights not initialized.");
-            return null;
-        }
         return weights[tokenId];
     }
 
-    public float[] Backward(float[] gradient)
+    public float[] Backward(float[] gradient, int TokenId, float[][] dW)
     {
-        // 勾配を保持する
+        // パラメータの参照
+        gradients　= dW
 
         // 勾配を蓄積
-        for (int i = 0; i < gradients[currentTokenId].Length; i++)
+        for (int i = 0; i < gradients[TokenId].Length; i++)
         {
-            gradients[currentTokenId][i] += gradient[i];
+            gradients[TokenId][i] += gradient[i];
         }
 
         // dxを保持
