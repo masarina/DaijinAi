@@ -11,7 +11,7 @@ public class EmbeddingLayer : UdonSharpBehaviour
     private float[] currentDx; // Backwardで保持する現在のトークンのdx
 
     // 初期化メソッド
-    public void Initialize(float[][] initialWeights)
+    public void Start(float[][] initialWeights)
     {
         // 単語表現ベクトルを初期化
         weights = initialWeights;
