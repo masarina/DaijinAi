@@ -1,6 +1,7 @@
 using UdonSharp;
 using UnityEngine;
 
+
 public class EmbeddingLayer : UdonSharpBehaviour
 {
     // クラス内で保持する変数
