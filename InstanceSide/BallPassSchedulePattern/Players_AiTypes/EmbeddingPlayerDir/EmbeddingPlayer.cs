@@ -1,4 +1,5 @@
 // EmbeddingLayerのみ、パラメータは自分で持たせてOK.
+// Forward,Backwardの入力は、ベクトルを想定します。
 
 
 using UdonSharp;
@@ -8,21 +9,27 @@ public class EmbeddingPlayer : SuperPlayer
 {
     public string myName;
     
-    public EmbeddingPlayer embeddingPlayer;
+    public InitAiTypesPlayer initAiTypesPlayer;
+    public EmbeddingLayer embeddingLayer;
     public AiSettingsPlayer aiSettingsPlayer;
     public RinaNumpy rinaNumpy;
+
     
     public float[][] W;
     public float[][] dW;
-    public float[] XIdVer; // x
-    public string XVecVer; // y
+    public int[] SampleIdVer;
+    public float[][] SampleVecVer; // forwardの出力用
+    public float dX;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool EmbeddingPlayerReset()
     {
         // パラメータ群の初期化
-        int[] shape
-        W = rinaNumpy.CreateArray2d
+        int[] Shape = {aiSettingsPlayer.VocabSize, aiSettingsPlayer.EmbeddingSize}
+        W = this.rinaNumpy.CreateArray2d(Shape)
+        dW = this.rinaNumpy.CreateArray2d(Shape)
+        SampleIdVer = this.aiSettingsPlayer.SampleIdVer
+        SampleVecVer = this.aiSettingsPlayer.SampleVecVer
         
         myName = "EmbeddingPlayer";
         return true;
@@ -34,25 +41,54 @@ public class EmbeddingPlayer : SuperPlayer
         return "EmbeddingPlayer";
     }
 
-    public float[] Forward(float[] id)
+    public float[] Forward(int[] ids)
     {
-        float[] vocab_vec = embeddingPlayer.Forward(id);
+        // サンプル(IDタイプ)を保持
+        SampleIdVer = ids
         
-        return vocab_vec;
+        // 全ての語彙をID化
+        for (int id = 0; id < ids.Length; id += 1)
+        {
+            SampleVecVer = RinaNumpy.AppendRow_FloatArray2D(SampleVecVer, embeddingLayer.Forward(id));
+        }
+
+        return SampleVecVer;
     }
 
-    public float[] Backward(float[] dx)
+    public void Backward(float[][] TokenVecs)
     {
-        float[] dout = embeddingPlayer.Backward(dx)
+        Debug.Log("単語ベクトルの順番は、しっかり、Forward時と同じ並び順ですか?(確認するまで消さないで_2024-12-12)")
+        for (int RowIndex 0; RowIndex < SampleIdVer.Length; RowIndex += 1)
+        {
+            dW = embeddingLayer.Backward(TokenVecs, RowIndex, dW)
+        }
 
-        return dout;
     }
     
     // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
-        // ForwardPlayerでライブラリ的に使用するので
-        // 実装今のところ不要
+        if (initAiTypesPlayer.TravelMode == "Forward")
+        {
+            // データの準備
+            SampleIdVer = aiSettingsPlayer.XDataIdVer
+            
+            // Forwardの実行
+            this.SampleVecVer = this.Forward(SampleIdVer)
+            
+        }
+        else if (initAiTypesPlayer.TravelMode == "Backward")
+        {
+            // データの準備
+            
+            
+            // Backwardの実行
+            
+        }
+        
+        
         return "Completed";
     }
+    
+    
 }
