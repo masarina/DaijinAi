@@ -3,14 +3,17 @@ using UnityEngine;
 
 public class InitAiTypesPlayer : SuperPlayer
 {
-    public string AiMode;
     public string myName;
+
+    public string AiMode;
+    public string TravelMode;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool InitAiTypesPlayerReset()
     {
         myName = "InitAiTypesPlayer";
-        AiMode = "None"
+        AiMode = "None"; // TrainかPredictか。
+        TravelMode = "None"; // ForwardかBackwardか。
         return true;
     }
 
