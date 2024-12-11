@@ -24,22 +24,16 @@ public class EmbeddingLayer : UdonSharpBehaviour
         return weights[tokenId];
     }
 
-    public float[] Backward(float[] gradient, int TokenId, float[][] dW)
+    public float[][] Backward(float[] gradient, int TokenId, float[][] dW)
     {
         // パラメータの参照
         gradients　= dW
 
         // 勾配を蓄積
-        for (int i = 0; i < gradients[TokenId].Length; i++)
-        {
-            gradients[TokenId][i] += gradient[i];
-        }
+        gradients[TokenId] = gradient;
 
-        // dxを保持
-        currentDx = gradient;
-
-        // dxを返す
-        return currentDx;
+        // 単語ベクトル勾配マップを返す
+        return gradients;
     }
 
     public float[][] GetGradients()
