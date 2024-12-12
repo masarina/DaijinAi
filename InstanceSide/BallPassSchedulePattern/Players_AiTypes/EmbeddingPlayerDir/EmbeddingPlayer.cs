@@ -19,7 +19,7 @@ public class EmbeddingPlayer : SuperPlayer
     public float[][] dW;
     public int[] SampleIdVer;
     public float[][] SampleVecVer; // forwardの出力用
-    public float dX;
+    public float[][] dSampleVecVer; // Backwardの時、レイヤー群が、1トークン1トークンここに微分を追加していく。
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool EmbeddingPlayerReset()
@@ -55,9 +55,11 @@ public class EmbeddingPlayer : SuperPlayer
         return SampleVecVer;
     }
 
-    public void Backward(float[][] TokenVecs)
+    public void Backward(float[][] dSampleVecVer)
     {
         Debug.Log("単語ベクトルの順番は、しっかり、Forward時と同じ並び順ですか?(確認するまで消さないで_2024-12-12)")
+        
+        // Sampleの単語数分ループ
         for (int RowIndex 0; RowIndex < SampleIdVer.Length; RowIndex += 1)
         {
             dW = embeddingLayer.Backward(TokenVecs, RowIndex, dW)
@@ -79,10 +81,9 @@ public class EmbeddingPlayer : SuperPlayer
         }
         else if (initAiTypesPlayer.TravelMode == "Backward")
         {
-            // データの準備
-            
-            
+         
             // Backwardの実行
+            this.Backward(dSampleVecVer)
             
         }
         
