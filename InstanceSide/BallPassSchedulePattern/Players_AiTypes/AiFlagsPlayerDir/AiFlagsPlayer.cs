@@ -14,10 +14,13 @@ public class AiFlagsPlayer : SuperPlayer
 {
     public string myName;
 
+    public int NowPositionIndex;
+
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AiFlagsPlayerReset()
     {
+        NowPositionIndex = 0;
 
         myName = "EmbeddingPlayer";
         return true;
