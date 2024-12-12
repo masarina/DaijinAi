@@ -26,10 +26,10 @@ public class EmbeddingPlayer : SuperPlayer
     {
         // パラメータ群の初期化
         int[] Shape = {aiSettingsPlayer.VocabSize, aiSettingsPlayer.EmbeddingSize}
-        W = this.rinaNumpy.CreateArray2d(Shape)
-        dW = this.rinaNumpy.CreateArray2d(Shape)
-        SampleIdVer = this.aiSettingsPlayer.SampleIdVer
-        SampleVecVer = this.aiSettingsPlayer.SampleVecVer
+        this.W = this.rinaNumpy.CreateArray2d(Shape)
+        this.dW = this.rinaNumpy.CreateArray2d(Shape)
+        this.SampleIdVer = this.aiSettingsPlayer.SampleIdVer
+        this.SampleVecVer = this.aiSettingsPlayer.SampleVecVer
         
         myName = "EmbeddingPlayer";
         return true;
@@ -44,15 +44,15 @@ public class EmbeddingPlayer : SuperPlayer
     public float[] Forward(int[] ids)
     {
         // サンプル(IDタイプ)を保持
-        SampleIdVer = ids
+        this.SampleIdVer = ids
         
         // 全ての語彙をID化
         for (int id = 0; id < ids.Length; id += 1)
         {
-            SampleVecVer = RinaNumpy.AppendRow_FloatArray2D(SampleVecVer, embeddingLayer.Forward(id));
+            this.SampleVecVer = RinaNumpy.AppendRow_FloatArray2D(SampleVecVer, embeddingLayer.Forward(id));
         }
 
-        return SampleVecVer;
+        return this.SampleVecVer;
     }
 
     public void Backward(float[][] dSampleVecVer)
