@@ -18,13 +18,6 @@ public class NormalizationLayer : UdonSharpBehaviour
     private float[] gamma; // スケールパラメータ
     private float[] beta; // シフトパラメータ
 
-    // 初期化用メソッド
-    public void Initialize(float[] initialGamma, float[] initialBeta)
-    {
-        gamma = initialGamma;
-        beta = initialBeta;
-    }
-
     public float[] Forward(float[] x, float epsilon = 1e-5f)
     {
         // 入力xをキャッシュ
