@@ -27,11 +27,11 @@ public class SwishPlayer : SuperPlayer
         return y;
     }
 
-    public float[] Backward(float[] dx)
+    public float[] Backward(float[] dout)
     {
-        float[] dout = swishLayer.Backward(dx)
+        float[] dx = swishLayer.Backward(dout)
 
-        return dout;
+        return dx;
     }
     
     // メイン処理を行うメソッド
