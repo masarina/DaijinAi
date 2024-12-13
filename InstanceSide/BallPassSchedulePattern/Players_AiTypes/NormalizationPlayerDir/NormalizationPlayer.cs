@@ -6,7 +6,6 @@ public class NormalizationPlayer : SuperPlayer
     public string myName;
     
     public NormalizationLayer normalizationLayer;
-    public InitAiTypesPlayer initAiTypesPlayer;
     public SkipAddPlayer skipAddPlayer;
     public AiFlagsPlayer aiFlagsPlayer;
    
@@ -51,7 +50,7 @@ public class NormalizationPlayer : SuperPlayer
     public override string ExecuteMain()
     {
 
-        if (initAiTypesPlayer. TravelMode == "Forward")
+        if (aiFlagsPlayer. TravelMode == "Forward")
         {
             // 1つ前のレイヤから、xを取ってくる
             this.x = embeddingPlayer.SampleVecVer[aiFlagsPlayer.NowPositionIndex]
@@ -59,7 +58,7 @@ public class NormalizationPlayer : SuperPlayer
             // Forward処理
             this.y = normalizationLayer.Forward(this.x)
         }
-        else if (initAiTypesPlayer. TravelMode == "Backward")
+        else if (aiFlagsPlayer.TravelMode == "Backward")
         {
             // ひとつ先のLayerから、doutを取ってくる
             this.dout = skipAddPlayer.dx
