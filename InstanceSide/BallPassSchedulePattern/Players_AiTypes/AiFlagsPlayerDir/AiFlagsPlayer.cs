@@ -15,6 +15,8 @@ public class AiFlagsPlayer : SuperPlayer
     public string myName;
 
     public int NowPositionIndex;
+    public string AiMode; // TrainかPredictか。
+    public string TravelMode; // ForwardかBackwardか。
 
     
     // 初期化メソッド (Pythonの__init__に相当)
