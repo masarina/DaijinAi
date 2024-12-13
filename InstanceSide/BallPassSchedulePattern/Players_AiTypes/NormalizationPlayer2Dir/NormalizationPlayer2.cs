@@ -7,8 +7,9 @@ public class NormalizationPlayer2 : SuperPlayer
     
     public NormalizationLayer2 normalizationLayer2;
     public SkipAddPlayer skipAddPlayer;
+    public AffinePlayer affinePlayer;
+    public SwishPlayer swishPlayer;
     public AiFlagsPlayer aiFlagsPlayer;
-   
     public AiSettingsPlayer aiSettingsPlayer;
     public RinaNumpy rinaNumpy;
     
@@ -53,7 +54,7 @@ public class NormalizationPlayer2 : SuperPlayer
         if (aiFlagsPlayer. TravelMode == "Forward")
         {
             // 1つ前のレイヤから、xを取ってくる
-            this.x = embeddingPlayer.SampleVecVer[aiFlagsPlayer.NowPositionIndex]
+            this.x = affinePlayer.x
         
             // Forward処理
             this.y = normalizationLayer2.Forward(this.x)
@@ -61,13 +62,11 @@ public class NormalizationPlayer2 : SuperPlayer
         else if (aiFlagsPlayer.TravelMode == "Backward")
         {
             // ひとつ先のLayerから、doutを取ってくる
-            this.dout = skipAddPlayer.dx
+            this.dout = swishPlayer.dx
         
             // backward
             this.dx = normalizationLayer2.Backward(this.dout)
-            
-            // このポジション終了したので+=1
-            aiFlagsPlayer.NowPositionIndex += 1;
+
         }
         
 
