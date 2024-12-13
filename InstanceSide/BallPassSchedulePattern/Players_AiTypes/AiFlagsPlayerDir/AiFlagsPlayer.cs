@@ -23,6 +23,8 @@ public class AiFlagsPlayer : SuperPlayer
     public bool AiFlagsPlayerReset()
     {
         NowPositionIndex = 0;
+        AiMode = "None";
+        TravelMode = "None";
 
         myName = "EmbeddingPlayer";
         return true;
