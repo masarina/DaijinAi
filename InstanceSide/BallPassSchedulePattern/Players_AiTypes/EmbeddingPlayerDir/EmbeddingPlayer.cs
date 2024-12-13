@@ -31,6 +31,7 @@ public class EmbeddingPlayer : SuperPlayer
         this.dW = this.rinaNumpy.CreateArray2d(Shape)
         this.SampleIdVer = this.aiSettingsPlayer.SampleIdVer
         this.SampleVecVer = this.aiSettingsPlayer.SampleVecVer
+        this.embeddingLayer.ClearGradients() // 重みの初期化
         
         myName = "EmbeddingPlayer";
         return true;
