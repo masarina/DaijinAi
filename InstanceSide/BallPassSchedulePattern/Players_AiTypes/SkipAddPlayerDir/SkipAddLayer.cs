@@ -6,9 +6,12 @@
 using UdonSharp;
 using UnityEngine;
 
+
 public class SkipAddLayer : UdonSharpBehaviour
 {
-    private public float[] dx;
+    public float[] dx;
+    public RinaNumpy rinaNumpy;
+    
     // SkipAddLayerは、2つの入力配列を受け取って、それらを要素ごとに加算するシンプルなレイヤです。
     public float[] Forward(float[] x)
     {
