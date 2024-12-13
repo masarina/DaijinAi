@@ -13,6 +13,7 @@ public class EmbeddingPlayer : SuperPlayer
     public EmbeddingLayer embeddingLayer;
     public AiSettingsPlayer aiSettingsPlayer;
     public RinaNumpy rinaNumpy;
+    public AiFlagsPlayer aiFlagsPlayer;
 
     
     public float[][] W;
@@ -70,7 +71,7 @@ public class EmbeddingPlayer : SuperPlayer
     // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
-        if (initAiTypesPlayer.TravelMode == "Forward")
+        if (aiFlagsPlayer.TravelMode == "Forward")
         {
             // データの準備
             SampleIdVer = aiSettingsPlayer.XDataIdVer
@@ -79,7 +80,7 @@ public class EmbeddingPlayer : SuperPlayer
             this.SampleVecVer = this.Forward(SampleIdVer)
             
         }
-        else if (initAiTypesPlayer.TravelMode == "Backward")
+        else if (aiFlagsPlayer.TravelMode == "Backward")
         {
          
             // Backwardの実行
