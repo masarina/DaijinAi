@@ -4,8 +4,20 @@ using UnityEngine;
 public class SkipAddPlayer : SuperPlayer
 {
     public string myName;
+    
+    public AiSettingsPlayer aiSettingsPlayer;
     public SkipAddLayer skipAddLayer;
-    public InitAiTypesPlayer initAiTypesPlayer;
+    public AiFlagsPlayer aiFlagsPlayer;
+    public NormalizationPlayer normalizationPlayer;
+    public AffinPlayer affinePlayer;
+    public AffinPlayer2 affinePlayer2;
+    
+    public float[] x;
+    public float[] y;
+    public float[] y2;
+    public float[] dout;
+    public float[] dout2;
+    public float[] dx;
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool SkipAddPlayerReset()
@@ -22,23 +34,37 @@ public class SkipAddPlayer : SuperPlayer
 
     public float[] Forward(float[] x)
     {
-        float[] y = SkipAddPlayer.Forward(x);
+        this.y, this.y2 = SkipAddPlayer.Forward(x);
         
-        return y;
+        return this.y, this.y2;
     }
 
-    public float[] Backward(float[] dx)
+    public float[] Backward(float[] dout)
     {
-        float[] dout = SkipAddPlayer.Backward(dx)
+        this.dx = SkipAddPlayer.Backward(dout, dout2)
 
-        return dout;
+        return this.dout;
     }
     
     // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
-        // ForwardPlayerでライブラリ的に使用するので
-        // 実装今のところ不要
+        if (aiFlagsPlayer.TravelMode == "Forward")
+        {
+            // Forward
+            this.y, this.y2 = this.Forward(
+                normalizationPlayer.y
+                )
+        }
+        else if (aiFlagsPlayer.TravelMode == "Backward");
+        {
+            // Backward
+            this.dx this.Backward(
+                affinePlayer.dx,
+                affinePlayer2.dx
+                );
+        }
+        
         return "Completed";
     }
 }
