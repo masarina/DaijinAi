@@ -50,7 +50,7 @@ public class NormalizationPlayer : SuperPlayer
     public override string ExecuteMain()
     {
 
-        if (aiFlagsPlayer. TravelMode == "Forward")
+        if (aiFlagsPlayer.TravelMode == "Forward")
         {
             // 1つ前のレイヤから、xを取ってくる
             this.x = embeddingPlayer.SampleVecVer[aiFlagsPlayer.NowPositionIndex]
