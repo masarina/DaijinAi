@@ -51,7 +51,7 @@ public class NormalizationPlayer3 : SuperPlayer
     public override string ExecuteMain()
     {
 
-        if (aiFlagsPlayer. TravelMode == "Forward")
+        if (aiFlagsPlayer.TravelMode == "Forward")
         {
             // 1つ前のレイヤのyをxとする。
             this.x = swishPlayer.y
