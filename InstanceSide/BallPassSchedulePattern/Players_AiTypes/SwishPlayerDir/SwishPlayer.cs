@@ -42,7 +42,7 @@ public class SwishPlayer : SuperPlayer
     {
         if (this.aiFlagsPlayer == "Forward")
         {
-            // 一つ前のレイヤからyを取ってくる
+            // 一つ前のレイヤのyをxとする。
             this.x = normalizationPlayer2.y
             
             this.y = this.Forward(this.x)
