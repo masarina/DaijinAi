@@ -6,8 +6,7 @@ public class NormalizationPlayer3 : SuperPlayer
     public string myName;
     
     public NormalizationLayer3 normalizationLayer3;
-    public SkipAddPlayer skipAddPlayer;
-    public AffinePlayer affinePlayer;
+    public AttentionWeightPlayer attentionWeightPlayer;
     public SwishPlayer swishPlayer;
     public AiFlagsPlayer aiFlagsPlayer;
     public AiSettingsPlayer aiSettingsPlayer;
@@ -35,6 +34,7 @@ public class NormalizationPlayer3 : SuperPlayer
 
     public float[] Forward(float[] x)
     {
+
         y = normalizationLayer3.Forward(x);
         
         return y;
@@ -53,16 +53,16 @@ public class NormalizationPlayer3 : SuperPlayer
 
         if (aiFlagsPlayer. TravelMode == "Forward")
         {
-            // 1つ前のレイヤから、xを取ってくる
-            this.x = affinePlayer.x
+            // 1つ前のレイヤのyをxとする。
+            this.x = swishPlayer.y
         
             // Forward処理
             this.y = normalizationLayer3.Forward(this.x)
         }
         else if (aiFlagsPlayer.TravelMode == "Backward")
         {
-            // ひとつ先のLayerから、doutを取ってくる
-            this.dout = swishPlayer.dx
+            // ひとつ先のLayerのdxをdoutとする。
+            this.dout = attentionWeightPlayer.dx
         
             // backward
             this.dx = normalizationLayer3.Backward(this.dout)
