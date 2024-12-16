@@ -10,9 +10,6 @@ public class ParamsPlayer : SuperPlayer
     public AiSettingsPlayer aiSettingsPlayer;
     public int XSize;
     public int NumberOfAllLayers; // 全てのレイヤーの数
-    public int LayersSettingsParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
-    public int LayersParamSize;
-    public int LayerSize;
 
 
     // 初期化メソッド (Pythonの__init__に相当)
@@ -39,7 +36,7 @@ public class ParamsPlayer : SuperPlayer
         // 結果を格納する配列を初期化
         int[] y = new int[3];
         int[] bs = { 0, 1, 2 };
-        int[] a = this.LayersParamSize * this.LayerSize
+        int[] a = aiSettingsPlayer.LayerParamsSize * aiSettingsPlayer.LayerSize
 
         // bsの各要素に3 * xを加算してyに格納
         for (int bi = 0; bi < bs.Length;bi++)
@@ -48,6 +45,7 @@ public class ParamsPlayer : SuperPlayer
         }
 
         return y;
+    }
     
 
     
