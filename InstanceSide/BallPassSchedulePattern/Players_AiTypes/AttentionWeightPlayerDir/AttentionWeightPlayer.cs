@@ -3,9 +3,19 @@ using UnityEngine;
 
 public class AttentionWeightPlayer : SuperPlayer
 {
+    public string myName;
+    
     public AttentionWeightPlayer attentionWeightPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
-    public string myName;
+
+    public NormalizationPlayer3 normalizationPlayer3;
+    public NormalizationPlayer4 normalizationPlayer4;
+    public AiFlagsPlayer aiFlagsPlayer;
+    public float[] x;
+    public float[] y;
+    public float[] dx;
+    public float[] dout;
+
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AttentionWeightPlayerReset()
@@ -37,8 +47,23 @@ public class AttentionWeightPlayer : SuperPlayer
     // メイン処理を行うメソッド
     public override string ExecuteMain()
     {
-        // ForwardPlayerでライブラリ的に使用するので
-        // 実装今のところ不要
+        if (aiFlagsPlayer.TravelMode == "Forward")
+        {
+            // 1つ前のyをxとする。
+            this.x = normalizationPlayer3.y;
+
+            // Forward
+            this.y = this.Forward(this.x);
+        }
+        else if (aiFlagsPlayer.TravelMode == "Backward")
+        {
+            // ひとつ先のdxをdoutとする。
+            this.dout = normalizationPlayer4.dx;
+
+            // Backward
+            this.dx = this.Backward(this.dout);
+        }
+
         return "Completed";
     }
 }
