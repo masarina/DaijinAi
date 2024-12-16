@@ -51,7 +51,7 @@ public class NormalizationPlayer2 : SuperPlayer
     public override string ExecuteMain()
     {
 
-        if (aiFlagsPlayer. TravelMode == "Forward")
+        if (aiFlagsPlayer.TravelMode == "Forward")
         {
             // 1つ前のレイヤから、xを取ってくる
             this.x = affinePlayer.x
