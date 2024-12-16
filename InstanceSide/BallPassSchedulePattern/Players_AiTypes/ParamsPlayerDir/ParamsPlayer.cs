@@ -36,7 +36,7 @@ public class ParamsPlayer : SuperPlayer
     // 戻値：このポジションが保存すべきParamsのIndexs
     {
         // 結果を格納するリストを初期化
-        int[] y = new int[0]; // 空の配列として初期化
+        int[] y = new int[0]; // Pythonで言う「y = []」に同じ。
 
         // 保存インデックスを作成
         int[] bs = new int[]
