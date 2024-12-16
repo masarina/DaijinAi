@@ -8,9 +8,11 @@ public class ParamsPlayer : SuperPlayer
     public RinaNumpy rinaNumpy;
     public string myName;
     public AiSettingsPlayer aiSettingsPlayer;
-    int XSize;
-    int NumberOfAllLayers; // 全てのレイヤーの数
-    int LayersSettingsParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
+    public int XSize;
+    public int NumberOfAllLayers; // 全てのレイヤーの数
+    public int LayersSettingsParamsSize; // 重み、バイアス、ベータ値であれば、3とかかな。
+    public int LayersParamSize;
+    public int LayerSize;
 
 
     // 初期化メソッド (Pythonの__init__に相当)
@@ -36,16 +38,17 @@ public class ParamsPlayer : SuperPlayer
     {
         // 結果を格納する配列を初期化
         int[] y = new int[3];
-        int[] b = { 0, 1, 2 };
+        int[] bs = { 0, 1, 2 };
+        int[] a = this.LayersParamSize * this.LayerSize
 
-        // bの各要素に3 * xを加算してyに格納
-        for (int i = 0; i < b.Length; i++)
+        // bsの各要素に3 * xを加算してyに格納
+        for (int bi = 0; bi < bs.Length;bi++)
         {
-            y[i] = rinaNumpy.Append_FloatArray(y, b[i] + 3 * x);
+            y = rinaNumpy.Append_FloatArray(y, bs[bi] + 3 * x);
         }
 
         return y;
-    }
+    
 
     
     // メイン処理を行うメソッド
