@@ -41,7 +41,7 @@ public class ParamsPlayer : SuperPlayer
         // bの各要素に3 * xを加算してyに格納
         for (int i = 0; i < b.Length; i++)
         {
-            y[i] = b[i] + 3 * x;
+            y[i] = rinaNumpy.Append_FloatArray(y, b[i] + 3 * x);
         }
 
         return y;
