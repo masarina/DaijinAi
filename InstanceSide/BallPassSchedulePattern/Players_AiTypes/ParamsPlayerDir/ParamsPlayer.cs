@@ -30,6 +30,23 @@ public class ParamsPlayer : SuperPlayer
         return "ParamsPlayer";
     }
 
+    public int[] ResultIndexOfParamsSave(int x)
+    // 引数：処理中のposition数
+    // 戻値：このポジションが保存すべきParamsのIndexs
+    {
+        // 結果を格納する配列を初期化
+        int[] y = new int[3];
+        int[] b = { 0, 1, 2 };
+
+        // bの各要素に3 * xを加算してyに格納
+        for (int i = 0; i < b.Length; i++)
+        {
+            y[i] = b[i] + 3 * x;
+        }
+
+        return y;
+    }
+
     
     // メイン処理を行うメソッド
     public override string ExecuteMain()
