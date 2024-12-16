@@ -38,14 +38,14 @@ public class ParamsPlayer : SuperPlayer
     {
         // 結果を格納する配列を初期化
         int[] y = new int[3];
-        bs = { 0 + LayerIndex, 
+        int[] bs = { 0 + LayerIndex, 
                 1 + LayerIndex, 
                 2 + LayerIndex
             };
 
         // 傾きは、
         // (1Layerに3つ(今回)の空パラメータ付与) * (Embedding以降の全Layerの数)
-        int[] a = aiSettingsPlayer.LayerParamsSize * aiSettingsPlayer.LayerSize
+        int a = aiSettingsPlayer.LayerParamsSize * aiSettingsPlayer.LayerSize;
 
         for (int bi = 0; bi < bs.Length;bi++)
         {
