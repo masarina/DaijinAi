@@ -1,4 +1,4 @@
-FANZusing UdonSharp;
+using UdonSharp;
 using UnityEngine;
 
 public class ParamsPlayer : SuperPlayer
