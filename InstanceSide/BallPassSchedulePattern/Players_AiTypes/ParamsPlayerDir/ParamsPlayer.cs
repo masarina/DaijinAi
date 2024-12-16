@@ -1,4 +1,4 @@
-using UdonSharp;
+FANZusing UdonSharp;
 using UnityEngine;
 
 public class ParamsPlayer : SuperPlayer
@@ -29,19 +29,27 @@ public class ParamsPlayer : SuperPlayer
         return "ParamsPlayer";
     }
 
-    public int[] ResultIndexOfParamsSave(int x)
+    public int[] ResultIndexOfParamsSave(
+                                int x, 
+                                int[] LayerIndex // EmbeddingLayerから数えて自分が何層目のLayerなのか。
+                )
     // 引数：処理中のposition数
     // 戻値：このポジションが保存すべきParamsのIndexs
     {
         // 結果を格納する配列を初期化
         int[] y = new int[3];
-        int[] bs = { 0, 1, 2 };
+        bs = { 0 + LayerIndex, 
+                1 + LayerIndex, 
+                2 + LayerIndex
+            };
+
+        // 傾きは、
+        // (1Layerに3つ(今回)の空パラメータ付与) * (Embedding以降の全Layerの数)
         int[] a = aiSettingsPlayer.LayerParamsSize * aiSettingsPlayer.LayerSize
 
-        // bsの各要素に3 * xを加算してyに格納
         for (int bi = 0; bi < bs.Length;bi++)
         {
-            y = rinaNumpy.Append_FloatArray(y, bs[bi] + 3 * x);
+            y = rinaNumpy.Append_FloatArray(y, a * x + bs[bi]);
         }
 
         return y;
