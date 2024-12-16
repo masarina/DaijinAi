@@ -28,34 +28,17 @@ public class ParamsPlayer : SuperPlayer
         return "ParamsPlayer";
     }
 
-    public int[] ResultIndexOfParamsSave(
-        int x, 
-        int LayerIndex // EmbeddingLayerから数えて自分が何層目のLayerなのか。
+    public int ResultIndexOfParamsSave(
+        int PositionIndex, // 自身のポジションIndex
+        int LayerIndex, // EmbeddingLayerから数えて自分が何層目のLayerなのか。
+        int LayerSize, // 全てのレイヤ数(Embedding以降において)
+        int LayerParamsSize // LayerがParamsに保持してよい行数
     )
-    // 引数：処理中のposition数
-    // 戻値：このポジションが保存すべきParamsのIndexs
+
+    // 戻値：このポジションが保存すべきParamsのIndexsの最初の数値
+    // ▶︎今回1レイヤ当たり3行の空データを提供している。その3つのインデックスの内の最初のインデックスを返す。
     {
-        // 結果を格納するリストを初期化
-        int[] y = new int[0]; // Pythonで言う「y = []」に同じ。
-
-        // 保存インデックスを作成
-        int[] bs = new int[]
-        {
-            0 + LayerIndex,
-            1 + LayerIndex,
-            2 + LayerIndex
-        };
-
-        // 傾き (1Layerに3つの空パラメータ付与) * (Embedding以降の全Layerの数)
-        int a = aiSettingsPlayer.LayerParamsSize * aiSettingsPlayer.LayerSize;
-
-        // 保存インデックスを計算して格納
-        for (int bi = 0; bi < bs.Length; bi++)
-        {
-            y = rinaNumpy.Append_IntArray(y, a * x + bs[bi]); // 型に合わせてメソッドを変更
-        }
-
-        return y;
+        return (PositionIndex * LayerSize) + (LayerParamsSize + LayerIndex);
     }
 
     // メイン処理を行うメソッド
