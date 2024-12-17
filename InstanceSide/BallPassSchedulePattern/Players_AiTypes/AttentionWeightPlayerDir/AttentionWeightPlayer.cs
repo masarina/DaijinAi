@@ -16,6 +16,10 @@ public class AttentionWeightPlayer : SuperPlayer
     public float[] dx;
     public float[] dout;
 
+    public float[][] hs; // RinaNumpy使って、Resetメソッド内で初期化するのがいいかも。
+    public int MyPositionNum; // メイン処理(？未定)でのforループで取得可能になるはず。
+    public int MyLayerNum; // 自身がEmbeddingから数えて何番目のLayerなのか。
+
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AttentionWeightPlayerReset()
@@ -32,7 +36,8 @@ public class AttentionWeightPlayer : SuperPlayer
 
     public float[] Forward(float[] x)
     {
-        float[] a = attentionWeightLayer.Forward(x);
+        hs = 
+        float[] a = attentionWeightLayer.Forward(x, );
         
         return a;
     }
