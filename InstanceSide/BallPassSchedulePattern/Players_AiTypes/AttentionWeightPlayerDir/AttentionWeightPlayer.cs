@@ -7,6 +7,7 @@ public class AttentionWeightPlayer : SuperPlayer
     
     public AttentionWeightPlayer attentionWeightPlayer;
     public InitAiTypesPlayer initAiTypesPlayer;
+    public AiSettingsPlayer aiSettingsPlayer;
 
     public NormalizationPlayer3 normalizationPlayer3;
     public NormalizationPlayer4 normalizationPlayer4;
@@ -16,15 +17,17 @@ public class AttentionWeightPlayer : SuperPlayer
     public float[] dx;
     public float[] dout;
 
-    public float[][] hs; // RinaNumpy使って、Resetメソッド内で初期化するのがいいかも。
     public int MyPositionNum; // メイン処理(？未定)でのforループで取得可能になるはず。
     public int MyLayerNum; // 自身がEmbeddingから数えて何番目のLayerなのか。
-
+    public float[][] hs; // Forwardで作った自分専用のhs
     
     // 初期化メソッド (Pythonの__init__に相当)
     public bool AttentionWeightPlayerReset()
     {
         myName = "AttentionWeightPlayer";
+
+        int[] HsShape = {MyPosition + 1, this.aiSettingsPlayer.EmbeddingSize};
+        hs = this.rinaNumpy.
         return true;
     }
 
