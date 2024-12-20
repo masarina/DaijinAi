@@ -48,6 +48,7 @@ public class AttentionWeightPlayer : SuperPlayer
     public float[] Backward(float[] da)
     {
         float[] dout = attentionWeightLayer.Backward(da)
+        dhs = 
 
         return dout;
     }
