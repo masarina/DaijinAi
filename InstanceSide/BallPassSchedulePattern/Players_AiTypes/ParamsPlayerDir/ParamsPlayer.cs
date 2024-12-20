@@ -10,6 +10,8 @@ public class ParamsPlayer : SuperPlayer
     public AiSettingsPlayer aiSettingsPlayer;
     public int XSize;
     public int NumberOfAllLayers; // 全てのレイヤーの数
+    public int LayerParamsSize; // LayerがParamsに保持してよい行数（3くらいかな）
+
 
     // 初期化メソッド (Pythonの__init__に相当)
     public bool ParamsPlayerReset()
@@ -31,14 +33,12 @@ public class ParamsPlayer : SuperPlayer
     public int ResultIndexOfParamsSave(
         int PositionIndex, // 自身のポジションIndex
         int LayerIndex, // EmbeddingLayerから数えて自分が何層目のLayerなのか。
-        int LayerSize, // 全てのレイヤ数(Embedding以降において)
-        int LayerParamsSize // LayerがParamsに保持してよい行数
     )
 
     // 戻値：このポジションが保存すべきParamsのIndexsの最初の数値
     // ▶︎今回1レイヤ当たり3行の空データを提供している。その3つのインデックスの内の最初のインデックスを返す。
     {
-        return (PositionIndex * LayerSize) + (LayerParamsSize + LayerIndex);
+        return (PositionIndex * (this.AllParams.Length / this.LayerParamsSize)) + (this.LayerParamsSize + LayerIndex);
     }
 
     // メイン処理を行うメソッド
